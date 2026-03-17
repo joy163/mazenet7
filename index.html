@@ -225,45 +225,6 @@ footer{border-top:1px solid var(--bd);padding:3.5rem 4rem;background:var(--ch);}
   </div>
 </section>
 <div class="mov" id="mov" onclick="if(event.target===this)cm()"><div class="mp" id="mpanel"></div></div>
-<script>
-const items=['Free Shipping $50+','30-Day Returns','Expert Curation','Luxury Packaging','Same-Day Dispatch','Gift Wrapping','First Editions','Book Club'];
-const t=document.getElementById('mqt');let h='';for(let r=0;r<3;r++)items.forEach(i=>{h+=`<div class="mqi"><span style="color:var(--go)">✦</span>${i}</div>`;});t.innerHTML=h;
-const featured=BOOKS.filter(b=>b.best).slice(0,6);
-document.getElementById('fg').innerHTML=featured.map((b,i)=>{
-  const p=gp(b.genre),n=ini(b.title);
-  return `<div class="bc" style="animation-delay:${i*60}ms">
-    <div class="bb"><div class="bb-bg" style="background:linear-gradient(150deg,${p.f},${p.t})"></div><div class="bb-sh"></div><div class="bb-mo">${n}</div>
-      <div class="bb-tag">${b.genre}</div><div class="bb-bs">Bestseller</div></div>
-    <div class="bd2"><div class="by">${b.year}</div><div class="bt">${b.title}</div><div class="ba">by ${b.author}</div><div class="bdesc">${b.desc}</div>${stars(b.rating)}</div>
-    <div class="bcom">
-      <div><div class="bpl">Price</div><div class="bpv">$${b.price.toFixed(2)}</div>${b.was?`<div class="bpo">$${b.was.toFixed(2)}</div>`:''}</div>
-      <button class="beye" onclick="om(${b.id})"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
-      <button class="baq${gc()[b.id]?' on':''}" id="b${b.id}" onclick="da(${b.id})"><span>${gc()[b.id]?'In Cart':'Acquire'}</span></button>
-    </div></div>`;
-}).join('');
-function da(id){const b=BOOKS.find(x=>x.id===id);ac(id);const el=document.getElementById('b'+id);if(el){el.classList.add('on');el.querySelector('span').textContent='In Cart';}toast('"'+b.title.slice(0,24)+'…" added','$'+b.price.toFixed(2));}
-function om(id){const b=BOOKS.find(x=>x.id===id);if(!b)return;const p=gp(b.genre),n=ini(b.title);
-  document.getElementById('mpanel').innerHTML=`<div class="mh"><div class="mhb" style="background:linear-gradient(150deg,${p.f},${p.t})"></div><div class="mhs"></div><div class="mhg">${n}</div><div class="mht"><h2>${b.title}</h2><p>by ${b.author} · ${b.year}</p></div></div>
-  <div class="mb2"><p class="md">${b.desc}</p>
-  <div class="mm"><div class="mc"><div class="mcl">Genre</div><div class="mcv" style="font-size:.95rem">${b.genre}</div></div><div class="mc"><div class="mcl">Rating</div><div class="mcv" style="color:var(--gl)">✦ ${b.rating}</div></div><div class="mc"><div class="mcl">Pages</div><div class="mcv">${b.pages}</div></div><div class="mc"><div class="mcl">Year</div><div class="mcv">${b.year}</div></div></div>
-  <div class="mpur"><div><div style="font-size:8px;letter-spacing:.4em;text-transform:uppercase;color:var(--si);margin-bottom:5px">Investment</div><div style="font-family:'Cormorant Garamond',serif;font-size:1.9rem;color:var(--gl);font-weight:300">$${b.price.toFixed(2)}</div>${b.was?`<div style="font-size:11px;color:var(--si);text-decoration:line-through">$${b.was.toFixed(2)}</div>`:''}</div>
-  <button class="bg" onclick="da(${b.id});cm()">Add to Cart →</button></div>
-  <div style="display:flex;justify-content:flex-end;margin-top:.75rem"><button class="bgh" onclick="cm()">Close</button></div></div>`;
-  document.getElementById('mov').classList.add('open');}
-function cm(){document.getElementById('mov').classList.remove('open');}
-const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('vis');}),{threshold:.12});
-document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
-</script>
-
-<footer>
-  <div class="fg">
-    <div class="fbl"><div class="fl2">Bibliothèque</div><p>A curated luxury bookstore presenting the finest works of literature to discerning collectors worldwide.</p></div>
-    <div class="fc"><h4>Navigate</h4><a href="index.html">Home</a><a href="shop.html">Shop</a><a href="services.html">Services</a><a href="about.html">About</a><a href="contact.html">Contact</a></div>
-    <div class="fc"><h4>Genres</h4><a href="shop.html">Fiction</a><a href="shop.html">Sci-Fi</a><a href="shop.html">Fantasy</a><a href="shop.html">Mystery</a><a href="shop.html">Biography</a></div>
-    <div class="fc"><h4>Support</h4><a href="contact.html">Contact Us</a><a href="cart.html">Your Cart</a><a href="services.html">Shipping</a><a href="services.html">Returns</a><a href="#">FAQ</a></div>
-  </div>
-  <div class="fb"><div>© MMXXV Bibliothèque — All Rights Reserved</div><div>The Art of the Written Word</div></div>
-</footer>
 <script>/* ── SHARED DATA & UTILITIES (inlined in every page) ── */
 const BOOKS=[
   {id:1,title:'The Midnight Library',author:'Matt Haig',genre:'Fiction',year:2020,isbn:'978-0525559474',rating:4.5,pages:304,price:24.99,was:32.00,best:true,desc:'Between life and death there is a library. Every book is a chance to try another life you could have lived.'},
@@ -278,6 +239,14 @@ const BOOKS=[
   {id:10,title:'The Great Gatsby',author:'F. Scott Fitzgerald',genre:'Fiction',year:1925,isbn:'978-0743273565',rating:4.2,pages:180,price:11.99,was:16.00,best:false,desc:'The quintessential Jazz Age novel — wealth, love and the impossibility of recapturing the past.'},
   {id:11,title:'Project Hail Mary',author:'Andy Weir',genre:'Sci-Fi',year:2021,isbn:'978-0593135204',rating:4.8,pages:476,price:23.99,was:null,best:true,desc:'A lone astronaut must save the earth in this propulsive, joyful novel from the author of The Martian.'},
   {id:12,title:'The Girl with the Dragon Tattoo',author:'Stieg Larsson',genre:'Mystery',year:2005,isbn:'978-0307949486',rating:4.3,pages:672,price:17.99,was:24.00,best:false,desc:'A financial journalist and a brilliant hacker investigate a decades-old disappearance in Sweden.'},
+  {id:13,title:'The Alchemist',author:'Paulo Coelho',genre:'Fiction',year:1988,isbn:'978-0062315007',rating:4.6,pages:197,price:14.99,was:19.99,best:true,desc:'A young Andalusian shepherd sets out on a journey to find a treasure, discovering the soul of the world and the language of omens along the way.'},
+  {id:14,title:'1984',author:'George Orwell',genre:'Fiction',year:1949,isbn:'978-0451524935',rating:4.7,pages:328,price:13.99,was:null,best:true,desc:'A dystopian masterpiece set in a totalitarian society where Big Brother watches your every move and thought itself is a crime.'},
+  {id:15,title:'The Lean Startup',author:'Eric Ries',genre:'Self-Help',year:2011,isbn:'978-0307887894',rating:4.3,pages:336,price:19.99,was:26.00,best:false,desc:'A revolutionary approach to building businesses and launching products that combines entrepreneurial vision with scientific methodology.'},
+  {id:16,title:'Thinking, Fast and Slow',author:'Daniel Kahneman',genre:'Non-Fiction',year:2011,isbn:'978-0374533557',rating:4.5,pages:499,price:18.99,was:null,best:true,desc:'A Nobel laureate explores the two systems of thought — fast intuitive thinking and slow deliberate reasoning.'},
+  {id:17,title:'The Hitchhiker s Guide to the Galaxy',author:'Douglas Adams',genre:'Sci-Fi',year:1979,isbn:'978-0345391803',rating:4.7,pages:224,price:12.99,was:17.00,best:true,desc:'Seconds before Earth is demolished for a hyperspace bypass, Arthur Dent is whisked off on a mad journey through the universe.'},
+  {id:18,title:'Brave New World',author:'Aldous Huxley',genre:'Fiction',year:1932,isbn:'978-0060850524',rating:4.4,pages:311,price:13.99,was:null,best:false,desc:'A chilling vision of a future society driven by technology, consumerism and the suppression of individuality.'},
+  {id:19,title:'The Power of Now',author:'Eckhart Tolle',genre:'Philosophy',year:1997,isbn:'978-1577314806',rating:4.4,pages:236,price:15.99,was:20.00,best:false,desc:'A guide to spiritual enlightenment teaching readers to free themselves from the tyranny of the mind and live fully in the present.'},
+  {id:20,title:'A Brief History of Time',author:'Stephen Hawking',genre:'History',year:1988,isbn:'978-0553380163',rating:4.5,pages:212,price:16.99,was:null,best:true,desc:'The landmark work bringing the most complex questions of cosmology — black holes, the origin of the universe and time — to a general audience.'},
 ];
 const PAL=[
   {f:'#0f1f0f',t:'#1a3320'},{f:'#0f0f2a',t:'#1a1a3a'},{f:'#1f130a',t:'#321e0f'},
@@ -320,5 +289,45 @@ function initCursor(){
 }
 window.addEventListener('DOMContentLoaded',()=>{initCursor();ub();});
 </script>
+<script>
+const items=['Free Shipping $50+','30-Day Returns','Expert Curation','Luxury Packaging','Same-Day Dispatch','Gift Wrapping','First Editions','Book Club'];
+const t=document.getElementById('mqt');let h='';for(let r=0;r<3;r++)items.forEach(i=>{h+=`<div class="mqi"><span style="color:var(--go)">✦</span>${i}</div>`;});t.innerHTML=h;
+const featured=BOOKS.filter(b=>b.best).slice(0,6);
+document.getElementById('fg').innerHTML=featured.map((b,i)=>{
+  const p=gp(b.genre),n=ini(b.title);
+  return `<div class="bc" style="animation-delay:${i*60}ms">
+    <div class="bb"><div class="bb-bg" style="background:linear-gradient(150deg,${p.f},${p.t})"></div><div class="bb-sh"></div><div class="bb-mo">${n}</div>
+      <div class="bb-tag">${b.genre}</div><div class="bb-bs">Bestseller</div></div>
+    <div class="bd2"><div class="by">${b.year}</div><div class="bt">${b.title}</div><div class="ba">by ${b.author}</div><div class="bdesc">${b.desc}</div>${stars(b.rating)}</div>
+    <div class="bcom">
+      <div><div class="bpl">Price</div><div class="bpv">$${b.price.toFixed(2)}</div>${b.was?`<div class="bpo">$${b.was.toFixed(2)}</div>`:''}</div>
+      <button class="beye" onclick="om(${b.id})"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+      <button class="baq${gc()[b.id]?' on':''}" id="b${b.id}" onclick="da(${b.id})"><span>${gc()[b.id]?'In Cart':'Acquire'}</span></button>
+    </div></div>`;
+}).join('');
+function da(id){const b=BOOKS.find(x=>x.id===id);ac(id);const el=document.getElementById('b'+id);if(el){el.classList.add('on');el.querySelector('span').textContent='In Cart';}toast('"'+b.title.slice(0,24)+'…" added','$'+b.price.toFixed(2));}
+function om(id){const b=BOOKS.find(x=>x.id===id);if(!b)return;const p=gp(b.genre),n=ini(b.title);
+  document.getElementById('mpanel').innerHTML=`<div class="mh"><div class="mhb" style="background:linear-gradient(150deg,${p.f},${p.t})"></div><div class="mhs"></div><div class="mhg">${n}</div><div class="mht"><h2>${b.title}</h2><p>by ${b.author} · ${b.year}</p></div></div>
+  <div class="mb2"><p class="md">${b.desc}</p>
+  <div class="mm"><div class="mc"><div class="mcl">Genre</div><div class="mcv" style="font-size:.95rem">${b.genre}</div></div><div class="mc"><div class="mcl">Rating</div><div class="mcv" style="color:var(--gl)">✦ ${b.rating}</div></div><div class="mc"><div class="mcl">Pages</div><div class="mcv">${b.pages}</div></div><div class="mc"><div class="mcl">Year</div><div class="mcv">${b.year}</div></div></div>
+  <div class="mpur"><div><div style="font-size:8px;letter-spacing:.4em;text-transform:uppercase;color:var(--si);margin-bottom:5px">Investment</div><div style="font-family:'Cormorant Garamond',serif;font-size:1.9rem;color:var(--gl);font-weight:300">$${b.price.toFixed(2)}</div>${b.was?`<div style="font-size:11px;color:var(--si);text-decoration:line-through">$${b.was.toFixed(2)}</div>`:''}</div>
+  <button class="bg" onclick="da(${b.id});cm()">Add to Cart →</button></div>
+  <div style="display:flex;justify-content:flex-end;margin-top:.75rem"><button class="bgh" onclick="cm()">Close</button></div></div>`;
+  document.getElementById('mov').classList.add('open');}
+function cm(){document.getElementById('mov').classList.remove('open');}
+const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('vis');}),{threshold:.12});
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+</script>
+
+<footer>
+  <div class="fg">
+    <div class="fbl"><div class="fl2">Bibliothèque</div><p>A curated luxury bookstore presenting the finest works of literature to discerning collectors worldwide.</p></div>
+    <div class="fc"><h4>Navigate</h4><a href="index.html">Home</a><a href="shop.html">Shop</a><a href="services.html">Services</a><a href="about.html">About</a><a href="contact.html">Contact</a></div>
+    <div class="fc"><h4>Genres</h4><a href="shop.html">Fiction</a><a href="shop.html">Sci-Fi</a><a href="shop.html">Fantasy</a><a href="shop.html">Mystery</a><a href="shop.html">Biography</a></div>
+    <div class="fc"><h4>Support</h4><a href="contact.html">Contact Us</a><a href="cart.html">Your Cart</a><a href="services.html">Shipping</a><a href="services.html">Returns</a><a href="#">FAQ</a></div>
+  </div>
+  <div class="fb"><div>© MMXXV Bibliothèque — All Rights Reserved</div><div>The Art of the Written Word</div></div>
+</footer>
+
 </body>
 </html>
