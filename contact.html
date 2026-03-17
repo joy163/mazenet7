@@ -3,220 +3,317 @@
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Contact — BIBLIOTHÈQUE</title>
-<link rel="stylesheet" href="shared.css">
-<style>
-.contact-wrap{max-width:1400px;margin:0 auto;padding:4rem 4rem 8rem;}
-.contact-grid{display:grid;grid-template-columns:1fr 1.5fr;gap:5rem;margin-bottom:5rem;}
-/* Info side */
-.contact-info .ci-eyebrow{font-size:9px;letter-spacing:.5em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;}
-.contact-info h2{font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:300;line-height:1.15;margin-bottom:1.25rem;}
-.contact-info h2 em{font-style:italic;color:var(--gold-light);}
-.contact-info p{font-size:13px;color:rgba(248,244,237,.65);line-height:2;font-weight:300;margin-bottom:2rem;}
-.contact-items{display:flex;flex-direction:column;gap:1px;}
-.contact-item{background:var(--graphite);border:1px solid var(--border);padding:1.25rem 1.5rem;display:flex;align-items:flex-start;gap:1.25rem;transition:border-color .3s;}
-.contact-item:hover{border-color:rgba(201,168,76,.3);}
-.ci-icon{font-size:1.3rem;flex-shrink:0;margin-top:2px;}
-.ci-label{font-size:8px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-bottom:5px;}
-.ci-val{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:300;color:var(--ivory);}
-.ci-sub{font-size:10px;color:var(--silver);margin-top:2px;font-weight:300;}
-.hours-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);margin-top:1.5rem;}
-.hours-cell{background:var(--graphite);padding:1rem 1.25rem;}
-.hc-day{font-size:8px;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);margin-bottom:4px;}
-.hc-time{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:300;}
-/* Form side */
-.contact-form-wrap{background:var(--charcoal);border:1px solid var(--border);padding:2.5rem;}
-.cf-eyebrow{font-size:9px;letter-spacing:.5em;text-transform:uppercase;color:var(--gold);margin-bottom:.75rem;}
-.cf-title{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;margin-bottom:2rem;}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-.field-group{margin-bottom:14px;}
-.form-success{display:none;background:rgba(39,174,96,.08);border:1px solid rgba(39,174,96,.25);padding:1.25rem 1.5rem;margin-bottom:1.25rem;font-size:12px;color:rgba(39,174,96,.9);letter-spacing:.05em;}
-.form-success.show{display:block;}
-/* FAQ */
-.faq-section{margin-bottom:5rem;}
-.faq-list{margin-top:2.5rem;}
-.faq-item{border-bottom:1px solid var(--border);}
-.faq-q{display:flex;justify-content:space-between;align-items:center;padding:1.25rem 0;cursor:none;font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:300;transition:color .3s;}
-.faq-q:hover{color:var(--gold-light);}
-.faq-icon{font-size:1.2rem;color:var(--gold);transition:transform .3s;flex-shrink:0;}
-.faq-item.open .faq-icon{transform:rotate(45deg);}
-.faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .4s;}
-.faq-item.open .faq-a{max-height:200px;padding-bottom:1.25rem;}
-.faq-a p{font-size:13px;color:var(--silver);line-height:1.9;font-weight:300;}
-/* Map placeholder */
-.map-section{margin-bottom:5rem;}
-.map-frame{background:var(--graphite);border:1px solid var(--border);height:320px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;}
-.map-frame::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 50% 50%,rgba(201,168,76,.06) 0%,transparent 60%);}
-.map-grid-lines{position:absolute;inset:0;background-image:linear-gradient(rgba(201,168,76,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.05) 1px,transparent 1px);background-size:40px 40px;}
-.map-pin{position:relative;z-index:2;text-align:center;}
-.map-pin .mp-dot{width:16px;height:16px;background:var(--gold);border-radius:50%;margin:0 auto 12px;box-shadow:0 0 0 4px rgba(201,168,76,.2),0 0 0 8px rgba(201,168,76,.08);}
-.map-pin .mp-name{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:300;color:var(--ivory);margin-bottom:4px;}
-.map-pin .mp-addr{font-size:10px;letter-spacing:.2em;color:var(--silver);}
-@media(max-width:900px){.contact-grid{grid-template-columns:1fr;gap:3rem;}.form-row{grid-template-columns:1fr;}.contact-wrap{padding:3rem 1.5rem 6rem;}}
+<style>@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Cormorant:wght@700;800&family=Jost:wght@200;300;400;500;600&display=swap');
+:root{--ob:#080808;--ch:#101010;--gr:#181818;--mu:#222;--bd:#2a2a2a;--go:#c9a84c;--gl:#e8c97e;--gp:rgba(201,168,76,.1);--cr:#f8f4ed;--iv:#fdfaf5;--si:#787878;--sl:#a0a0a0;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+body{font-family:'Jost',sans-serif;background:var(--ob);color:var(--cr);min-height:100vh;overflow-x:hidden;cursor:none;}
+body::after{content:'';position:fixed;inset:0;z-index:9990;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");opacity:.022;}
+a{text-decoration:none;color:inherit;}button{cursor:none;font-family:'Jost',sans-serif;}
+/* Cursor */
+#_cd{position:fixed;width:7px;height:7px;background:var(--go);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);}
+#_cr{position:fixed;width:34px;height:34px;border:1px solid rgba(201,168,76,.45);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .4s,height .4s,border-color .3s;}
+#_cr.L{width:58px;height:58px;border-color:var(--go);}
+/* Nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:800;height:76px;display:flex;align-items:center;justify-content:space-between;padding:0 4rem;border-bottom:1px solid rgba(201,168,76,.1);background:rgba(8,8,8,.94);backdrop-filter:blur(24px);}
+.nw{font-weight:200;font-size:10px;letter-spacing:.5em;text-transform:uppercase;color:var(--gl);}
+.nc{position:absolute;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:12px;}
+.ne{width:28px;height:28px;border:1px solid rgba(201,168,76,.6);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--go);font-size:10px;}
+.nb{font-family:'Cormorant Garamond',serif;font-size:16px;letter-spacing:.14em;color:var(--iv);}
+.nl{display:flex;align-items:center;gap:18px;}
+.nl a{font-size:9px;letter-spacing:.35em;text-transform:uppercase;color:var(--sl);transition:color .3s;position:relative;}
+.nl a::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:1px;background:var(--go);transform:scaleX(0);transition:transform .3s;}
+.nl a:hover,.nl a.on{color:var(--go);}
+.nl a.on::after,.nl a:hover::after{transform:scaleX(1);}
+.cb{position:relative;display:flex;align-items:center;gap:9px;font-size:9px;letter-spacing:.35em;text-transform:uppercase;color:var(--go);border:1px solid rgba(201,168,76,.35);background:none;padding:9px 18px;transition:all .3s;}
+.cb:hover{background:var(--go);color:var(--ob);}
+.cc{position:absolute;top:-7px;right:-7px;width:18px;height:18px;background:var(--go);border-radius:50%;font-size:9px;font-weight:600;color:var(--ob);display:none;align-items:center;justify-content:center;}
+/* Page hero */
+.ph{height:320px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;margin-top:76px;border-bottom:1px solid var(--bd);}
+.ph::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 80% at 50% 100%,rgba(201,168,76,.08) 0%,transparent 60%);}
+.ph-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(201,168,76,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.05) 1px,transparent 1px);background-size:72px 72px;mask-image:radial-gradient(ellipse 70% 70% at 50% 60%,black 10%,transparent 70%);}
+.pey{font-size:9px;letter-spacing:.55em;text-transform:uppercase;color:var(--go);display:flex;align-items:center;gap:14px;margin-bottom:1.2rem;}
+.pey::before,.pey::after{content:'';display:block;width:32px;height:1px;background:var(--go);opacity:.4;}
+.pt{font-family:'Cormorant',serif;font-size:clamp(3rem,7vw,5.5rem);font-weight:700;letter-spacing:-.02em;text-align:center;line-height:.95;}
+.pt em{display:block;font-family:'Cormorant Garamond',serif;font-weight:300;font-style:italic;color:var(--gl);font-size:.6em;letter-spacing:.06em;}
+.ps{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--si);margin-top:1.2rem;font-weight:300;}
+/* Buttons */
+.bg{display:inline-flex;align-items:center;gap:10px;font-size:9px;letter-spacing:.45em;text-transform:uppercase;color:var(--ob);background:var(--go);border:1px solid var(--go);padding:13px 30px;transition:all .35s;font-weight:500;}
+.bg:hover{background:var(--gl);box-shadow:0 0 50px rgba(201,168,76,.3);}
+.bo{display:inline-flex;align-items:center;gap:10px;font-size:9px;letter-spacing:.45em;text-transform:uppercase;color:var(--go);border:1px solid rgba(201,168,76,.4);padding:13px 30px;transition:all .35s;background:none;}
+.bo:hover{background:var(--go);color:var(--ob);}
+.bgh{display:inline-flex;align-items:center;gap:8px;font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:var(--sl);border:1px solid var(--bd);padding:11px 22px;transition:all .3s;background:none;}
+.bgh:hover{border-color:var(--sl);color:var(--cr);}
+/* Forms */
+.fl{display:block;font-size:8px;letter-spacing:.45em;text-transform:uppercase;color:var(--go);margin-bottom:7px;font-weight:300;}
+.fi,.fs,.ft{width:100%;padding:12px 13px;background:var(--gr);border:1px solid var(--bd);color:var(--cr);font-size:13px;font-weight:300;outline:none;letter-spacing:.04em;transition:border-color .3s;font-family:'Jost',sans-serif;}
+.fi:focus,.fs:focus,.ft:focus{border-color:rgba(201,168,76,.5);}
+.fi::placeholder,.ft::placeholder{color:var(--si);font-size:11px;letter-spacing:.1em;}
+.ft{resize:vertical;min-height:100px;line-height:1.8;}
+.fs option{background:var(--ch);}
+/* Book card */
+.bc{background:var(--ch);border:1px solid var(--bd);overflow:hidden;position:relative;transition:border-color .4s;animation:ci .5s ease both;}
+.bc:hover{border-color:rgba(201,168,76,.35);}
+.bc::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(201,168,76,.04) 0%,transparent 50%);opacity:0;transition:opacity .4s;z-index:0;}
+.bc:hover::before{opacity:1;}
+@keyframes ci{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.bb{height:175px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.bb-bg{position:absolute;inset:0;transition:transform .7s;}
+.bc:hover .bb-bg{transform:scale(1.06);}
+.bb-sh{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.1),rgba(0,0,0,.6));}
+.bb-mo{position:relative;z-index:2;font-family:'Cormorant',serif;font-size:5rem;font-weight:800;color:rgba(255,255,255,.1);line-height:1;user-select:none;transition:color .4s,transform .5s;letter-spacing:-.04em;}
+.bc:hover .bb-mo{color:rgba(255,255,255,.2);transform:scale(1.07);}
+.bb-tag{position:absolute;top:12px;left:12px;z-index:3;padding:4px 9px;font-size:7px;letter-spacing:.45em;text-transform:uppercase;color:var(--ob);background:var(--go);font-weight:500;}
+.bb-bs{position:absolute;top:12px;right:12px;z-index:3;padding:4px 9px;font-size:7px;letter-spacing:.3em;text-transform:uppercase;color:var(--go);border:1px solid rgba(201,168,76,.5);background:rgba(0,0,0,.6);}
+.bd2{padding:18px 20px 12px;position:relative;z-index:1;}
+.by{font-size:8px;letter-spacing:.45em;text-transform:uppercase;color:var(--go);margin-bottom:6px;}
+.bt{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:400;line-height:1.2;color:var(--iv);margin-bottom:3px;}
+.ba{font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--si);margin-bottom:8px;}
+.bdesc{font-size:11px;line-height:1.85;color:var(--sl);font-weight:300;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.bcom{padding:12px 20px 18px;border-top:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;gap:8px;position:relative;z-index:1;}
+.bpl{font-size:7px;letter-spacing:.4em;text-transform:uppercase;color:var(--si);margin-bottom:3px;}
+.bpv{font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--gl);font-weight:300;line-height:1;}
+.bpo{font-size:10px;color:var(--si);text-decoration:line-through;margin-top:1px;}
+.baq{padding:10px 14px;font-size:8px;letter-spacing:.35em;text-transform:uppercase;color:var(--go);border:1px solid rgba(201,168,76,.35);background:none;transition:all .35s;position:relative;overflow:hidden;}
+.baq::before{content:'';position:absolute;inset:0;background:var(--go);transform:scaleX(0);transform-origin:left;transition:transform .35s;z-index:0;}
+.baq span{position:relative;z-index:1;transition:color .35s;}
+.baq:hover span,.baq.on span{color:var(--ob);}
+.baq:hover::before,.baq.on::before{transform:scaleX(1);}
+.baq.on{border-color:var(--go);}
+.beye{width:38px;height:38px;border:1px solid var(--bd);background:none;display:flex;align-items:center;justify-content:center;transition:border-color .3s;}
+.beye svg{width:13px;height:13px;stroke:var(--si);stroke-width:1.5;fill:none;transition:stroke .3s;}
+.beye:hover{border-color:rgba(201,168,76,.4);}
+.beye:hover svg{stroke:var(--go);}
+/* Modal */
+.mov{display:none;position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.88);backdrop-filter:blur(14px);align-items:center;justify-content:center;padding:2rem;}
+.mov.open{display:flex;}
+.mp{background:var(--ch);border:1px solid rgba(201,168,76,.2);width:100%;max-width:620px;max-height:90vh;overflow-y:auto;animation:mup .35s cubic-bezier(.16,1,.3,1);}
+@keyframes mup{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.mh{height:190px;position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:1.5rem 1.75rem;}
+.mhb{position:absolute;inset:0;}
+.mhs{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.1),rgba(0,0,0,.8));}
+.mhg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Cormorant',serif;font-size:7rem;font-weight:800;color:rgba(255,255,255,.07);user-select:none;letter-spacing:-.04em;}
+.mht{position:relative;z-index:2;}
+.mht h2{font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:300;color:#fff;line-height:1.1;}
+.mht p{font-size:9px;letter-spacing:.35em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-top:5px;}
+.mb2{padding:1.5rem 1.75rem 1.75rem;}
+.md{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:300;font-style:italic;line-height:1.9;color:rgba(248,244,237,.65);margin-bottom:1.5rem;border-left:2px solid rgba(201,168,76,.3);padding-left:1.2rem;}
+.mm{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--bd);margin-bottom:1.5rem;}
+.mc{background:var(--gr);padding:13px 14px;}
+.mcl{font-size:7px;letter-spacing:.45em;text-transform:uppercase;color:var(--go);margin-bottom:4px;}
+.mcv{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:300;color:var(--iv);}
+.mpur{display:flex;align-items:center;justify-content:space-between;padding:1.2rem;background:var(--gr);border:1px solid var(--bd);margin-bottom:1rem;}
+/* Footer */
+footer{border-top:1px solid var(--bd);padding:3.5rem 4rem;background:var(--ch);}
+.fg{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2.5rem;max-width:1400px;margin:0 auto 2.5rem;}
+.fbl .fl2{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;font-style:italic;color:var(--gl);letter-spacing:.12em;margin-bottom:.9rem;}
+.fbl p{font-size:12px;color:var(--si);line-height:1.9;font-weight:300;max-width:240px;}
+.fc h4{font-size:8px;letter-spacing:.5em;text-transform:uppercase;color:var(--go);margin-bottom:1.1rem;}
+.fc a{display:block;font-size:12px;color:var(--si);margin-bottom:.65rem;transition:color .3s;font-weight:300;}
+.fc a:hover{color:var(--gl);}
+.fb{max-width:1400px;margin:0 auto;padding-top:1.75rem;border-top:1px solid var(--bd);display:flex;justify-content:space-between;align-items:center;font-size:9px;letter-spacing:.35em;text-transform:uppercase;color:var(--si);}
+/* Scrollbar / animations */
+::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-track{background:var(--ob);}::-webkit-scrollbar-thumb{background:var(--bd);}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.rv{opacity:0;transform:translateY(18px);transition:opacity .65s ease,transform .65s ease;}
+.rv.vis{opacity:1;transform:translateY(0);}
+/* Divider */
+.dv{display:flex;align-items:center;gap:18px;margin:2.5rem 0;}
+.dv span{flex:1;height:1px;background:var(--bd);}
+.dv em{font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--go);font-style:normal;}
+/* Responsive */
+@media(max-width:900px){nav{padding:0 1.5rem;}.nc{display:none;}.fg{grid-template-columns:1fr 1fr;}.fb{flex-direction:column;gap:1rem;text-align:center;}footer{padding:2.5rem 1.5rem;}}
+@media(max-width:600px){.nl{display:none;}.fg{grid-template-columns:1fr;}}
+
+.wr{max-width:1300px;margin:0 auto;padding:3.5rem 4rem 7rem;}
+.cg{display:grid;grid-template-columns:1fr 1.5fr;gap:4.5rem;margin-bottom:5rem;}
+.cie{font-size:9px;letter-spacing:.5em;text-transform:uppercase;color:var(--go);margin-bottom:.9rem;}
+.cit{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:300;line-height:1.15;margin-bottom:1.1rem;}
+.cit em{font-style:italic;color:var(--gl);}
+.cip{font-size:13px;color:rgba(248,244,237,.65);line-height:2;font-weight:300;margin-bottom:1.75rem;}
+.cis{display:flex;flex-direction:column;gap:1px;}
+.ci2{background:var(--gr);border:1px solid var(--bd);padding:1.1rem 1.3rem;display:flex;align-items:flex-start;gap:1.1rem;transition:border-color .3s;}
+.ci2:hover{border-color:rgba(201,168,76,.3);}
+.cii{font-size:1.2rem;flex-shrink:0;margin-top:2px;}
+.cil{font-size:8px;letter-spacing:.4em;text-transform:uppercase;color:var(--go);margin-bottom:4px;}
+.civ{font-family:'Cormorant Garamond',serif;font-size:.95rem;font-weight:300;color:var(--iv);}
+.cis2{font-size:10px;color:var(--si);margin-top:2px;font-weight:300;}
+.hg2{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--bd);margin-top:1.4rem;}
+.hc{background:var(--gr);padding:.9rem 1.1rem;}
+.hcd{font-size:8px;letter-spacing:.35em;text-transform:uppercase;color:var(--go);margin-bottom:4px;}
+.hct{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:300;}
+.cfp{background:var(--ch);border:1px solid var(--bd);padding:2.2rem;}
+.cfe{font-size:9px;letter-spacing:.5em;text-transform:uppercase;color:var(--go);margin-bottom:.6rem;}
+.cft{font-family:'Cormorant Garamond',serif;font-size:1.75rem;font-weight:300;margin-bottom:1.75rem;}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:11px;}
+.fg2{margin-bottom:12px;}
+.succ{display:none;background:rgba(39,174,96,.08);border:1px solid rgba(39,174,96,.25);padding:1.1rem 1.3rem;font-size:12px;color:rgba(39,174,96,.9);letter-spacing:.05em;margin-bottom:1.1rem;}
+.succ.show{display:block;}
+.mf{height:290px;background:var(--gr);border:1px solid var(--bd);display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;margin-bottom:4rem;}
+.mfg{position:absolute;inset:0;background-image:linear-gradient(rgba(201,168,76,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.05) 1px,transparent 1px);background-size:40px 40px;}
+.mfp{position:relative;z-index:2;text-align:center;}
+.mfd{width:14px;height:14px;background:var(--go);border-radius:50%;margin:0 auto 10px;box-shadow:0 0 0 4px rgba(201,168,76,.18),0 0 0 8px rgba(201,168,76,.07);}
+.mfn{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:300;color:var(--iv);margin-bottom:3px;}
+.mfa{font-size:10px;letter-spacing:.2em;color:var(--si);}
+.faq{margin-bottom:4rem;}
+.fqi{border-bottom:1px solid var(--bd);}
+.fqq{display:flex;justify-content:space-between;align-items:center;padding:1.1rem 0;font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:300;transition:color .3s;}
+.fqq:hover{color:var(--gl);}
+.fqic{font-size:1.1rem;color:var(--go);transition:transform .3s;flex-shrink:0;}
+.fqi.op .fqic{transform:rotate(45deg);}
+.fqa{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .4s;}
+.fqi.op .fqa{max-height:200px;padding-bottom:1.1rem;}
+.fqa p{font-size:13px;color:var(--si);line-height:1.9;font-weight:300;}
+.shd{text-align:center;margin-bottom:.8rem;}
+.shd .ey{font-size:9px;letter-spacing:.5em;text-transform:uppercase;color:var(--go);margin-bottom:8px;}
+.shd .ti{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:300;}
+.shd .ti em{font-style:italic;color:var(--gl);}
+@media(max-width:900px){.cg{grid-template-columns:1fr;gap:3rem;}.fr{grid-template-columns:1fr;}.wr{padding:2.5rem 1.5rem 5rem;}}
 </style>
 </head>
 <body>
-<div class="cursor-dot" id="cdot"></div>
-<div class="cursor-ring" id="cring"></div>
-<nav class="main-nav">
-  <div class="nav-wordmark">Bibliothèque</div>
-  <div class="nav-center"><div class="nav-emblem">✦</div><div class="nav-brand">The Private Bookstore</div></div>
-  <div class="nav-links">
-    <a class="nav-link" href="index.html">Home</a><a class="nav-link" href="shop.html">Shop</a>
-    <a class="nav-link" href="services.html">Services</a><a class="nav-link" href="about.html">About</a>
-    <a class="nav-link active" href="contact.html">Contact</a>
-    <a class="cart-btn" href="cart.html"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>Cart <span class="cart-count" id="cart-count">0</span></a>
+<div id="_cd"></div><div id="_cr"></div>
+<nav>
+  <div class="nw">Bibliothèque</div>
+  <div class="nc"><div class="ne">✦</div><div class="nb">The Private Bookstore</div></div>
+  <div class="nl">
+    <a href="index.html">Home</a>
+    <a href="shop.html">Shop</a>
+    <a href="services.html">Services</a>
+    <a href="about.html">About</a>
+    <a href="contact.html"class="on">Contact</a>
+    <a class="cb" href="cart.html"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>Cart&nbsp;<span class="cc" id="cart-count">0</span></a>
   </div>
 </nav>
 
-<div class="page-hero">
-  <div class="page-hero-bg"></div><div class="page-hero-grid"></div>
-  <div class="page-eyebrow">Get in Touch</div>
-  <h1 class="page-title">Contact <em>Us</em></h1>
-  <p class="page-sub">We would be delighted to hear from you</p>
-</div>
-
-<div class="contact-wrap">
-  <div class="contact-grid">
-    <!-- Info -->
-    <div class="contact-info reveal">
-      <div class="ci-eyebrow">Reach Out</div>
-      <h2>We Are Here<br>to <em>Assist You</em></h2>
-      <p>Whether you have a question about an order, wish to enquire about our bespoke gift service, or simply want to discuss a book recommendation — we are always at your disposal.</p>
-      <div class="contact-items">
-        <div class="contact-item"><div class="ci-icon">✉️</div><div><div class="ci-label">Email</div><div class="ci-val">hello@bibliotheque.com</div><div class="ci-sub">We respond within 4 hours</div></div></div>
-        <div class="contact-item"><div class="ci-icon">📞</div><div><div class="ci-label">Telephone</div><div class="ci-val">+1 (800) 242-5678</div><div class="ci-sub">Mon–Fri, 9am–6pm EST</div></div></div>
-        <div class="contact-item"><div class="ci-icon">📍</div><div><div class="ci-label">Address</div><div class="ci-val">12 Literary Lane, New York</div><div class="ci-sub">NY 10001, United States</div></div></div>
-        <div class="contact-item"><div class="ci-icon">💬</div><div><div class="ci-label">Live Chat</div><div class="ci-val">Available on-site</div><div class="ci-sub">Instant response during business hours</div></div></div>
-      </div>
-      <div class="hours-grid" style="margin-top:1.5rem">
-        <div class="hours-cell"><div class="hc-day">Mon — Fri</div><div class="hc-time">9:00 — 18:00</div></div>
-        <div class="hours-cell"><div class="hc-day">Saturday</div><div class="hc-time">10:00 — 16:00</div></div>
-        <div class="hours-cell"><div class="hc-day">Sunday</div><div class="hc-time">Closed</div></div>
-        <div class="hours-cell"><div class="hc-day">Public Holidays</div><div class="hc-time">Email Only</div></div>
-      </div>
+<div class="ph"><div class="ph-grid"></div><div class="pey">Get in Touch</div><h1 class="pt">Contact <em>Us</em></h1><p class="ps">We would be delighted to hear from you</p></div>
+<div class="wr">
+<div class="cg">
+  <div class="rv">
+    <div class="cie">Reach Out</div>
+    <h2 class="cit">We Are Here<br>to <em>Assist You</em></h2>
+    <p class="cip">Whether you have a question about an order, wish to enquire about our gift service, or want a book recommendation — we are always at your disposal.</p>
+    <div class="cis">
+      <div class="ci2"><div class="cii">✉️</div><div><div class="cil">Email</div><div class="civ">hello@bibliotheque.com</div><div class="cis2">We respond within 4 hours</div></div></div>
+      <div class="ci2"><div class="cii">📞</div><div><div class="cil">Telephone</div><div class="civ">+1 (800) 242-5678</div><div class="cis2">Mon–Fri, 9am–6pm EST</div></div></div>
+      <div class="ci2"><div class="cii">📍</div><div><div class="cil">Address</div><div class="civ">12 Literary Lane, New York</div><div class="cis2">NY 10001, United States</div></div></div>
+      <div class="ci2"><div class="cii">💬</div><div><div class="cil">Live Chat</div><div class="civ">Available on-site</div><div class="cis2">Instant response during business hours</div></div></div>
     </div>
-
-    <!-- Form -->
-    <div class="contact-form-wrap reveal">
-      <div class="cf-eyebrow">Send a Message</div>
-      <div class="cf-title">Write to Us</div>
-      <div class="form-success" id="form-success">
-        ✦ &nbsp;Thank you for your message. A member of our team will be in touch within 4 hours.
-      </div>
-      <form id="contact-form" onsubmit="submitForm(event)">
-        <div class="form-row">
-          <div class="field-group"><label class="field-lbl">First Name *</label><input class="field-inp" id="fname" placeholder="Your first name" required></div>
-          <div class="field-group"><label class="field-lbl">Last Name *</label><input class="field-inp" id="lname" placeholder="Your last name" required></div>
-        </div>
-        <div class="form-row">
-          <div class="field-group"><label class="field-lbl">Email Address *</label><input class="field-inp" id="email" type="email" placeholder="your@email.com" required></div>
-          <div class="field-group"><label class="field-lbl">Phone</label><input class="field-inp" id="phone" placeholder="+1 (000) 000-0000"></div>
-        </div>
-        <div class="field-group">
-          <label class="field-lbl">Subject *</label>
-          <select class="field-sel" id="subject" required>
-            <option value="">— Select a subject —</option>
-            <option>Order Enquiry</option>
-            <option>Gift Service</option>
-            <option>Book Recommendation</option>
-            <option>Corporate Gifting</option>
-            <option>Returns & Refunds</option>
-            <option>Book Club Membership</option>
-            <option>Rare & First Editions</option>
-            <option>Other</option>
-          </select>
-        </div>
-        <div class="field-group">
-          <label class="field-lbl">Order Number (if applicable)</label>
-          <input class="field-inp" id="orderno" placeholder="BIB-XXXXXX">
-        </div>
-        <div class="field-group">
-          <label class="field-lbl">Your Message *</label>
-          <textarea class="field-txt" id="message" placeholder="Please describe how we can assist you…" required></textarea>
-        </div>
-        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;margin-top:.5rem">
-          <div style="font-size:10px;color:var(--silver);letter-spacing:.05em">We respond within 4 business hours.</div>
-          <button class="btn-gold" type="submit">
-            Send Message
-            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-          </button>
-        </div>
-      </form>
+    <div class="hg2">
+      <div class="hc"><div class="hcd">Mon — Fri</div><div class="hct">9:00 — 18:00</div></div>
+      <div class="hc"><div class="hcd">Saturday</div><div class="hct">10:00 — 16:00</div></div>
+      <div class="hc"><div class="hcd">Sunday</div><div class="hct">Closed</div></div>
+      <div class="hc"><div class="hcd">Public Holidays</div><div class="hct">Email Only</div></div>
     </div>
   </div>
-
-  <!-- Map -->
-  <div class="map-section reveal">
-    <div style="text-align:center;margin-bottom:2rem">
-      <div style="font-size:9px;letter-spacing:.5em;text-transform:uppercase;color:var(--gold);margin-bottom:8px">Find Us</div>
-      <div style="font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:300">Our <span style="font-style:italic;color:var(--gold-light)">Location</span></div>
-    </div>
-    <div class="map-frame">
-      <div class="map-grid-lines"></div>
-      <div class="map-pin">
-        <div class="mp-dot"></div>
-        <div class="mp-name">Bibliothèque</div>
-        <div class="mp-addr">12 Literary Lane, New York, NY 10001</div>
+  <div class="cfp rv">
+    <div class="cfe">Send a Message</div>
+    <div class="cft">Write to Us</div>
+    <div class="succ" id="succ">✦ &nbsp;Thank you. A member of our team will be in touch within 4 hours.</div>
+    <form id="cform" onsubmit="sub(event)">
+      <div class="fr">
+        <div class="fg2"><label class="fl">First Name *</label><input class="fi" id="fn" placeholder="Your first name" required></div>
+        <div class="fg2"><label class="fl">Last Name *</label><input class="fi" id="ln" placeholder="Your last name" required></div>
       </div>
-    </div>
-  </div>
-
-  <!-- FAQ -->
-  <div class="faq-section">
-    <div style="text-align:center;margin-bottom:1rem">
-      <div style="font-size:9px;letter-spacing:.5em;text-transform:uppercase;color:var(--gold);margin-bottom:8px">Quick Answers</div>
-      <div style="font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:300">Frequently <span style="font-style:italic;color:var(--gold-light)">Asked</span></div>
-    </div>
-    <div class="faq-list" id="faq-list"></div>
+      <div class="fr">
+        <div class="fg2"><label class="fl">Email *</label><input class="fi" id="em" type="email" placeholder="your@email.com" required></div>
+        <div class="fg2"><label class="fl">Phone</label><input class="fi" id="ph" placeholder="+1 (000) 000-0000"></div>
+      </div>
+      <div class="fg2"><label class="fl">Subject *</label>
+        <select class="fs" id="subj" required>
+          <option value="">— Select a subject —</option>
+          <option>Order Enquiry</option><option>Gift Service</option><option>Book Recommendation</option>
+          <option>Corporate Gifting</option><option>Returns & Refunds</option>
+          <option>Book Club Membership</option><option>Rare & First Editions</option><option>Other</option>
+        </select>
+      </div>
+      <div class="fg2"><label class="fl">Order Number (if applicable)</label><input class="fi" placeholder="BIB-XXXXXX"></div>
+      <div class="fg2"><label class="fl">Your Message *</label><textarea class="ft" id="msg" placeholder="Please describe how we can assist you…" required></textarea></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;margin-top:.5rem">
+        <div style="font-size:10px;color:var(--si);letter-spacing:.05em">We respond within 4 business hours.</div>
+        <button class="bg" type="submit">Send Message →</button>
+      </div>
+    </form>
   </div>
 </div>
-
-<footer class="main-footer">
-  <div class="footer-grid">
-    <div class="footer-brand-col"><div class="fb-logo">Bibliothèque</div><p>A curated luxury bookstore presenting the finest works of literature to discerning collectors and passionate readers worldwide.</p></div>
-    <div class="footer-col"><h4>Navigate</h4><a href="index.html">Home</a><a href="shop.html">Shop</a><a href="services.html">Services</a><a href="about.html">About</a><a href="contact.html">Contact</a></div>
-    <div class="footer-col"><h4>Services</h4><a href="services.html">Delivery</a><a href="services.html">Gift Service</a><a href="services.html">Curation</a><a href="services.html">Corporate</a></div>
-    <div class="footer-col"><h4>Support</h4><a href="contact.html">Contact Us</a><a href="#">Shipping Policy</a><a href="#">Returns</a><a href="cart.html">Your Cart</a></div>
-  </div>
-  <div class="footer-bottom"><div>© MMXXV Bibliothèque — All Rights Reserved</div><div>The Art of the Written Word</div></div>
-</footer>
-
-<script src="shared.js"></script>
+<div class="shd rv"><div class="ey">Find Us</div><div class="ti">Our <em>Location</em></div></div>
+<div class="mf rv">
+  <div class="mfg"></div>
+  <div class="mfp"><div class="mfd"></div><div class="mfn">Bibliothèque</div><div class="mfa">12 Literary Lane, New York, NY 10001</div></div>
+</div>
+<div class="shd rv"><div class="ey">Quick Answers</div><div class="ti">Frequently <em>Asked</em></div></div>
+<div class="faq" id="faq"></div>
+</div>
 <script>
 const faqs=[
   {q:'How long does delivery take?',a:'Standard tracked delivery takes 3–5 business days. Express next-day delivery is available at checkout for orders placed before 2pm. International orders typically take 7–14 business days.'},
-  {q:'Can I return a book I\'ve purchased?',a:'Yes. We offer a full 30-day return policy. Books must be in their original condition and packaging. Simply contact us and we will arrange a prepaid return label at no cost to you.'},
+  {q:'Can I return a book?',a:'Yes. We offer a full 30-day return policy. Books must be in original condition. Contact us and we will arrange a prepaid return label at no cost to you.'},
   {q:'How does the Gift Wrapping service work?',a:'During checkout, select our Luxury Gift Service option. You can add a personalised message, choose your wrapping colour, and we handle the rest — including a handwritten calligraphy card.'},
-  {q:'Do you offer first editions or signed copies?',a:'Yes, through our Rare & First Editions service. These are sourced to order and require an advance enquiry. Please contact us via the form above for availability and pricing.'},
-  {q:'Is there a Book Club I can join?',a:'Absolutely. Our monthly book club membership is $19.99/month and includes one handpicked volume, access to private reading events, author Q&As, and 10% off all purchases.'},
-  {q:'Do you offer corporate gifting?',a:'Yes. We offer volume pricing, custom branded packaging, and dedicated account management for corporate orders of 10 or more. Please contact us for a bespoke quote.'},
+  {q:'Do you offer first editions or signed copies?',a:'Yes, through our Rare & First Editions service. These are sourced to order and require an advance enquiry. Please contact us for availability and pricing.'},
+  {q:'Is there a Book Club I can join?',a:'Yes. Our monthly book club membership is $19.99/month and includes one handpicked volume, private reading events, author Q&As, and 10% off all purchases.'},
+  {q:'Do you offer corporate gifting?',a:'Yes. We offer volume pricing, custom branded packaging, and dedicated account management for corporate orders of 10+. Please contact us for a bespoke quote.'},
 ];
-document.getElementById('faq-list').innerHTML=faqs.map((f,i)=>`
-  <div class="faq-item" id="faq-${i}">
-    <div class="faq-q" onclick="toggleFaq(${i})">
-      <span>${f.q}</span><span class="faq-icon">+</span>
-    </div>
-    <div class="faq-a"><p>${f.a}</p></div>
-  </div>`).join('');
-
-function toggleFaq(i){
-  const el=document.getElementById('faq-'+i);
-  const wasOpen=el.classList.contains('open');
-  document.querySelectorAll('.faq-item').forEach(x=>x.classList.remove('open'));
-  if(!wasOpen)el.classList.add('open');
+document.getElementById('faq').innerHTML=faqs.map((f,i)=>`<div class="fqi" id="fq${i}"><div class="fqq" onclick="tf(${i})"><span>${f.q}</span><span class="fqic">+</span></div><div class="fqa"><p>${f.a}</p></div></div>`).join('');
+function tf(i){const el=document.getElementById('fq'+i);const w=el.classList.contains('op');document.querySelectorAll('.fqi').forEach(x=>x.classList.remove('op'));if(!w)el.classList.add('op');}
+function sub(e){e.preventDefault();document.getElementById('cform').style.display='none';document.getElementById('succ').classList.add('show');toast('Message sent — we'll respond within 4 hours');}
+const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('vis');}),{threshold:.1});
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+</script>
+<footer><div class="fg"><div class="fbl"><div class="fl2">Bibliothèque</div><p>A curated luxury bookstore presenting the finest works of literature to discerning collectors worldwide.</p></div><div class="fc"><h4>Navigate</h4><a href="index.html">Home</a><a href="shop.html">Shop</a><a href="services.html">Services</a><a href="about.html">About</a><a href="contact.html">Contact</a></div><div class="fc"><h4>Genres</h4><a href="shop.html">Fiction</a><a href="shop.html">Sci-Fi</a><a href="shop.html">Fantasy</a><a href="shop.html">Mystery</a><a href="shop.html">Biography</a></div><div class="fc"><h4>Support</h4><a href="contact.html">Contact Us</a><a href="cart.html">Your Cart</a><a href="services.html">Shipping</a><a href="services.html">Returns</a></div></div><div class="fb"><div>© MMXXV Bibliothèque — All Rights Reserved</div><div>The Art of the Written Word</div></div></footer>
+<script>/* ── SHARED DATA & UTILITIES (inlined in every page) ── */
+const BOOKS=[
+  {id:1,title:'The Midnight Library',author:'Matt Haig',genre:'Fiction',year:2020,isbn:'978-0525559474',rating:4.5,pages:304,price:24.99,was:32.00,best:true,desc:'Between life and death there is a library. Every book is a chance to try another life you could have lived.'},
+  {id:2,title:'Dune',author:'Frank Herbert',genre:'Sci-Fi',year:1965,isbn:'978-0441013593',rating:4.8,pages:688,price:19.99,was:null,best:true,desc:'An epic of politics, religion and ecology on the desert planet Arrakis — a landmark of science fiction.'},
+  {id:3,title:'Sapiens',author:'Yuval Noah Harari',genre:'History',year:2011,isbn:'978-0062316097',rating:4.4,pages:443,price:21.99,was:28.00,best:false,desc:'A provocative brief history of humankind from the Stone Age to the twenty-first century.'},
+  {id:4,title:'The Name of the Wind',author:'Patrick Rothfuss',genre:'Fantasy',year:2007,isbn:'978-0756404741',rating:4.7,pages:662,price:17.99,was:null,best:true,desc:'The autobiography of the most notorious magician his world has ever seen, told in his own words.'},
+  {id:5,title:'Gone Girl',author:'Gillian Flynn',genre:'Mystery',year:2012,isbn:'978-0307588371',rating:4.1,pages:422,price:15.99,was:22.00,best:false,desc:"On their fifth anniversary, Nick Dunne's wife Amy disappears. A chilling tale of deception and obsession."},
+  {id:6,title:'Atomic Habits',author:'James Clear',genre:'Self-Help',year:2018,isbn:'978-0735211292',rating:4.6,pages:320,price:18.99,was:null,best:true,desc:'A supremely practical guide to building good habits and breaking bad ones — small changes, remarkable results.'},
+  {id:7,title:'Steve Jobs',author:'Walter Isaacson',genre:'Biography',year:2011,isbn:'978-1451648539',rating:4.0,pages:630,price:22.99,was:30.00,best:false,desc:'The definitive portrait of the greatest innovator of his age, based on forty exclusive interviews.'},
+  {id:8,title:'Educated',author:'Tara Westover',genre:'Non-Fiction',year:2018,isbn:'978-0399590504',rating:4.3,pages:334,price:16.99,was:null,best:false,desc:'A memoir about a girl raised by survivalists who goes on to earn a PhD from Cambridge University.'},
+  {id:9,title:'Meditations',author:'Marcus Aurelius',genre:'Philosophy',year:180,isbn:'978-0140449334',rating:4.9,pages:256,price:12.99,was:null,best:true,desc:"The private thoughts of the world's most powerful man counselling himself on duty and virtue."},
+  {id:10,title:'The Great Gatsby',author:'F. Scott Fitzgerald',genre:'Fiction',year:1925,isbn:'978-0743273565',rating:4.2,pages:180,price:11.99,was:16.00,best:false,desc:'The quintessential Jazz Age novel — wealth, love and the impossibility of recapturing the past.'},
+  {id:11,title:'Project Hail Mary',author:'Andy Weir',genre:'Sci-Fi',year:2021,isbn:'978-0593135204',rating:4.8,pages:476,price:23.99,was:null,best:true,desc:'A lone astronaut must save the earth in this propulsive, joyful novel from the author of The Martian.'},
+  {id:12,title:'The Girl with the Dragon Tattoo',author:'Stieg Larsson',genre:'Mystery',year:2005,isbn:'978-0307949486',rating:4.3,pages:672,price:17.99,was:24.00,best:false,desc:'A financial journalist and a brilliant hacker investigate a decades-old disappearance in Sweden.'},
+];
+const PAL=[
+  {f:'#0f1f0f',t:'#1a3320'},{f:'#0f0f2a',t:'#1a1a3a'},{f:'#1f130a',t:'#321e0f'},
+  {f:'#0a1520',t:'#102030'},{f:'#1f0a0a',t:'#320f0f'},{f:'#0f0f0f',t:'#1e1e1e'},
+  {f:'#150a22',t:'#220f38'},{f:'#0a160f',t:'#0f2218'},{f:'#1f1508',t:'#30200f'},
+];
+const GP={};
+['Fiction','Sci-Fi','History','Fantasy','Mystery','Self-Help','Biography','Non-Fiction','Philosophy']
+  .forEach((g,i)=>GP[g]=PAL[i]);
+function gp(g){if(!GP[g])GP[g]=PAL[Object.keys(GP).length%PAL.length];return GP[g];}
+function ini(t){return t.split(' ').slice(0,2).map(w=>w[0]).join('').toUpperCase();}
+function stars(r){if(!r)return'';let s='';for(let i=1;i<=5;i++)s+=`<span style="color:${i<=Math.floor(r)?'#c9a84c':'#2a2a2a'};font-size:10px">✦</span>`;return`<div style="display:flex;gap:2px;margin-top:8px">${s}</div>`;}
+/* Cart */
+function gc(){try{return JSON.parse(localStorage.getItem('bib')||'{}')}catch{return{}}}
+function sc(c){localStorage.setItem('bib',JSON.stringify(c))}
+function cc(){return Object.values(gc()).reduce((s,v)=>s+v,0)}
+function ct(){const c=gc();return Object.keys(c).reduce((s,id)=>{const b=BOOKS.find(x=>x.id==id);return b?s+b.price*c[id]:s;},0)}
+function ac(id){const c=gc();c[id]=(c[id]||0)+1;sc(c);ub()}
+function rc(id){const c=gc();delete c[id];sc(c);ub()}
+function qc(id,q){const c=gc();if(q<1)delete c[id];else c[id]=q;sc(c);ub()}
+function clc(){sc({});ub()}
+function ub(){const n=cc();document.querySelectorAll('.cc').forEach(e=>{e.textContent=n;e.style.display=n>0?'flex':'none';})}
+/* Toast */
+let _tt;
+function toast(msg,sub=''){
+  let t=document.getElementById('_t');
+  if(!t){t=document.createElement('div');t.id='_t';
+    t.style.cssText='position:fixed;bottom:2.5rem;right:2.5rem;z-index:9000;background:#101010;border:1px solid rgba(201,168,76,.35);padding:1rem 1.5rem;min-width:260px;transform:translateY(120px);opacity:0;transition:transform .45s cubic-bezier(.16,1,.3,1),opacity .45s;display:flex;align-items:center;gap:12px;font-family:Jost,sans-serif;pointer-events:none;';
+    document.body.appendChild(t);}
+  t.innerHTML=`<div style="width:7px;height:7px;background:#c9a84c;border-radius:50%;flex-shrink:0"></div><div style="font-size:10px;letter-spacing:.1em;color:#f8f4ed">${msg}</div>${sub?`<div style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:#e8c97e;margin-left:auto">${sub}</div>`:''}`;
+  t.style.transform='translateY(0)';t.style.opacity='1';
+  clearTimeout(_tt);_tt=setTimeout(()=>{t.style.transform='translateY(120px)';t.style.opacity='0';},3000);
 }
-
-function submitForm(e){
-  e.preventDefault();
-  const form=document.getElementById('contact-form');
-  const success=document.getElementById('form-success');
-  form.style.display='none';
-  success.classList.add('show');
-  showToast('Message sent — we\'ll respond within 4 hours');
+/* Cursor */
+function initCursor(){
+  const d=document.getElementById('_cd'),r=document.getElementById('_cr');
+  if(!d||!r)return;
+  document.addEventListener('mousemove',e=>{d.style.left=e.clientX+'px';d.style.top=e.clientY+'px';r.style.left=e.clientX+'px';r.style.top=e.clientY+'px';});
+  document.addEventListener('mouseover',e=>{r.classList.toggle('L',!!e.target.closest('button,a,.bc,.gp'));});
 }
-
-const obs=new IntersectionObserver(e=>e.forEach(el=>{if(el.isIntersecting)el.target.classList.add('visible');}),{threshold:.1});
-document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+window.addEventListener('DOMContentLoaded',()=>{initCursor();ub();});
 </script>
 </body>
 </html>
