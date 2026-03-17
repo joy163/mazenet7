@@ -3,29 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BIBLIOTHÈQUE — The Luxury Book Collection</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Cormorant:wght@700;800&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<title>BIBLIOTHÈQUE — The Luxury Bookstore</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Cormorant:wght@600;700;800&family=Jost:wght@200;300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
-  --obsidian: #0a0a0a;
-  --charcoal: #111111;
-  --graphite: #1a1a1a;
-  --muted: #2a2a2a;
-  --border: #2e2e2e;
+  --obsidian: #080808;
+  --charcoal: #101010;
+  --graphite: #181818;
+  --muted: #222222;
+  --border: #2a2a2a;
+  --border-gold: rgba(201,168,76,0.2);
   --gold: #c9a84c;
   --gold-light: #e8c97e;
   --gold-pale: #f5e6c0;
+  --gold-dim: rgba(201,168,76,0.12);
   --cream: #f8f4ed;
   --ivory: #fdfaf5;
-  --silver: #8a8a8a;
-  --whisper: rgba(201,168,76,0.08);
-  --whisper2: rgba(201,168,76,0.15);
+  --silver: #787878;
+  --silver-light: #a0a0a0;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 html { scroll-behavior: smooth; }
-
 body {
   font-family: 'Jost', sans-serif;
   background: var(--obsidian);
@@ -35,892 +34,958 @@ body {
   cursor: none;
 }
 
-/* ═══════════════════════════════════
-   CUSTOM CURSOR
-═══════════════════════════════════ */
-.cursor {
-  position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999;
-  mix-blend-mode: difference;
+/* ═══ NOISE ═══ */
+body::after {
+  content: '';
+  position: fixed; inset: 0; z-index: 9990; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.022;
 }
+
+/* ═══ CURSOR ═══ */
 .cursor-dot {
-  width: 8px; height: 8px; background: var(--gold);
-  border-radius: 50%; transform: translate(-50%,-50%);
-  transition: width .2s, height .2s, opacity .2s;
+  position: fixed; width: 7px; height: 7px;
+  background: var(--gold); border-radius: 50%;
+  pointer-events: none; z-index: 9999;
+  transform: translate(-50%,-50%);
+  transition: width .15s, height .15s;
 }
 .cursor-ring {
-  position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9998;
-  width: 36px; height: 36px;
-  border: 1px solid rgba(201,168,76,0.5);
-  border-radius: 50%; transform: translate(-50%,-50%);
-  transition: width .35s ease, height .35s ease, opacity .3s, border-color .3s;
+  position: fixed; width: 34px; height: 34px;
+  border: 1px solid rgba(201,168,76,0.45); border-radius: 50%;
+  pointer-events: none; z-index: 9998;
+  transform: translate(-50%,-50%);
+  transition: width .4s ease, height .4s ease, border-color .3s;
 }
-body:has(a:hover) .cursor-ring,
-body:has(button:hover) .cursor-ring,
-body:has(.card:hover) .cursor-ring {
-  width: 56px; height: 56px;
-  border-color: var(--gold);
-}
+.cursor-ring.large { width: 60px; height: 60px; border-color: var(--gold); }
 
-/* ═══════════════════════════════════
-   NOISE TEXTURE OVERLAY
-═══════════════════════════════════ */
-body::before {
-  content: '';
-  position: fixed; inset: 0; z-index: 0; pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
-  opacity: 0.025;
-}
-
-/* ═══════════════════════════════════
-   NAV
-═══════════════════════════════════ */
+/* ═══ NAV ═══ */
 nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  display: flex; align-items: center; justify-content: space-between;
+  position: fixed; top: 0; left: 0; right: 0; z-index: 800;
+  height: 76px; display: flex; align-items: center; justify-content: space-between;
   padding: 0 4rem;
-  height: 80px;
-  border-bottom: 1px solid rgba(201,168,76,0.12);
-  background: rgba(10,10,10,0.92);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(201,168,76,0.1);
+  background: rgba(8,8,8,0.94);
+  backdrop-filter: blur(24px) saturate(180%);
 }
 .nav-wordmark {
-  font-family: 'Jost', sans-serif;
-  font-weight: 200; font-size: 11px;
-  letter-spacing: 0.45em; text-transform: uppercase;
-  color: var(--gold-light);
+  font-family: 'Jost',sans-serif; font-weight: 200; font-size: 10px;
+  letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold-light);
 }
 .nav-center {
   position: absolute; left: 50%; transform: translateX(-50%);
-  display: flex; align-items: center; gap: 12px;
+  display: flex; align-items: center; gap: 14px;
 }
 .nav-emblem {
-  width: 32px; height: 32px;
-  border: 1px solid var(--gold);
-  border-radius: 50%;
+  width: 30px; height: 30px; border: 1px solid rgba(201,168,76,0.6);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  color: var(--gold); font-size: 11px;
+}
+.nav-brand {
+  font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 400;
+  letter-spacing: 0.14em; color: var(--ivory);
+}
+.nav-right { display: flex; align-items: center; gap: 20px; }
+.nav-link {
+  font-size: 9px; letter-spacing: 0.35em; text-transform: uppercase;
+  color: var(--silver-light); background: none; border: none;
+  cursor: none; transition: color .3s; font-family: 'Jost',sans-serif;
+}
+.nav-link:hover { color: var(--gold); }
+.cart-btn {
+  position: relative; display: flex; align-items: center; gap: 10px;
+  font-size: 9px; letter-spacing: 0.35em; text-transform: uppercase;
+  color: var(--gold); border: 1px solid rgba(201,168,76,0.35);
+  background: none; padding: 9px 20px; cursor: none;
+  transition: all .35s; font-family: 'Jost',sans-serif;
+}
+.cart-btn:hover { background: var(--gold); color: var(--obsidian); border-color: var(--gold); }
+.cart-count {
+  position: absolute; top: -6px; right: -6px;
+  width: 18px; height: 18px; background: var(--gold); border-radius: 50%;
+  font-size: 9px; font-weight: 600; color: var(--obsidian);
   display: flex; align-items: center; justify-content: center;
-  font-size: 13px; color: var(--gold);
+  font-family: 'Jost',sans-serif; display: none;
 }
-.nav-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 18px; font-weight: 300;
-  letter-spacing: 0.12em; color: var(--ivory);
-}
-.nav-add {
-  display: flex; align-items: center; gap: 10px;
-  font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase;
-  color: var(--gold); background: none; border: 1px solid rgba(201,168,76,0.35);
-  padding: 10px 22px; cursor: none;
-  transition: all .4s ease; font-family: 'Jost', sans-serif; font-weight: 300;
-}
-.nav-add:hover { background: var(--gold); color: var(--obsidian); border-color: var(--gold); }
-.nav-add:hover .plus-icon { stroke: var(--obsidian); }
-.plus-icon { width: 10px; height: 10px; stroke: var(--gold); stroke-width: 2; transition: stroke .4s; }
+.cart-count.visible { display: flex; }
 
-/* ═══════════════════════════════════
-   HERO
-═══════════════════════════════════ */
+/* ═══ HERO ═══ */
 .hero {
-  position: relative; min-height: 100vh;
-  display: flex; flex-direction: column;
+  min-height: 100vh; display: flex; flex-direction: column;
   align-items: center; justify-content: center;
-  overflow: hidden; padding: 80px 4rem 0;
+  position: relative; overflow: hidden; padding: 76px 4rem 0;
 }
-
-.hero-bg {
-  position: absolute; inset: 0; z-index: 0;
+.hero-atmosphere {
+  position: absolute; inset: 0; pointer-events: none;
   background:
-    radial-gradient(ellipse 70% 60% at 50% 100%, rgba(201,168,76,0.07) 0%, transparent 60%),
-    radial-gradient(ellipse 40% 40% at 15% 30%, rgba(201,168,76,0.04) 0%, transparent 50%),
-    radial-gradient(ellipse 50% 50% at 85% 20%, rgba(255,255,255,0.02) 0%, transparent 50%);
+    radial-gradient(ellipse 80% 70% at 50% 110%, rgba(201,168,76,0.08) 0%, transparent 55%),
+    radial-gradient(ellipse 40% 40% at 10% 30%, rgba(201,168,76,0.04) 0%, transparent 50%),
+    radial-gradient(ellipse 30% 30% at 90% 20%, rgba(255,255,255,0.015) 0%, transparent 50%);
 }
-
-/* Decorative gold lines */
-.hero-bg::before {
-  content: '';
-  position: absolute; inset: 0;
+.hero-grid {
+  position: absolute; inset: 0; pointer-events: none;
   background-image:
-    linear-gradient(rgba(201,168,76,0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(201,168,76,0.06) 1px, transparent 1px);
-  background-size: 80px 80px;
-  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 20%, transparent 75%);
+    linear-gradient(rgba(201,168,76,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,168,76,0.05) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(ellipse 70% 70% at 50% 60%, black 10%, transparent 70%);
 }
-
-.hero-eyebrow {
-  font-size: 10px; letter-spacing: 0.5em; text-transform: uppercase;
-  color: var(--gold); font-weight: 300;
-  display: flex; align-items: center; gap: 16px;
-  opacity: 0; animation: reveal .8s ease .2s both;
+.hero-content {
+  position: relative; z-index: 2; display: flex; flex-direction: column;
+  align-items: center; text-align: center; padding-bottom: 7rem;
 }
-.hero-eyebrow::before, .hero-eyebrow::after {
-  content: ''; display: block; width: 40px; height: 1px; background: var(--gold); opacity: 0.4;
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 14px;
+  font-size: 9px; letter-spacing: 0.55em; text-transform: uppercase;
+  color: var(--gold); font-weight: 300; margin-bottom: 2.5rem;
+  opacity: 0; animation: rise .9s ease .1s both;
 }
-
-.hero-headline {
-  font-family: 'Cormorant', serif;
-  font-size: clamp(4rem, 10vw, 9rem);
-  font-weight: 700; line-height: 0.9;
-  letter-spacing: -0.02em;
-  text-align: center; margin: 2rem 0 1.5rem;
-  opacity: 0; animation: reveal .9s ease .4s both;
+.hero-badge::before, .hero-badge::after { content:''; display:block; width:36px; height:1px; background:var(--gold); opacity:.45; }
+.hero-title {
+  font-family: 'Cormorant', serif; font-weight: 700;
+  font-size: clamp(4.5rem, 11vw, 10rem);
+  line-height: 0.88; letter-spacing: -0.02em;
+  color: var(--ivory);
+  opacity: 0; animation: rise .95s ease .25s both;
 }
-.hero-headline .line2 {
-  display: block;
-  font-style: italic; font-weight: 300;
-  font-family: 'Cormorant Garamond', serif;
-  color: var(--gold-light);
+.hero-title em {
+  display: block; font-family: 'Cormorant Garamond', serif;
+  font-weight: 300; font-style: italic; color: var(--gold-light);
+  font-size: 0.65em; letter-spacing: 0.06em;
 }
-
 .hero-sub {
-  font-size: 13px; letter-spacing: 0.2em; text-transform: uppercase;
-  color: var(--silver); font-weight: 300; text-align: center;
-  max-width: 420px; line-height: 2;
-  opacity: 0; animation: reveal .8s ease .6s both;
+  font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--silver); font-weight: 300; max-width: 460px;
+  line-height: 2.2; margin: 2.5rem 0;
+  opacity: 0; animation: rise .8s ease .45s both;
 }
+.hero-cta {
+  display: inline-flex; align-items: center; gap: 14px;
+  font-size: 9px; letter-spacing: 0.45em; text-transform: uppercase;
+  color: var(--obsidian); background: var(--gold); border: 1px solid var(--gold);
+  padding: 16px 36px; cursor: none; font-family: 'Jost',sans-serif; font-weight: 500;
+  transition: all .4s; box-shadow: 0 0 60px rgba(201,168,76,0.25);
+  opacity: 0; animation: rise .8s ease .6s both;
+}
+.hero-cta:hover { background: transparent; color: var(--gold); box-shadow: 0 0 80px rgba(201,168,76,0.35); }
+.hero-cta svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2; transition: transform .3s; }
+.hero-cta:hover svg { transform: translateX(4px); }
 
-.hero-divider {
-  display: flex; align-items: center; gap: 20px; margin: 3rem 0;
-  opacity: 0; animation: reveal .8s ease .8s both;
+/* Featured numbers */
+.hero-numbers {
+  display: flex; gap: 5rem; justify-content: center; margin-top: 5rem;
+  opacity: 0; animation: rise .8s ease .8s both;
 }
-.hero-divider span { width: 60px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
-.hero-divider em { font-family: 'Cormorant Garamond', serif; font-size: 18px; color: var(--gold); font-style: normal; }
+.hero-num { text-align: center; }
+.hero-num-val { font-family: 'Cormorant Garamond', serif; font-size: 2.8rem; font-weight: 300; color: var(--gold-light); }
+.hero-num-lbl { font-size: 8px; letter-spacing: 0.45em; text-transform: uppercase; color: var(--silver); margin-top: 6px; }
+.hero-vbar { width: 1px; height: 56px; background: linear-gradient(to bottom,transparent,var(--border),transparent); align-self: center; }
 
-/* Stats row */
-.hero-stats {
-  display: flex; gap: 5rem; justify-content: center;
-  opacity: 0; animation: reveal .8s ease 1s both;
-  position: relative; z-index: 1;
-}
-.hero-stat { text-align: center; }
-.hero-stat-num {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 3rem; font-weight: 300; color: var(--gold-light); line-height: 1;
-}
-.hero-stat-label {
-  font-size: 9px; letter-spacing: 0.4em; text-transform: uppercase;
-  color: var(--silver); margin-top: 8px;
-}
-.stat-vline { width: 1px; height: 60px; background: linear-gradient(to bottom, transparent, var(--border), transparent); align-self: center; }
-
-.scroll-hint {
-  position: absolute; bottom: 3rem; left: 50%; transform: translateX(-50%);
+.scroll-cue {
+  position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
   display: flex; flex-direction: column; align-items: center; gap: 10px;
-  font-size: 9px; letter-spacing: 0.4em; text-transform: uppercase; color: var(--silver);
-  opacity: 0; animation: reveal .8s ease 1.4s both;
+  font-size: 8px; letter-spacing: 0.5em; text-transform: uppercase; color: var(--silver);
+  opacity: 0; animation: rise .8s ease 1.2s both;
 }
-.scroll-line {
-  width: 1px; height: 50px;
-  background: linear-gradient(to bottom, var(--gold), transparent);
-  animation: scrollPulse 2.5s ease-in-out infinite;
-}
-@keyframes scrollPulse { 0%,100% { opacity: 0.3; transform: scaleY(1); } 50% { opacity: 1; transform: scaleY(1.3); } }
+.scroll-bar { width: 1px; height: 48px; background: linear-gradient(to bottom, var(--gold), transparent); animation: pulse 2.5s ease-in-out infinite; }
+@keyframes pulse { 0%,100%{opacity:.3;transform:scaleY(1)} 50%{opacity:1;transform:scaleY(1.3)} }
 
-/* ═══════════════════════════════════
-   CATALOG SECTION
-═══════════════════════════════════ */
-.catalog { position: relative; z-index: 1; padding: 6rem 4rem 8rem; max-width: 1400px; margin: 0 auto; }
-
-.section-header {
-  display: flex; align-items: baseline; justify-content: space-between;
-  margin-bottom: 3.5rem; padding-bottom: 1.5rem;
+/* ═══ STORE SECTION ═══ */
+.store { max-width: 1440px; margin: 0 auto; padding: 6rem 4rem 8rem; }
+.store-header {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  margin-bottom: 3rem; padding-bottom: 1.5rem;
   border-bottom: 1px solid var(--border);
 }
-.section-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 2.8rem; font-weight: 300; letter-spacing: 0.04em;
-}
-.section-title span { font-style: italic; color: var(--gold-light); }
-.section-count {
-  font-size: 10px; letter-spacing: 0.35em; text-transform: uppercase; color: var(--silver);
-}
+.store-title { font-family: 'Cormorant Garamond',serif; font-size: 2.5rem; font-weight: 300; }
+.store-title span { font-style: italic; color: var(--gold-light); }
+.store-meta { font-size: 9px; letter-spacing: 0.4em; text-transform: uppercase; color: var(--silver); }
 
-/* Filter / Search row */
-.controls {
-  display: grid; grid-template-columns: 1fr auto auto; gap: 16px;
-  align-items: center; margin-bottom: 2.5rem;
+/* Controls */
+.controls-row {
+  display: grid; grid-template-columns: 1fr auto auto; gap: 12px;
+  align-items: center; margin-bottom: 2rem;
 }
-.search-field {
-  position: relative;
-}
-.search-field svg {
-  position: absolute; left: 18px; top: 50%; transform: translateY(-50%);
-  width: 14px; height: 14px; stroke: var(--silver); stroke-width: 1.5; fill: none;
-  pointer-events: none;
-}
-.search-field input {
-  width: 100%; padding: 14px 18px 14px 46px;
+.search-wrap { position: relative; }
+.search-wrap svg { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); width: 14px; height: 14px; stroke: var(--silver); stroke-width: 1.5; fill: none; pointer-events: none; }
+.search-wrap input {
+  width: 100%; padding: 13px 16px 13px 44px;
   background: var(--graphite); border: 1px solid var(--border);
-  color: var(--cream); font-family: 'Jost',sans-serif; font-size: 12px;
-  letter-spacing: 0.1em; outline: none;
-  transition: border-color .3s, background .3s;
+  color: var(--cream); font-family: 'Jost',sans-serif; font-size: 11px;
+  letter-spacing: 0.12em; outline: none; transition: border-color .3s;
 }
-.search-field input::placeholder { color: var(--silver); letter-spacing: 0.15em; text-transform: uppercase; font-size: 10px; }
-.search-field input:focus { border-color: rgba(201,168,76,0.5); background: var(--muted); }
+.search-wrap input::placeholder { color: var(--silver); font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; }
+.search-wrap input:focus { border-color: rgba(201,168,76,0.45); }
+.ctrl-select {
+  padding: 13px 16px; background: var(--graphite); border: 1px solid var(--border);
+  color: var(--cream); font-family: 'Jost',sans-serif; font-size: 9px;
+  letter-spacing: 0.3em; text-transform: uppercase; outline: none; cursor: none;
+  transition: border-color .3s; min-width: 170px;
+}
+.ctrl-select:focus { border-color: rgba(201,168,76,0.45); }
+.ctrl-select option { background: var(--charcoal); }
 
-.sort-select {
-  padding: 14px 18px; background: var(--graphite); border: 1px solid var(--border);
-  color: var(--cream); font-family: 'Jost',sans-serif; font-size: 10px;
-  letter-spacing: 0.25em; text-transform: uppercase; outline: none; cursor: none;
-  transition: border-color .3s; min-width: 180px;
+/* Genre strip */
+.genre-strip { display: flex; gap: 1px; flex-wrap: wrap; margin-bottom: 3rem; }
+.gpill {
+  padding: 9px 22px; font-size: 8px; letter-spacing: 0.4em; text-transform: uppercase;
+  background: var(--graphite); border: 1px solid var(--border);
+  color: var(--silver); cursor: none; font-family: 'Jost',sans-serif;
+  transition: all .3s; position: relative; overflow: hidden;
 }
-.sort-select:focus { border-color: rgba(201,168,76,0.5); }
-
-/* Genre pills */
-.genre-bar {
-  display: flex; gap: 2px; flex-wrap: wrap; margin-bottom: 3rem;
-}
-.genre-pill {
-  padding: 8px 20px; font-size: 9px; letter-spacing: 0.35em; text-transform: uppercase;
-  background: transparent; border: 1px solid var(--border);
-  color: var(--silver); cursor: none; font-family: 'Jost',sans-serif; font-weight: 300;
-  transition: all .3s ease; position: relative; overflow: hidden;
-}
-.genre-pill::before {
-  content: ''; position: absolute; inset: 0;
+.gpill::before {
+  content:''; position: absolute; inset:0;
   background: var(--gold); transform: scaleX(0); transform-origin: left;
-  transition: transform .35s ease; z-index: 0;
+  transition: transform .35s ease; z-index:0;
 }
-.genre-pill span { position: relative; z-index: 1; }
-.genre-pill:hover { color: var(--obsidian); border-color: var(--gold); }
-.genre-pill:hover::before { transform: scaleX(1); }
-.genre-pill.active { background: var(--gold); color: var(--obsidian); border-color: var(--gold); font-weight: 500; }
-.genre-pill.active::before { transform: scaleX(1); }
+.gpill span { position: relative; z-index: 1; }
+.gpill:hover { color: var(--obsidian); border-color: var(--gold); }
+.gpill:hover::before { transform: scaleX(1); }
+.gpill.active { background: var(--gold); color: var(--obsidian); border-color: var(--gold); font-weight: 500; }
+.gpill.active::before { transform: scaleX(1); }
 
-/* ═══════════════════════════════════
-   BOOK CARDS
-═══════════════════════════════════ */
+/* ═══ BOOK GRID ═══ */
 .book-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 2px;
 }
 
-.card {
-  background: var(--charcoal);
-  border: 1px solid var(--border);
-  cursor: none; overflow: hidden;
-  transition: border-color .4s ease;
-  animation: cardReveal .6s ease both;
-  position: relative;
+.bcard {
+  background: var(--charcoal); border: 1px solid var(--border);
+  position: relative; overflow: hidden; cursor: none;
+  transition: border-color .4s;
+  animation: cardIn .5s ease both;
 }
-.card::after {
-  content: ''; position: absolute; inset: 0;
-  background: linear-gradient(135deg, rgba(201,168,76,0.04) 0%, transparent 60%);
-  opacity: 0; transition: opacity .4s;
+.bcard::before {
+  content:''; position: absolute; inset:0; z-index:0;
+  background: linear-gradient(135deg, rgba(201,168,76,0.04) 0%, transparent 50%);
+  opacity:0; transition: opacity .4s;
 }
-.card:hover { border-color: rgba(201,168,76,0.4); }
-.card:hover::after { opacity: 1; }
+.bcard:hover { border-color: rgba(201,168,76,0.35); }
+.bcard:hover::before { opacity:1; }
 
-@keyframes cardReveal {
-  from { opacity: 0; transform: translateY(24px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
+@keyframes cardIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
 
-.card-crest {
-  height: 180px; position: relative; overflow: hidden;
+/* Book banner */
+.bcard-banner {
+  height: 200px; position: relative; overflow: hidden;
   display: flex; align-items: center; justify-content: center;
 }
-.card-crest-bg {
-  position: absolute; inset: 0;
-  transition: transform .6s ease;
+.bcard-banner-bg { position: absolute; inset:0; transition: transform .7s ease; }
+.bcard:hover .bcard-banner-bg { transform: scale(1.06); }
+.bcard-banner-shade {
+  position: absolute; inset:0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.62) 100%);
 }
-.card:hover .card-crest-bg { transform: scale(1.04); }
-.card-crest-overlay {
-  position: absolute; inset: 0;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.55) 100%);
+.bcard-monogram {
+  position: relative; z-index:2;
+  font-family: 'Cormorant',serif; font-size: 5.5rem; font-weight: 800;
+  color: rgba(255,255,255,0.1); line-height:1; user-select:none;
+  transition: color .4s, transform .5s;
+  letter-spacing: -0.04em;
 }
-.card-monogram {
-  position: relative; z-index: 2;
-  font-family: 'Cormorant', serif; font-size: 5rem; font-weight: 800;
-  color: rgba(255,255,255,0.15); letter-spacing: -0.04em;
-  transition: color .4s, transform .4s;
-  line-height: 1; user-select: none;
+.bcard:hover .bcard-monogram { color: rgba(255,255,255,0.18); transform: scale(1.06); }
+
+/* Badges */
+.bcard-genre-tag {
+  position: absolute; top:14px; left:14px; z-index:3;
+  padding: 4px 10px; font-size: 7px; letter-spacing: 0.45em; text-transform: uppercase;
+  color: var(--obsidian); background: var(--gold); font-family: 'Jost',sans-serif; font-weight: 500;
 }
-.card:hover .card-monogram { color: rgba(255,255,255,0.25); transform: scale(1.05); }
-.card-genre-badge {
-  position: absolute; top: 16px; left: 16px; z-index: 3;
-  padding: 4px 10px;
-  font-size: 8px; letter-spacing: 0.4em; text-transform: uppercase; font-weight: 400;
-  color: var(--obsidian); background: var(--gold);
-  font-family: 'Jost', sans-serif;
-}
-.card-rating-badge {
-  position: absolute; top: 16px; right: 16px; z-index: 3;
-  display: flex; align-items: center; gap: 4px;
-  font-size: 11px; color: var(--gold-pale);
-  font-family: 'Cormorant Garamond', serif; font-weight: 300;
+.bcard-bestseller {
+  position: absolute; top:14px; right:14px; z-index:3;
+  padding: 4px 10px; font-size: 7px; letter-spacing: 0.35em; text-transform: uppercase;
+  color: var(--gold); border: 1px solid rgba(201,168,76,0.5); font-family:'Jost',sans-serif;
+  background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);
 }
 
-.card-body { padding: 24px 24px 20px; }
-.card-year-line {
-  font-size: 9px; letter-spacing: 0.4em; text-transform: uppercase;
-  color: var(--gold); margin-bottom: 10px; font-weight: 300;
+/* Card body */
+.bcard-body { padding: 22px 22px 16px; position: relative; z-index:1; }
+.bcard-year { font-size: 8px; letter-spacing: 0.45em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+.bcard-title {
+  font-family: 'Cormorant Garamond',serif; font-size: 1.45rem;
+  font-weight: 400; line-height: 1.2; color: var(--ivory);
+  margin-bottom: 4px; letter-spacing: 0.01em;
 }
-.card-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.4rem; font-weight: 400; line-height: 1.25;
-  color: var(--ivory); margin-bottom: 5px; letter-spacing: 0.01em;
-}
-.card-author {
-  font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase;
-  color: var(--silver); font-weight: 300; margin-bottom: 14px;
-}
-.card-desc {
-  font-size: 12px; line-height: 1.8; color: var(--silver); font-weight: 300;
-  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
-  letter-spacing: 0.02em;
+.bcard-author { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--silver); margin-bottom: 12px; }
+.bcard-desc {
+  font-size: 11.5px; line-height: 1.85; color: var(--silver-light); font-weight: 300;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  letter-spacing: 0.025em;
 }
 
-.card-footer {
-  padding: 16px 24px;
+/* Rating */
+.bcard-stars { display: flex; gap: 3px; margin-top: 12px; }
+.star { color: var(--gold); font-size: 11px; }
+.star.empty { color: var(--border); }
+
+/* Price & Action */
+.bcard-commerce {
+  padding: 16px 22px 22px; position: relative; z-index:1;
   border-top: 1px solid var(--border);
-  display: flex; justify-content: space-between; align-items: center;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
 }
-.card-pages { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--silver); }
-.card-view {
-  font-size: 8px; letter-spacing: 0.35em; text-transform: uppercase;
-  color: var(--gold); display: flex; align-items: center; gap: 6px;
-  opacity: 0; transform: translateX(-8px);
-  transition: opacity .35s, transform .35s;
+.bcard-price {
+  display: flex; flex-direction: column;
 }
-.card:hover .card-view { opacity: 1; transform: translateX(0); }
-.card-view::after { content: '→'; font-size: 12px; }
+.price-label { font-size: 7px; letter-spacing: 0.4em; text-transform: uppercase; color: var(--silver); margin-bottom: 4px; }
+.price-value {
+  font-family: 'Cormorant Garamond',serif; font-size: 1.6rem;
+  font-weight: 400; color: var(--gold-light); line-height: 1;
+}
+.price-original { font-size: 11px; color: var(--silver); text-decoration: line-through; margin-top: 2px; }
 
-.empty-state {
+.add-to-cart {
+  flex: 1; max-width: 160px;
+  padding: 12px 18px; font-size: 8px; letter-spacing: 0.35em; text-transform: uppercase;
+  color: var(--gold); border: 1px solid rgba(201,168,76,0.35);
+  background: none; cursor: none; font-family: 'Jost',sans-serif;
+  transition: all .35s; position: relative; overflow: hidden; font-weight: 400;
+}
+.add-to-cart::before {
+  content:''; position: absolute; inset:0;
+  background: var(--gold); transform: scaleX(0); transform-origin: left;
+  transition: transform .35s ease; z-index:0;
+}
+.add-to-cart span { position: relative; z-index:1; transition: color .35s; }
+.add-to-cart:hover span { color: var(--obsidian); }
+.add-to-cart:hover::before { transform: scaleX(1); }
+.add-to-cart.added { background: var(--gold); color: var(--obsidian); border-color: var(--gold); }
+.add-to-cart.added::before { transform: scaleX(1); }
+.add-to-cart.added span { color: var(--obsidian); }
+
+.quick-view {
+  width: 42px; height: 42px; border: 1px solid var(--border);
+  background: none; cursor: none; display: flex; align-items: center; justify-content: center;
+  transition: border-color .3s, background .3s;
+}
+.quick-view svg { width: 14px; height: 14px; stroke: var(--silver); stroke-width: 1.5; fill: none; transition: stroke .3s; }
+.quick-view:hover { border-color: rgba(201,168,76,0.4); background: var(--gold-dim); }
+.quick-view:hover svg { stroke: var(--gold); }
+
+/* Empty */
+.empty-shelf {
   grid-column: 1/-1; padding: 8rem 2rem; text-align: center;
 }
-.empty-state-glyph {
-  font-family: 'Cormorant', serif; font-size: 5rem; color: var(--border); margin-bottom: 1rem;
-}
-.empty-state-text {
-  font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-style: italic; color: var(--silver);
-}
+.empty-glyph { font-family: 'Cormorant',serif; font-size: 5rem; color: var(--border); margin-bottom: 1rem; }
+.empty-msg { font-family: 'Cormorant Garamond',serif; font-size: 1.2rem; font-style: italic; color: var(--silver); }
 
-/* ═══════════════════════════════════
-   FOOTER
-═══════════════════════════════════ */
-footer {
-  border-top: 1px solid var(--border);
-  padding: 3rem 4rem;
+/* ═══ CART DRAWER ═══ */
+.cart-overlay {
+  position: fixed; inset:0; z-index:700;
+  background: rgba(0,0,0,0.75); backdrop-filter: blur(10px);
+  display: none; justify-content: flex-end;
+}
+.cart-overlay.open { display: flex; }
+.cart-drawer {
+  width: 100%; max-width: 440px;
+  background: var(--charcoal); border-left: 1px solid rgba(201,168,76,0.15);
+  display: flex; flex-direction: column;
+  animation: drawerSlide .4s cubic-bezier(0.16,1,0.3,1);
+}
+@keyframes drawerSlide { from{transform:translateX(100%)} to{transform:translateX(0)} }
+.drawer-head {
+  padding: 2rem; border-bottom: 1px solid var(--border);
   display: flex; justify-content: space-between; align-items: center;
-  font-size: 9px; letter-spacing: 0.35em; text-transform: uppercase; color: var(--silver);
+  flex-shrink: 0;
 }
-.footer-brand {
-  font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 300;
-  letter-spacing: 0.25em; color: var(--gold-light); font-style: italic;
-}
-
-/* ═══════════════════════════════════
-   MODAL
-═══════════════════════════════════ */
-.modal-overlay {
-  display: none; position: fixed; inset: 0; z-index: 500;
-  background: rgba(0,0,0,0.85);
-  backdrop-filter: blur(12px);
-  align-items: center; justify-content: center; padding: 2rem;
-}
-.modal-overlay.open { display: flex; }
-
-.modal-panel {
-  background: var(--charcoal);
-  border: 1px solid rgba(201,168,76,0.25);
-  width: 100%; max-width: 540px; max-height: 90vh; overflow-y: auto;
-  animation: panelSlide .4s cubic-bezier(0.16,1,0.3,1);
-  position: relative;
-}
-@keyframes panelSlide {
-  from { opacity:0; transform: translateY(30px); }
-  to   { opacity:1; transform: translateY(0); }
-}
-
-.modal-header-bar {
-  padding: 2rem 2rem 0;
-  border-bottom: 1px solid var(--border);
-  display: flex; justify-content: space-between; align-items: flex-start;
-  padding-bottom: 1.5rem;
-}
-.modal-eyebrow {
-  font-size: 8px; letter-spacing: 0.5em; text-transform: uppercase;
-  color: var(--gold); font-weight: 300; margin-bottom: 8px;
-}
-.modal-heading {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.8rem; font-weight: 300; letter-spacing: 0.04em;
-}
-.modal-close {
+.drawer-title { font-family: 'Cormorant Garamond',serif; font-size: 1.5rem; font-weight: 300; letter-spacing: 0.04em; }
+.drawer-eyebrow { font-size: 8px; letter-spacing: 0.45em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+.drawer-close {
   width: 36px; height: 36px; border: 1px solid var(--border);
   background: none; color: var(--silver); cursor: none; font-size: 18px;
   display: flex; align-items: center; justify-content: center;
-  transition: border-color .3s, color .3s; flex-shrink: 0; margin-top: 4px;
+  transition: border-color .3s, color .3s;
 }
-.modal-close:hover { border-color: var(--gold); color: var(--gold); }
+.drawer-close:hover { border-color: var(--gold); color: var(--gold); }
 
-.modal-body { padding: 1.5rem 2rem 2rem; }
-.field-group { margin-bottom: 1.25rem; }
-.field-label {
-  display: block; font-size: 8px; letter-spacing: 0.4em; text-transform: uppercase;
-  color: var(--gold); margin-bottom: 8px; font-weight: 300;
-}
-.field-input, .field-select, .field-textarea {
-  width: 100%; padding: 12px 14px;
-  background: var(--graphite); border: 1px solid var(--border);
-  color: var(--cream); font-family: 'Jost',sans-serif; font-size: 13px;
-  font-weight: 300; outline: none; letter-spacing: 0.04em;
-  transition: border-color .3s, background .3s;
-}
-.field-input:focus, .field-select:focus, .field-textarea:focus {
-  border-color: rgba(201,168,76,0.5); background: var(--muted);
-}
-.field-input::placeholder, .field-textarea::placeholder { color: var(--silver); font-size: 11px; letter-spacing: 0.1em; }
-.field-textarea { resize: vertical; min-height: 90px; line-height: 1.8; }
-.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.field-select option { background: var(--charcoal); }
+.cart-items { flex: 1; overflow-y: auto; padding: 1.5rem 2rem; }
+.cart-empty-msg { text-align: center; padding: 4rem 1rem; }
+.cart-empty-msg .ce-glyph { font-family: 'Cormorant',serif; font-size: 4rem; color: var(--border); }
+.cart-empty-msg p { font-family: 'Cormorant Garamond',serif; font-style: italic; color: var(--silver); margin-top: 0.75rem; font-size: 1rem; }
 
-.form-error {
-  font-size: 11px; color: #c0392b; letter-spacing: 0.1em;
-  display: none; margin-top: 1rem;
-  padding: 10px 14px; border: 1px solid rgba(192,57,43,0.3);
-  background: rgba(192,57,43,0.06);
+.cart-item {
+  display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--border);
+  align-items: flex-start;
 }
+.ci-cover {
+  width: 52px; height: 68px; flex-shrink:0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Cormorant',serif; font-size: 1.1rem; font-weight: 800;
+  color: rgba(255,255,255,0.5); font-size: 1.3rem;
+}
+.ci-info { flex: 1; }
+.ci-title { font-family: 'Cormorant Garamond',serif; font-size: 1rem; font-weight: 400; color: var(--ivory); line-height: 1.2; margin-bottom: 3px; }
+.ci-author { font-size: 8px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--silver); margin-bottom: 10px; }
+.ci-qty-row { display: flex; align-items: center; gap: 10px; }
+.ci-qty-btn {
+  width: 26px; height: 26px; border: 1px solid var(--border);
+  background: none; color: var(--silver); cursor: none; font-size: 14px;
+  display: flex; align-items: center; justify-content: center;
+  transition: border-color .25s, color .25s;
+}
+.ci-qty-btn:hover { border-color: var(--gold); color: var(--gold); }
+.ci-qty-val { font-size: 13px; font-weight: 400; min-width: 20px; text-align: center; }
+.ci-price { font-family: 'Cormorant Garamond',serif; font-size: 1.15rem; color: var(--gold-light); white-space: nowrap; }
+.ci-remove { background: none; border: none; color: var(--silver); cursor: none; font-size: 16px; padding: 2px; transition: color .25s; }
+.ci-remove:hover { color: #c0392b; }
 
-.modal-actions {
-  display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap;
-  padding-top: 1.25rem; border-top: 1px solid var(--border);
+.drawer-footer { padding: 1.5rem 2rem; border-top: 1px solid var(--border); flex-shrink:0; }
+.cart-summary { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1rem; }
+.cs-label { font-size: 9px; letter-spacing: 0.4em; text-transform: uppercase; color: var(--silver); }
+.cs-total { font-family: 'Cormorant Garamond',serif; font-size: 1.8rem; font-weight: 300; color: var(--gold-light); }
+.checkout-btn {
+  width: 100%; padding: 15px 24px;
+  font-size: 9px; letter-spacing: 0.45em; text-transform: uppercase;
+  background: var(--gold); color: var(--obsidian); border: 1px solid var(--gold);
+  cursor: none; font-family: 'Jost',sans-serif; font-weight: 600;
+  transition: all .35s; box-shadow: 0 0 40px rgba(201,168,76,0.2);
+  display: flex; align-items: center; justify-content: center; gap: 12px;
 }
-.m-btn {
-  padding: 12px 24px; font-size: 9px; letter-spacing: 0.35em; text-transform: uppercase;
-  font-family: 'Jost',sans-serif; font-weight: 400; cursor: none;
-  border: 1px solid var(--border); background: none; color: var(--silver);
-  transition: all .3s;
-}
-.m-btn:hover { border-color: var(--silver); color: var(--cream); }
-.m-btn.primary {
-  background: var(--gold); color: var(--obsidian); border-color: var(--gold); font-weight: 500;
-  box-shadow: 0 0 30px rgba(201,168,76,0.25);
-}
-.m-btn.primary:hover { background: var(--gold-light); box-shadow: 0 0 40px rgba(201,168,76,0.4); }
-.m-btn.danger { color: #c0392b; border-color: rgba(192,57,43,0.3); }
-.m-btn.danger:hover { background: rgba(192,57,43,0.08); border-color: #c0392b; }
+.checkout-btn:hover { background: var(--gold-light); box-shadow: 0 0 60px rgba(201,168,76,0.35); }
+.checkout-btn svg { width: 12px; height: 12px; stroke: currentColor; fill:none; stroke-width:2; }
 
-/* ═══════════════════════════════════
-   DETAIL MODAL
-═══════════════════════════════════ */
-.detail-hero-band {
-  height: 180px; position: relative; overflow: hidden;
+/* ═══ BOOK DETAIL MODAL ═══ */
+.modal-overlay {
+  display: none; position: fixed; inset:0; z-index:600;
+  background: rgba(0,0,0,0.88); backdrop-filter: blur(16px);
+  align-items: center; justify-content: center; padding: 2rem;
+}
+.modal-overlay.open { display: flex; }
+.modal-panel {
+  background: var(--charcoal); border: 1px solid rgba(201,168,76,0.2);
+  width: 100%; max-width: 680px; max-height: 90vh; overflow-y: auto;
+  animation: panelUp .4s cubic-bezier(0.16,1,0.3,1);
+}
+@keyframes panelUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+
+.modal-hero {
+  height: 220px; position: relative; overflow: hidden;
   display: flex; align-items: flex-end; padding: 1.5rem 2rem;
 }
-.detail-hero-band-bg {
-  position: absolute; inset: 0;
+.modal-hero-bg { position: absolute; inset:0; }
+.modal-hero-shade {
+  position: absolute; inset:0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.8) 100%);
 }
-.detail-hero-band-overlay {
-  position: absolute; inset: 0;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.75) 100%);
+.modal-hero-glyph {
+  position: absolute; inset:0; display:flex; align-items:center; justify-content:center;
+  font-family:'Cormorant',serif; font-size:8rem; font-weight:800;
+  color:rgba(255,255,255,0.07); letter-spacing:-0.04em; user-select:none;
 }
-.detail-hero-band-text { position: relative; z-index: 1; }
-.detail-hero-band-text h2 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 2rem; font-weight: 300; line-height: 1.1; color: #fff; letter-spacing: 0.03em;
+.modal-hero-text { position: relative; z-index:2; }
+.modal-hero-text h2 {
+  font-family: 'Cormorant Garamond',serif; font-size: 2.2rem; font-weight: 300;
+  color: #fff; line-height: 1.1; letter-spacing: 0.03em;
 }
-.detail-hero-band-text p { font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-top: 6px; }
-.detail-body-inner { padding: 1.5rem 2rem 2rem; }
-.detail-desc-text {
-  font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-weight: 300;
-  line-height: 1.9; color: rgba(248,244,237,0.7); margin-bottom: 1.5rem; font-style: italic;
-}
-.detail-meta-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--border); margin-bottom: 1.5rem; }
-.detail-meta-cell { background: var(--graphite); padding: 16px; }
-.detail-meta-cell .dmk { font-size: 8px; letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
-.detail-meta-cell .dmv { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 300; color: var(--ivory); }
+.modal-hero-text p { font-size: 9px; letter-spacing: 0.35em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-top: 8px; }
 
-/* ═══════════════════════════════════
-   ANIMATIONS
-═══════════════════════════════════ */
-@keyframes reveal {
-  from { opacity: 0; transform: translateY(16px); }
-  to   { opacity: 1; transform: translateY(0); }
+.modal-body { padding: 1.75rem 2rem 2rem; }
+.modal-desc {
+  font-family: 'Cormorant Garamond',serif; font-size: 1.05rem; font-weight: 300;
+  font-style: italic; line-height: 1.95; color: rgba(248,244,237,0.65);
+  margin-bottom: 1.5rem; border-left: 2px solid rgba(201,168,76,0.3);
+  padding-left: 1.25rem;
 }
+.modal-meta { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: var(--border); margin-bottom: 1.5rem; }
+.mm-cell { background: var(--graphite); padding: 14px 16px; }
+.mm-lbl { font-size: 7px; letter-spacing: 0.45em; text-transform: uppercase; color: var(--gold); margin-bottom: 5px; }
+.mm-val { font-family: 'Cormorant Garamond',serif; font-size: 1.25rem; font-weight: 300; color: var(--ivory); }
 
-/* ═══════════════════════════════════
-   SCROLLBAR
-═══════════════════════════════════ */
+.modal-purchase {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.5rem; background: var(--graphite); border: 1px solid var(--border);
+  margin-bottom: 1rem;
+}
+.modal-price-block .mp-lbl { font-size: 8px; letter-spacing: 0.4em; text-transform: uppercase; color: var(--silver); margin-bottom: 6px; }
+.modal-price-block .mp-val { font-family: 'Cormorant Garamond',serif; font-size: 2rem; color: var(--gold-light); font-weight: 300; }
+.modal-price-block .mp-orig { font-size: 12px; color: var(--silver); text-decoration: line-through; }
+.modal-cart-btn {
+  padding: 14px 30px; font-size: 8px; letter-spacing: 0.45em; text-transform: uppercase;
+  background: var(--gold); color: var(--obsidian); border: 1px solid var(--gold);
+  cursor: none; font-family: 'Jost',sans-serif; font-weight: 600;
+  transition: all .35s; box-shadow: 0 0 30px rgba(201,168,76,0.2);
+}
+.modal-cart-btn:hover { background: var(--gold-light); }
+.modal-cart-btn.added { background: transparent; color: var(--gold); }
+
+.modal-actions { display:flex; justify-content:flex-end; margin-top: 1rem; }
+.m-close-btn {
+  padding: 11px 24px; font-size: 8px; letter-spacing: 0.4em; text-transform: uppercase;
+  border: 1px solid var(--border); background: none; color: var(--silver);
+  cursor: none; font-family: 'Jost',sans-serif; transition: all .3s;
+}
+.m-close-btn:hover { border-color: var(--silver); color: var(--cream); }
+
+/* ═══ ORDER CONFIRM TOAST ═══ */
+.toast {
+  position: fixed; bottom: 2.5rem; right: 2.5rem; z-index:9000;
+  background: var(--charcoal); border: 1px solid rgba(201,168,76,0.3);
+  padding: 1rem 1.5rem; min-width: 280px;
+  transform: translateY(100px); opacity:0;
+  transition: transform .45s cubic-bezier(0.16,1,0.3,1), opacity .45s;
+  display: flex; align-items: center; gap: 14px;
+}
+.toast.show { transform: translateY(0); opacity:1; }
+.toast-dot { width: 8px; height: 8px; background: var(--gold); border-radius:50%; flex-shrink:0; }
+.toast-msg { font-size: 10px; letter-spacing: 0.15em; color: var(--cream); }
+.toast-price { font-family:'Cormorant Garamond',serif; font-size:1.1rem; color: var(--gold-light); margin-left: auto; }
+
+/* ═══ FOOTER ═══ */
+footer {
+  border-top: 1px solid var(--border); padding: 3rem 4rem;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.footer-brand { font-family:'Cormorant Garamond',serif; font-size:1.1rem; font-weight:300; letter-spacing:.22em; color:var(--gold-light); font-style:italic; }
+.footer-copy { font-size:8px; letter-spacing:.4em; text-transform:uppercase; color:var(--silver); }
+.footer-links { display:flex; gap:2rem; }
+.footer-links a { font-size:8px; letter-spacing:.35em; text-transform:uppercase; color:var(--silver); text-decoration:none; cursor:none; transition:color .3s; }
+.footer-links a:hover { color:var(--gold); }
+
+/* ═══ ANIMATIONS ═══ */
+@keyframes rise { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
+
+/* ═══ SCROLLBAR ═══ */
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: var(--obsidian); }
 ::-webkit-scrollbar-thumb { background: var(--border); }
 ::-webkit-scrollbar-thumb:hover { background: rgba(201,168,76,0.4); }
 
-/* ═══════════════════════════════════
-   RESPONSIVE
-═══════════════════════════════════ */
-@media (max-width: 768px) {
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:768px){
   nav { padding: 0 1.5rem; }
   .nav-center { display: none; }
-  .hero { padding: 80px 1.5rem 0; }
-  .hero-stats { gap: 2.5rem; }
-  .catalog { padding: 4rem 1.5rem 6rem; }
-  .controls { grid-template-columns: 1fr; }
-  footer { padding: 2rem 1.5rem; flex-direction: column; gap: 1rem; text-align: center; }
+  .hero { padding: 76px 1.5rem 0; }
+  .hero-numbers { gap: 2rem; }
+  .store { padding: 4rem 1.5rem 6rem; }
+  .controls-row { grid-template-columns: 1fr; }
   .book-grid { grid-template-columns: 1fr; }
-  .field-row { grid-template-columns: 1fr; }
-  .detail-meta-grid { grid-template-columns: 1fr 1fr; }
+  footer { flex-direction:column; gap:1.5rem; text-align:center; padding: 2rem 1.5rem; }
+  .footer-links { justify-content:center; }
+  .modal-meta { grid-template-columns: 1fr 1fr; }
 }
 </style>
 </head>
 <body>
 
-<!-- Custom Cursor -->
-<div class="cursor"><div class="cursor-dot"></div></div>
-<div class="cursor-ring"></div>
+<!-- CURSOR -->
+<div class="cursor-dot" id="cdot"></div>
+<div class="cursor-ring" id="cring"></div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <div class="toast-dot"></div>
+  <div class="toast-msg" id="toast-msg">Added to your collection</div>
+  <div class="toast-price" id="toast-price"></div>
+</div>
 
 <!-- NAV -->
 <nav>
   <div class="nav-wordmark">Bibliothèque</div>
   <div class="nav-center">
     <div class="nav-emblem">✦</div>
-    <div class="nav-title">The Private Collection</div>
+    <div class="nav-brand">The Private Bookstore</div>
   </div>
-  <button class="nav-add" onclick="openAddModal()">
-    <svg class="plus-icon" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg>
-    Catalogue a Volume
-  </button>
+  <div class="nav-right">
+    <button class="nav-link" onclick="scrollToStore()">The Collection</button>
+    <button class="cart-btn" onclick="openCart()">
+      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      Your Collection
+      <span class="cart-count" id="cart-count">0</span>
+    </button>
+  </div>
 </nav>
 
 <!-- HERO -->
-<section class="hero">
-  <div class="hero-bg"></div>
-  <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;padding-bottom:6rem;">
-    <div class="hero-eyebrow">Est. MMXXIV &nbsp;·&nbsp; The Art of the Written Word</div>
-    <h1 class="hero-headline">
-      The Collected
-      <span class="line2">Works</span>
+<section class="hero" id="hero">
+  <div class="hero-atmosphere"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Est. MMXXIV &nbsp;·&nbsp; The Art of the Written Word</div>
+    <h1 class="hero-title">
+      Acquire the<br>
+      <em>Extraordinary</em>
     </h1>
-    <p class="hero-sub">A curated index of extraordinary literature, catalogued with the precision of a master librarian</p>
-    <div class="hero-divider">
-      <span></span>
-      <em>✦</em>
-      <span></span>
-    </div>
-    <div class="hero-stats" id="hero-stats">
-      <div class="hero-stat">
-        <div class="hero-stat-num" id="stat-books">0</div>
-        <div class="hero-stat-label">Volumes</div>
-      </div>
-      <div class="stat-vline"></div>
-      <div class="hero-stat">
-        <div class="hero-stat-num" id="stat-genres">0</div>
-        <div class="hero-stat-label">Genres</div>
-      </div>
-      <div class="stat-vline"></div>
-      <div class="hero-stat">
-        <div class="hero-stat-num" id="stat-rating">—</div>
-        <div class="hero-stat-label">Avg Rating</div>
-      </div>
-      <div class="stat-vline"></div>
-      <div class="hero-stat">
-        <div class="hero-stat-num" id="stat-pages">0</div>
-        <div class="hero-stat-label">Pages</div>
-      </div>
+    <p class="hero-sub">A curated selection of exceptional literature, presented for the discerning collector</p>
+    <button class="hero-cta" onclick="scrollToStore()">
+      Explore the Collection
+      <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </button>
+    <div class="hero-numbers">
+      <div class="hero-num"><div class="hero-num-val" id="hn-volumes">0</div><div class="hero-num-lbl">Volumes</div></div>
+      <div class="hero-vbar"></div>
+      <div class="hero-num"><div class="hero-num-val" id="hn-genres">0</div><div class="hero-num-lbl">Genres</div></div>
+      <div class="hero-vbar"></div>
+      <div class="hero-num"><div class="hero-num-val" id="hn-rating">—</div><div class="hero-num-lbl">Avg. Rating</div></div>
+      <div class="hero-vbar"></div>
+      <div class="hero-num"><div class="hero-num-val" id="hn-saved">0</div><div class="hero-num-lbl">In Cart</div></div>
     </div>
   </div>
-  <div class="scroll-hint">
-    <div class="scroll-line"></div>
-    Discover the Collection
+  <div class="scroll-cue">
+    <div class="scroll-bar"></div>
+    Scroll to Browse
   </div>
 </section>
 
-<!-- CATALOG -->
-<section class="catalog">
-  <div class="section-header">
-    <div class="section-title">The <span>Catalogue</span></div>
-    <div class="section-count" id="section-count">— Volumes</div>
+<!-- STORE -->
+<section class="store" id="store">
+  <div class="store-header">
+    <div>
+      <div style="font-size:9px;letter-spacing:.45em;text-transform:uppercase;color:var(--gold);margin-bottom:8px">The Catalogue</div>
+      <div class="store-title">Curated <span>Volumes</span></div>
+    </div>
+    <div class="store-meta" id="store-meta">— Volumes Available</div>
   </div>
 
-  <div class="controls">
-    <div class="search-field">
+  <div class="controls-row">
+    <div class="search-wrap">
       <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
       <input type="text" id="search" placeholder="Search by title, author, or ISBN" oninput="renderBooks()">
     </div>
-    <select class="sort-select" id="sort" onchange="renderBooks()">
+    <select class="ctrl-select" id="sort" onchange="renderBooks()">
       <option value="title">Sort: A → Z</option>
-      <option value="author">Sort: Author</option>
-      <option value="year">Sort: Year</option>
-      <option value="rating">Sort: Rating</option>
+      <option value="price-asc">Sort: Price Asc</option>
+      <option value="price-desc">Sort: Price Desc</option>
+      <option value="rating">Sort: Top Rated</option>
+      <option value="year">Sort: Newest</option>
     </select>
   </div>
 
-  <div class="genre-bar" id="genre-bar"></div>
+  <div class="genre-strip" id="genre-strip"></div>
   <div class="book-grid" id="book-grid"></div>
 </section>
 
 <!-- FOOTER -->
 <footer>
   <div class="footer-brand">Bibliothèque</div>
-  <div>The Private Collection &nbsp;·&nbsp; All Volumes Reserved</div>
-  <div id="footer-year"></div>
+  <div class="footer-copy">© MMXXV — All Rights Reserved</div>
+  <div class="footer-links">
+    <a href="#">Privacy</a>
+    <a href="#">Returns</a>
+    <a href="#">Contact</a>
+  </div>
 </footer>
 
-<!-- ADD / EDIT MODAL -->
+<!-- BOOK DETAIL MODAL -->
 <div class="modal-overlay" id="modal-overlay" onclick="if(event.target===this)closeModal()">
-  <div class="modal-panel">
-    <div class="modal-header-bar">
+  <div class="modal-panel" id="modal-panel"></div>
+</div>
+
+<!-- CART DRAWER -->
+<div class="cart-overlay" id="cart-overlay" onclick="if(event.target===this)closeCart()">
+  <div class="cart-drawer">
+    <div class="drawer-head">
       <div>
-        <div class="modal-eyebrow" id="modal-eyebrow">New Acquisition</div>
-        <div class="modal-heading" id="modal-heading">Catalogue a Volume</div>
+        <div class="drawer-eyebrow">Your Selection</div>
+        <div class="drawer-title">The Collection</div>
       </div>
-      <button class="modal-close" onclick="closeModal()">✕</button>
+      <button class="drawer-close" onclick="closeCart()">✕</button>
     </div>
-    <div class="modal-body">
-      <div class="field-row">
-        <div class="field-group"><label class="field-label">Title *</label><input class="field-input" id="f-title" placeholder="Enter the full title"></div>
-        <div class="field-group"><label class="field-label">Author *</label><input class="field-input" id="f-author" placeholder="Author name"></div>
+    <div class="cart-items" id="cart-items"></div>
+    <div class="drawer-footer">
+      <div class="cart-summary">
+        <div class="cs-label">Total Investment</div>
+        <div class="cs-total" id="cart-total">$0.00</div>
       </div>
-      <div class="field-row">
-        <div class="field-group">
-          <label class="field-label">Genre</label>
-          <select class="field-select" id="f-genre">
-            <option>Fiction</option><option>Non-Fiction</option><option>Sci-Fi</option>
-            <option>Fantasy</option><option>Mystery</option><option>Biography</option>
-            <option>History</option><option>Self-Help</option><option>Romance</option>
-            <option>Philosophy</option><option>Poetry</option><option>Other</option>
-          </select>
-        </div>
-        <div class="field-group"><label class="field-label">Year of Publication</label><input class="field-input" id="f-year" type="number" placeholder="e.g. 2024" min="1000" max="2099"></div>
-      </div>
-      <div class="field-row">
-        <div class="field-group"><label class="field-label">ISBN</label><input class="field-input" id="f-isbn" placeholder="978-…"></div>
-        <div class="field-group"><label class="field-label">Rating (1–5)</label><input class="field-input" id="f-rating" type="number" min="1" max="5" step="0.1" placeholder="e.g. 4.8"></div>
-      </div>
-      <div class="field-group"><label class="field-label">Number of Pages</label><input class="field-input" id="f-pages" type="number" placeholder="e.g. 480" min="1"></div>
-      <div class="field-group"><label class="field-label">Synopsis</label><textarea class="field-textarea" id="f-desc" placeholder="A brief description of the work…"></textarea></div>
-      <div class="form-error" id="form-error"></div>
-      <div class="modal-actions">
-        <button class="m-btn" onclick="closeModal()">Dismiss</button>
-        <button class="m-btn danger" id="delete-btn" style="display:none" onclick="deleteBook()">Remove Volume</button>
-        <button class="m-btn primary" onclick="submitForm()">Record Entry</button>
-      </div>
+      <button class="checkout-btn" onclick="checkout()">
+        Proceed to Acquisition
+        <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </button>
     </div>
   </div>
 </div>
 
-<!-- DETAIL MODAL -->
-<div class="modal-overlay" id="detail-overlay" onclick="if(event.target===this)closeDetail()">
-  <div class="modal-panel" id="detail-panel" style="max-width:580px"></div>
-</div>
-
 <script>
 /* ── Cursor ── */
-const dot = document.querySelector('.cursor-dot');
-const ring = document.querySelector('.cursor-ring');
+const cdot = document.getElementById('cdot');
+const cring = document.getElementById('cring');
 document.addEventListener('mousemove', e => {
-  dot.style.left = e.clientX + 'px'; dot.style.top = e.clientY + 'px';
-  ring.style.left = e.clientX + 'px'; ring.style.top = e.clientY + 'px';
+  cdot.style.left = e.clientX + 'px'; cdot.style.top = e.clientY + 'px';
+  cring.style.left = e.clientX + 'px'; cring.style.top = e.clientY + 'px';
+});
+document.addEventListener('mouseover', e => {
+  if (e.target.closest('button,a,.bcard,.gpill')) cring.classList.add('large');
+  else cring.classList.remove('large');
 });
 
 /* ── Palettes ── */
 const PALETTES = [
-  {from:'#1a2a1a',to:'#2d4a2d',accent:'#52b788',badge:'#52b788'},
-  {from:'#1a1a2e',to:'#2d2d4a',accent:'#a29bfe',badge:'#a29bfe'},
-  {from:'#2a1a0e',to:'#4a2d1a',accent:'#e9a646',badge:'#e9a646'},
-  {from:'#1a2a2a',to:'#1a3a3a',accent:'#48cae4',badge:'#48cae4'},
-  {from:'#2a1a1a',to:'#4a1a1a',accent:'#e85d4a',badge:'#e85d4a'},
-  {from:'#1a1a1a',to:'#2a2a2a',accent:'#c9a84c',badge:'#c9a84c'},
-  {from:'#1a0a2a',to:'#2a1a3a',accent:'#c77dff',badge:'#c77dff'},
-  {from:'#0a1a2a',to:'#1a2a3a',accent:'#219ebc',badge:'#219ebc'},
-  {from:'#2a1a0a',to:'#3a2a1a',accent:'#f4a261',badge:'#f4a261'},
+  {from:'#0f1f0f',to:'#1a3320'},
+  {from:'#0f0f2a',to:'#1a1a3a'},
+  {from:'#1f130a',to:'#321e0f'},
+  {from:'#0a1520',to:'#102030'},
+  {from:'#1f0a0a',to:'#320f0f'},
+  {from:'#0f0f0f',to:'#1e1e1e'},
+  {from:'#150a22',to:'#220f38'},
+  {from:'#0a160f',to:'#0f2218'},
+  {from:'#1f1508',to:'#30200f'},
 ];
 const genreColorMap = {};
-const GENRE_ORDER = ['Fiction','Non-Fiction','Sci-Fi','Fantasy','Mystery','Biography','History','Self-Help','Romance','Philosophy','Poetry','Other'];
-GENRE_ORDER.forEach((g,i) => { genreColorMap[g] = PALETTES[i % PALETTES.length]; });
-function paletteFor(g) {
-  if (!genreColorMap[g]) genreColorMap[g] = PALETTES[Object.keys(genreColorMap).length % PALETTES.length];
-  return genreColorMap[g];
-}
+['Fiction','Non-Fiction','Sci-Fi','Fantasy','Mystery','Biography','History','Self-Help','Romance','Philosophy'].forEach((g,i) => genreColorMap[g]=PALETTES[i%PALETTES.length]);
+function pal(g) { if(!genreColorMap[g]) genreColorMap[g]=PALETTES[Object.keys(genreColorMap).length%PALETTES.length]; return genreColorMap[g]; }
 
-/* ── Data ── */
-let books = [
-  {id:1,title:'The Midnight Library',author:'Matt Haig',genre:'Fiction',year:2020,isbn:'978-0525559474',rating:4.5,pages:304,desc:'Between life and death there is a library, and within that library, the shelves go on forever. Every book provides a chance to try another life you could have lived.'},
-  {id:2,title:'Dune',author:'Frank Herbert',genre:'Sci-Fi',year:1965,isbn:'978-0441013593',rating:4.8,pages:688,desc:'Set on the desert planet Arrakis, Dune is the story of the boy Paul Atreides — an epic of politics, religion, ecology and power.'},
-  {id:3,title:'Sapiens',author:'Yuval Noah Harari',genre:'History',year:2011,isbn:'978-0062316097',rating:4.4,pages:443,desc:'A provocative and sweeping brief history of humankind — from the Stone Age to the twenty-first century.'},
-  {id:4,title:'The Name of the Wind',author:'Patrick Rothfuss',genre:'Fantasy',year:2007,isbn:'978-0756404741',rating:4.7,pages:662,desc:'The riveting first-person narrative of a young man who grows to be the most notorious magician his world has ever seen.'},
-  {id:5,title:'Gone Girl',author:'Gillian Flynn',genre:'Mystery',year:2012,isbn:'978-0307588371',rating:4.1,pages:422,desc:'On their fifth wedding anniversary, Nick Dunne\'s wife Amy suddenly disappears. A chilling tale of marriage, deception and obsession.'},
-  {id:6,title:'Atomic Habits',author:'James Clear',genre:'Self-Help',year:2018,isbn:'978-0735211292',rating:4.6,pages:320,desc:'A supremely practical and useful book. James Clear distills the most fundamental information about habit formation.'},
-  {id:7,title:'Steve Jobs',author:'Walter Isaacson',genre:'Biography',year:2011,isbn:'978-1451648539',rating:4.0,pages:630,desc:'Based on more than forty interviews with Jobs conducted over two years, this is the definitive portrait of the greatest innovator of his age.'},
-  {id:8,title:'Educated',author:'Tara Westover',genre:'Non-Fiction',year:2018,isbn:'978-0399590504',rating:4.3,pages:334,desc:'An account of a young girl who, kept out of school, leaves her survivalist family and goes on to earn a PhD from Cambridge University.'},
-  {id:9,title:'Meditations',author:'Marcus Aurelius',genre:'Philosophy',year:180,isbn:'978-0140449334',rating:4.9,pages:256,desc:'The private thoughts of the world\'s most powerful man counselling himself on how to make good on the responsibilities and obligations of his position.'},
+/* ── Books ── */
+const BOOKS = [
+  {id:1,title:'The Midnight Library',author:'Matt Haig',genre:'Fiction',year:2020,isbn:'978-0525559474',rating:4.5,pages:304,price:24.99,originalPrice:32.00,bestseller:true,desc:'Between life and death there is a library, and within that library the shelves go on forever. Every book provides a chance to try another life you could have lived.'},
+  {id:2,title:'Dune',author:'Frank Herbert',genre:'Sci-Fi',year:1965,isbn:'978-0441013593',rating:4.8,pages:688,price:19.99,originalPrice:null,bestseller:true,desc:'Set on the desert planet Arrakis, Dune is the story of the boy Paul Atreides — an epic of politics, religion, ecology and power that stands as one of the greatest novels ever written.'},
+  {id:3,title:'Sapiens',author:'Yuval Noah Harari',genre:'History',year:2011,isbn:'978-0062316097',rating:4.4,pages:443,price:21.99,originalPrice:28.00,bestseller:false,desc:'A provocative and sweeping brief history of humankind — from the Stone Age to the twenty-first century.'},
+  {id:4,title:'The Name of the Wind',author:'Patrick Rothfuss',genre:'Fantasy',year:2007,isbn:'978-0756404741',rating:4.7,pages:662,price:17.99,originalPrice:null,bestseller:true,desc:'The riveting first-person narrative of a young man who grows to be the most notorious magician his world has ever seen.'},
+  {id:5,title:'Gone Girl',author:'Gillian Flynn',genre:'Mystery',year:2012,isbn:'978-0307588371',rating:4.1,pages:422,price:15.99,originalPrice:22.00,bestseller:false,desc:'On their fifth wedding anniversary, Nick Dunne\'s wife Amy suddenly disappears. Under increasing pressure from the police and a growing media frenzy, Nick\'s portrait of a blissful union begins to crumble.'},
+  {id:6,title:'Atomic Habits',author:'James Clear',genre:'Self-Help',year:2018,isbn:'978-0735211292',rating:4.6,pages:320,price:18.99,originalPrice:null,bestseller:true,desc:'A supremely practical and useful book. James Clear distills the most fundamental information about habit formation, helping readers build good habits and break bad ones.'},
+  {id:7,title:'Steve Jobs',author:'Walter Isaacson',genre:'Biography',year:2011,isbn:'978-1451648539',rating:4.0,pages:630,price:22.99,originalPrice:30.00,bestseller:false,desc:'Based on more than forty interviews with Jobs, this is the definitive portrait of the greatest innovator of his age.'},
+  {id:8,title:'Educated',author:'Tara Westover',genre:'Non-Fiction',year:2018,isbn:'978-0399590504',rating:4.3,pages:334,price:16.99,originalPrice:null,bestseller:false,desc:'An account of the struggle for self-invention. It is a tale of fierce family loyalty and the grief that comes from severing the closest of ties.'},
+  {id:9,title:'Meditations',author:'Marcus Aurelius',genre:'Philosophy',year:180,isbn:'978-0140449334',rating:4.9,pages:256,price:12.99,originalPrice:null,bestseller:true,desc:'The private thoughts of the world\'s most powerful man counselling himself on how to make good on the responsibilities and obligations of his position.'},
+  {id:10,title:'The Great Gatsby',author:'F. Scott Fitzgerald',genre:'Fiction',year:1925,isbn:'978-0743273565',rating:4.2,pages:180,price:11.99,originalPrice:16.00,bestseller:false,desc:'Set in the Jazz Age on Long Island, the novel depicts narrator Nick Carraway\'s interactions with mysterious millionaire Jay Gatsby.'},
+  {id:11,title:'Project Hail Mary',author:'Andy Weir',genre:'Sci-Fi',year:2021,isbn:'978-0593135204',rating:4.8,pages:476,price:23.99,originalPrice:null,bestseller:true,desc:'A lone astronaut must save the earth from disaster in this propulsive and wildly entertaining novel from the author of The Martian.'},
+  {id:12,title:'The Girl with the Dragon Tattoo',author:'Stieg Larsson',genre:'Mystery',year:2005,isbn:'978-0307949486',rating:4.3,pages:672,price:17.99,originalPrice:24.00,bestseller:false,desc:'A financial journalist is hired to investigate the disappearance of a wealthy Swedish industrialist\'s grand-niece, aided by a brilliant but troubled hacker.'},
 ];
-let nextId = 10, activeGenre = 'All', editId = null;
 
-/* ── Render genres ── */
+let activeGenre = 'All';
+const cart = {};
+
+/* ── Genre ── */
 function allGenres() {
-  return ['All', ...new Set(books.map(b => b.genre))].sort((a,b) => a==='All'?-1:b==='All'?1:a.localeCompare(b));
+  return ['All',...new Set(BOOKS.map(b=>b.genre))].sort((a,b)=>a==='All'?-1:b==='All'?1:a.localeCompare(b));
 }
 function renderGenres() {
-  document.getElementById('genre-bar').innerHTML = allGenres().map(g =>
-    `<button class="genre-pill${activeGenre===g?' active':''}" onclick="setGenre('${g}')"><span>${g}</span></button>`
+  document.getElementById('genre-strip').innerHTML = allGenres().map(g=>
+    `<button class="gpill${activeGenre===g?' active':''}" onclick="setGenre('${g}')"><span>${g}</span></button>`
   ).join('');
 }
-function setGenre(g) { activeGenre = g; renderBooks(); renderGenres(); }
+function setGenre(g){activeGenre=g;renderBooks();renderGenres();}
 
-/* ── Render books ── */
+/* ── Stars ── */
+function stars(rating) {
+  if(!rating) return '';
+  const full = Math.floor(rating);
+  let s = '';
+  for(let i=1;i<=5;i++) s+=`<span class="star${i>full?' empty':''}">✦</span>`;
+  return `<div class="bcard-stars">${s}</div>`;
+}
+
+/* ── Render Books ── */
 function renderBooks() {
   const q = document.getElementById('search').value.toLowerCase();
   const sort = document.getElementById('sort').value;
-  let list = books.filter(b => {
-    const mg = activeGenre === 'All' || b.genre === activeGenre;
-    const mq = !q || b.title.toLowerCase().includes(q) || b.author.toLowerCase().includes(q) || (b.isbn||'').includes(q);
-    return mg && mq;
+  let list = BOOKS.filter(b=>{
+    const mg = activeGenre==='All'||b.genre===activeGenre;
+    const mq = !q||b.title.toLowerCase().includes(q)||b.author.toLowerCase().includes(q)||(b.isbn||'').includes(q);
+    return mg&&mq;
   });
-  list.sort((a,b) => {
-    if (sort==='title') return a.title.localeCompare(b.title);
-    if (sort==='author') return a.author.localeCompare(b.author);
-    if (sort==='year') return b.year - a.year;
-    if (sort==='rating') return (b.rating||0) - (a.rating||0);
+  list.sort((a,b)=>{
+    if(sort==='title') return a.title.localeCompare(b.title);
+    if(sort==='price-asc') return a.price-b.price;
+    if(sort==='price-desc') return b.price-a.price;
+    if(sort==='rating') return (b.rating||0)-(a.rating||0);
+    if(sort==='year') return b.year-a.year;
   });
 
-  document.getElementById('section-count').textContent = list.length + ' Volume' + (list.length !== 1 ? 's' : '');
+  document.getElementById('store-meta').textContent = list.length + ' Volume' + (list.length!==1?'s':'') + ' Available';
 
   const grid = document.getElementById('book-grid');
-  if (!list.length) {
-    grid.innerHTML = `<div class="empty-state"><div class="empty-state-glyph">𝔅</div><div class="empty-state-text">No volumes found in this collection.</div></div>`;
-    updateStats(); return;
+  if(!list.length){
+    grid.innerHTML=`<div class="empty-shelf"><div class="empty-glyph">𝔅</div><div class="empty-msg">No volumes found in this collection.</div></div>`;
+    updateHeroStats(); return;
   }
 
-  grid.innerHTML = list.map((b, i) => {
-    const p = paletteFor(b.genre);
+  grid.innerHTML = list.map((b,i)=>{
+    const p = pal(b.genre);
     const initials = b.title.split(' ').slice(0,2).map(w=>w[0]).join('').toUpperCase();
-    return `<div class="card" style="animation-delay:${Math.min(i*60,600)}ms" onclick="openDetail(${b.id})">
-      <div class="card-crest">
-        <div class="card-crest-bg" style="background:linear-gradient(160deg,${p.from},${p.to})"></div>
-        <div class="card-crest-overlay"></div>
-        <div class="card-monogram">${initials}</div>
-        <div class="card-genre-badge">${b.genre}</div>
-        ${b.rating ? `<div class="card-rating-badge">✦ ${b.rating}</div>` : ''}
+    const inCart = !!cart[b.id];
+    return `<div class="bcard" style="animation-delay:${Math.min(i*55,550)}ms">
+      <div class="bcard-banner">
+        <div class="bcard-banner-bg" style="background:linear-gradient(150deg,${p.from},${p.to})"></div>
+        <div class="bcard-banner-shade"></div>
+        <div class="bcard-monogram">${initials}</div>
+        <div class="bcard-genre-tag">${b.genre}</div>
+        ${b.bestseller?'<div class="bcard-bestseller">Bestseller</div>':''}
       </div>
-      <div class="card-body">
-        <div class="card-year-line">${b.year || '—'}</div>
-        <div class="card-title">${b.title}</div>
-        <div class="card-author">${b.author}</div>
-        ${b.desc ? `<div class="card-desc">${b.desc}</div>` : ''}
+      <div class="bcard-body">
+        <div class="bcard-year">${b.year}</div>
+        <div class="bcard-title">${b.title}</div>
+        <div class="bcard-author">by ${b.author}</div>
+        <div class="bcard-desc">${b.desc}</div>
+        ${stars(b.rating)}
       </div>
-      <div class="card-footer">
-        <div class="card-pages">${b.pages ? b.pages.toLocaleString() + ' pp.' : '—'}</div>
-        <div class="card-view">View Volume</div>
+      <div class="bcard-commerce">
+        <div class="bcard-price">
+          <div class="price-label">Price</div>
+          <div class="price-value">$${b.price.toFixed(2)}</div>
+          ${b.originalPrice?`<div class="price-original">$${b.originalPrice.toFixed(2)}</div>`:''}
+        </div>
+        <button class="quick-view" onclick="openModal(${b.id})" title="Quick View">
+          <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        </button>
+        <button class="add-to-cart${inCart?' added':''}" id="atc-${b.id}" onclick="addToCart(${b.id})">
+          <span>${inCart?'In Collection':'Acquire'}</span>
+        </button>
       </div>
     </div>`;
   }).join('');
-  updateStats();
+  updateHeroStats();
 }
 
-/* ── Stats ── */
-function updateStats() {
-  document.getElementById('stat-books').textContent = books.length;
-  document.getElementById('stat-genres').textContent = new Set(books.map(b=>b.genre)).size;
-  const rated = books.filter(b=>b.rating);
-  const avg = rated.length ? rated.reduce((s,b)=>s+b.rating,0)/rated.length : 0;
-  document.getElementById('stat-rating').textContent = avg ? avg.toFixed(1) : '—';
-  const pages = books.reduce((s,b)=>s+(b.pages||0),0);
-  document.getElementById('stat-pages').textContent = pages > 999 ? (pages/1000).toFixed(1)+'k' : pages;
+/* ── Cart ── */
+function addToCart(id) {
+  const b = BOOKS.find(x=>x.id===id);
+  if(!b) return;
+  if(cart[id]) { cart[id].qty++; }
+  else { cart[id] = {book:b, qty:1}; }
+  updateCartUI();
+  updateHeroStats();
+  const btn = document.getElementById('atc-'+id);
+  if(btn){ btn.classList.add('added'); btn.querySelector('span').textContent='In Collection'; }
+  showToast(b.title, b.price);
 }
+function removeFromCart(id) {
+  delete cart[id];
+  updateCartUI(); renderCart(); updateHeroStats();
+  // reset card button
+  const btn = document.getElementById('atc-'+id);
+  if(btn){ btn.classList.remove('added'); btn.querySelector('span').textContent='Acquire'; }
+}
+function changeQty(id, delta) {
+  if(!cart[id]) return;
+  cart[id].qty = Math.max(1, cart[id].qty + delta);
+  updateCartUI(); renderCart(); updateHeroStats();
+}
+function cartCount() { return Object.values(cart).reduce((s,c)=>s+c.qty,0); }
+function cartTotal() { return Object.values(cart).reduce((s,c)=>s+c.book.price*c.qty,0); }
 
-/* ── Detail ── */
-function openDetail(id) {
-  const b = books.find(x=>x.id===id);
-  if (!b) return;
-  const p = paletteFor(b.genre);
-  const initials = b.title.split(' ').slice(0,2).map(w=>w[0]).join('').toUpperCase();
-  document.getElementById('detail-panel').innerHTML = `
-    <div class="detail-hero-band">
-      <div class="detail-hero-band-bg" style="background:linear-gradient(160deg,${p.from} 0%,${p.to} 100%)">
-        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Cormorant',serif;font-size:7rem;font-weight:800;color:rgba(255,255,255,0.07);letter-spacing:-0.04em;user-select:none">${initials}</div>
+function updateCartUI() {
+  const count = cartCount();
+  const el = document.getElementById('cart-count');
+  el.textContent = count;
+  el.classList.toggle('visible', count>0);
+}
+function renderCart() {
+  const items = document.getElementById('cart-items');
+  const total = document.getElementById('cart-total');
+  total.textContent = '$'+cartTotal().toFixed(2);
+  const entries = Object.values(cart);
+  if(!entries.length){
+    items.innerHTML=`<div class="cart-empty-msg"><div class="ce-glyph">𝔅</div><p>Your collection awaits.</p></div>`;
+    return;
+  }
+  const p = id => pal(cart[id].book.genre);
+  items.innerHTML = entries.map(({book:b,qty})=>{
+    const cp = p(b.id);
+    const initials = b.title.split(' ').slice(0,2).map(w=>w[0]).join('').toUpperCase();
+    return `<div class="cart-item">
+      <div class="ci-cover" style="background:linear-gradient(150deg,${cp.from},${cp.to})">${initials}</div>
+      <div class="ci-info">
+        <div class="ci-title">${b.title}</div>
+        <div class="ci-author">by ${b.author}</div>
+        <div class="ci-qty-row">
+          <button class="ci-qty-btn" onclick="changeQty(${b.id},-1)">−</button>
+          <div class="ci-qty-val">${qty}</div>
+          <button class="ci-qty-btn" onclick="changeQty(${b.id},1)">+</button>
+        </div>
       </div>
-      <div class="detail-hero-band-overlay"></div>
-      <div class="detail-hero-band-text">
-        <h2>${b.title}</h2>
-        <p>by ${b.author}</p>
-      </div>
-    </div>
-    <div class="detail-body-inner">
-      ${b.desc ? `<p class="detail-desc-text">"${b.desc}"</p>` : ''}
-      <div class="detail-meta-grid">
-        <div class="detail-meta-cell"><div class="dmk">Genre</div><div class="dmv" style="font-size:1rem;letter-spacing:0.05em">${b.genre}</div></div>
-        <div class="detail-meta-cell"><div class="dmk">Year</div><div class="dmv">${b.year||'—'}</div></div>
-        <div class="detail-meta-cell"><div class="dmk">Rating</div><div class="dmv" style="color:var(--gold-light)">✦ ${b.rating||'—'}</div></div>
-        <div class="detail-meta-cell"><div class="dmk">Pages</div><div class="dmv">${b.pages||'—'}</div></div>
-        <div class="detail-meta-cell" style="grid-column:1/-1"><div class="dmk">ISBN</div><div class="dmv" style="font-size:0.95rem;letter-spacing:0.08em;font-family:'Jost',sans-serif;font-weight:300">${b.isbn||'—'}</div></div>
-      </div>
-      <div class="modal-actions">
-        <button class="m-btn" onclick="closeDetail()">Close</button>
-        <button class="m-btn primary" onclick="closeDetail();openEditModal(${b.id})">Edit Volume</button>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">
+        <button class="ci-remove" onclick="removeFromCart(${b.id})" title="Remove">✕</button>
+        <div class="ci-price">$${(b.price*qty).toFixed(2)}</div>
       </div>
     </div>`;
-  document.getElementById('detail-overlay').classList.add('open');
+  }).join('');
 }
-function closeDetail() { document.getElementById('detail-overlay').classList.remove('open'); }
 
-/* ── Add / Edit ── */
-function openAddModal() {
-  editId = null;
-  document.getElementById('modal-eyebrow').textContent = 'New Acquisition';
-  document.getElementById('modal-heading').textContent = 'Catalogue a Volume';
-  document.getElementById('delete-btn').style.display = 'none';
-  ['title','author','isbn','year','rating','pages','desc'].forEach(f => document.getElementById('f-'+f).value='');
-  document.getElementById('f-genre').value = 'Fiction';
-  document.getElementById('form-error').style.display = 'none';
+function openCart() { renderCart(); document.getElementById('cart-overlay').classList.add('open'); }
+function closeCart() { document.getElementById('cart-overlay').classList.remove('open'); }
+
+/* ── Toast ── */
+let toastTimer;
+function showToast(title, price) {
+  const toast = document.getElementById('toast');
+  document.getElementById('toast-msg').textContent = `"${title.slice(0,28)}${title.length>28?'…':''}" added`;
+  document.getElementById('toast-price').textContent = '$'+price.toFixed(2);
+  toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>toast.classList.remove('show'), 3200);
+}
+
+/* ── Checkout ── */
+function checkout() {
+  if(!cartCount()){ alert('Your collection is empty.'); return; }
+  closeCart();
+  setTimeout(()=>{
+    const total = cartTotal().toFixed(2);
+    alert(`Thank you for your acquisition.\n\nOrder total: $${total}\n\nYour volumes will be dispatched within 3–5 business days.`);
+    Object.keys(cart).forEach(id=>{
+      delete cart[id];
+      const btn=document.getElementById('atc-'+id);
+      if(btn){btn.classList.remove('added');btn.querySelector('span').textContent='Acquire';}
+    });
+    updateCartUI(); updateHeroStats();
+  }, 400);
+}
+
+/* ── Book Detail Modal ── */
+function openModal(id) {
+  const b = BOOKS.find(x=>x.id===id);
+  if(!b) return;
+  const p = pal(b.genre);
+  const initials = b.title.split(' ').slice(0,2).map(w=>w[0]).join('').toUpperCase();
+  const inCart = !!cart[id];
+  document.getElementById('modal-panel').innerHTML=`
+    <div class="modal-hero">
+      <div class="modal-hero-bg" style="background:linear-gradient(150deg,${p.from},${p.to})"></div>
+      <div class="modal-hero-shade"></div>
+      <div class="modal-hero-glyph">${initials}</div>
+      <div class="modal-hero-text">
+        <h2>${b.title}</h2>
+        <p>by ${b.author} &nbsp;·&nbsp; ${b.year}</p>
+      </div>
+    </div>
+    <div class="modal-body">
+      ${b.desc?`<p class="modal-desc">${b.desc}</p>`:''}
+      <div class="modal-meta">
+        <div class="mm-cell"><div class="mm-lbl">Genre</div><div class="mm-val" style="font-size:1rem;letter-spacing:.04em">${b.genre}</div></div>
+        <div class="mm-cell"><div class="mm-lbl">Rating</div><div class="mm-val" style="color:var(--gold-light)">✦ ${b.rating||'—'}</div></div>
+        <div class="mm-cell"><div class="mm-lbl">Pages</div><div class="mm-val">${b.pages||'—'}</div></div>
+        <div class="mm-cell"><div class="mm-lbl">Year</div><div class="mm-val">${b.year||'—'}</div></div>
+      </div>
+      ${b.isbn?`<div style="margin-bottom:1.25rem;padding:12px 14px;border:1px solid var(--border);background:var(--graphite)"><div style="font-size:7px;letter-spacing:.45em;text-transform:uppercase;color:var(--gold);margin-bottom:5px">ISBN</div><div style="font-family:'Jost',sans-serif;font-size:12px;font-weight:300;letter-spacing:.1em">${b.isbn}</div></div>`:''}
+      <div class="modal-purchase">
+        <div class="modal-price-block">
+          <div class="mp-lbl">Investment</div>
+          <div class="mp-val">$${b.price.toFixed(2)}</div>
+          ${b.originalPrice?`<div class="mp-orig">$${b.originalPrice.toFixed(2)}</div>`:''}
+        </div>
+        <button class="modal-cart-btn${inCart?' added':''}" id="modal-atc-${b.id}" onclick="modalAddToCart(${b.id})">
+          ${inCart?'✦ In Collection':'Acquire Volume'}
+        </button>
+      </div>
+      <div class="modal-actions">
+        <button class="m-close-btn" onclick="closeModal()">Close</button>
+      </div>
+    </div>`;
   document.getElementById('modal-overlay').classList.add('open');
 }
-function openEditModal(id) {
-  const b = books.find(x=>x.id===id);
-  if (!b) return;
-  editId = id;
-  document.getElementById('modal-eyebrow').textContent = 'Edit Record';
-  document.getElementById('modal-heading').textContent = 'Amend the Entry';
-  document.getElementById('delete-btn').style.display = 'inline-block';
-  document.getElementById('f-title').value = b.title;
-  document.getElementById('f-author').value = b.author;
-  document.getElementById('f-genre').value = b.genre;
-  document.getElementById('f-year').value = b.year || '';
-  document.getElementById('f-isbn').value = b.isbn || '';
-  document.getElementById('f-rating').value = b.rating || '';
-  document.getElementById('f-pages').value = b.pages || '';
-  document.getElementById('f-desc').value = b.desc || '';
-  document.getElementById('form-error').style.display = 'none';
-  document.getElementById('modal-overlay').classList.add('open');
-}
-function closeModal() { document.getElementById('modal-overlay').classList.remove('open'); }
-
-function submitForm() {
-  const title = document.getElementById('f-title').value.trim();
-  const author = document.getElementById('f-author').value.trim();
-  const err = document.getElementById('form-error');
-  if (!title || !author) { err.textContent = 'Title and author are required to catalogue a volume.'; err.style.display = 'block'; return; }
-  err.style.display = 'none';
-  const book = {
-    id: editId || nextId++, title, author,
-    genre: document.getElementById('f-genre').value,
-    year: parseInt(document.getElementById('f-year').value) || new Date().getFullYear(),
-    isbn: document.getElementById('f-isbn').value.trim(),
-    rating: parseFloat(document.getElementById('f-rating').value) || null,
-    pages: parseInt(document.getElementById('f-pages').value) || null,
-    desc: document.getElementById('f-desc').value.trim()
-  };
-  if (editId) { const i = books.findIndex(b=>b.id===editId); books[i] = book; }
-  else books.unshift(book);
-  closeModal(); renderGenres(); renderBooks();
+function closeModal(){ document.getElementById('modal-overlay').classList.remove('open'); }
+function modalAddToCart(id){
+  addToCart(id);
+  const btn=document.getElementById('modal-atc-'+id);
+  if(btn){btn.classList.add('added');btn.textContent='✦ In Collection';}
 }
 
-function deleteBook() {
-  if (!editId || !confirm('Remove this volume from the collection?')) return;
-  books = books.filter(b => b.id !== editId);
-  closeModal();
-  if (!books.some(b => b.genre === activeGenre)) activeGenre = 'All';
-  renderGenres(); renderBooks();
+/* ── Hero Stats ── */
+function updateHeroStats(){
+  document.getElementById('hn-volumes').textContent = BOOKS.length;
+  document.getElementById('hn-genres').textContent = new Set(BOOKS.map(b=>b.genre)).size;
+  const avg = BOOKS.filter(b=>b.rating).reduce((s,b)=>s+b.rating,0)/BOOKS.filter(b=>b.rating).length;
+  document.getElementById('hn-rating').textContent = avg.toFixed(1);
+  document.getElementById('hn-saved').textContent = cartCount();
 }
 
-/* ── Footer year ── */
-document.getElementById('footer-year').textContent = 'MMXXV';
+/* ── Scroll ── */
+function scrollToStore(){ document.getElementById('store').scrollIntoView({behavior:'smooth'}); }
 
 /* ── Init ── */
 renderGenres();
 renderBooks();
+updateHeroStats();
 </script>
 </body>
 </html>
