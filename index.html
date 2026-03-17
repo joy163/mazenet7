@@ -1,222 +1,324 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>BIBLIOTHÈQUE — The Luxury Bookstore</title>
-<link rel="stylesheet" href="css/style.css">
-<style>
-/* ── HERO ── */
-.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;padding-top:76px;}
-.hero-atmo{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 80% 70% at 50% 110%,rgba(201,168,76,0.09) 0%,transparent 55%),radial-gradient(ellipse 40% 40% at 10% 30%,rgba(201,168,76,0.04) 0%,transparent 50%);}
-.hero-grid{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(201,168,76,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,0.05) 1px,transparent 1px);background-size:72px 72px;mask-image:radial-gradient(ellipse 70% 70% at 50% 60%,black 10%,transparent 70%);}
-.hero-content{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;text-align:center;padding-bottom:6rem;}
-.hero-eyebrow{display:inline-flex;align-items:center;gap:14px;font-size:9px;letter-spacing:.55em;text-transform:uppercase;color:var(--gold);font-weight:300;margin-bottom:2rem;opacity:0;animation:rise .9s ease .1s both;}
-.hero-eyebrow::before,.hero-eyebrow::after{content:'';display:block;width:32px;height:1px;background:var(--gold);opacity:.4;}
-.hero-h1{font-family:'Cormorant',serif;font-weight:700;font-size:clamp(5rem,12vw,11rem);line-height:.88;letter-spacing:-0.02em;color:var(--ivory);opacity:0;animation:rise .95s ease .25s both;}
-.hero-h1 em{display:block;font-family:'Cormorant Garamond',serif;font-weight:300;font-style:italic;color:var(--gold-light);font-size:.6em;letter-spacing:.06em;}
-.hero-sub{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--silver);font-weight:300;max-width:440px;line-height:2.2;margin:2rem 0;opacity:0;animation:rise .8s ease .45s both;}
-.hero-ctas{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;opacity:0;animation:rise .8s ease .6s both;}
-.hero-nums{display:flex;gap:4rem;justify-content:center;margin-top:4rem;opacity:0;animation:rise .8s ease .85s both;}
-.hero-num{text-align:center;}
-.hn-val{font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:300;color:var(--gold-light);}
-.hn-lbl{font-size:8px;letter-spacing:.45em;text-transform:uppercase;color:var(--silver);margin-top:5px;}
-.hero-vbar{width:1px;height:56px;background:linear-gradient(to bottom,transparent,var(--border),transparent);align-self:center;}
-.scroll-cue{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:10px;font-size:8px;letter-spacing:.5em;text-transform:uppercase;color:var(--silver);opacity:0;animation:rise .8s ease 1.2s both;}
-.scroll-bar{width:1px;height:46px;background:linear-gradient(to bottom,var(--gold),transparent);animation:pls 2.5s ease-in-out infinite;}
-@keyframes pls{0%,100%{opacity:.3;transform:scaleY(1)}50%{opacity:1;transform:scaleY(1.3)}}
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Home — BIBLIOTHÈQUE</title>
+<style>@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Cormorant:wght@700;800&family=Jost:wght@200;300;400;500;600&display=swap');
+:root{--ob:#080808;--ch:#101010;--gr:#181818;--mu:#222;--bd:#2a2a2a;--go:#c9a84c;--gl:#e8c97e;--gp:rgba(201,168,76,.1);--cr:#f8f4ed;--iv:#fdfaf5;--si:#787878;--sl:#a0a0a0;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+body{font-family:'Jost',sans-serif;background:var(--ob);color:var(--cr);min-height:100vh;overflow-x:hidden;cursor:none;}
+body::after{content:'';position:fixed;inset:0;z-index:9990;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");opacity:.022;}
+a{text-decoration:none;color:inherit;}button{cursor:none;font-family:'Jost',sans-serif;}
+/* Cursor */
+#_cd{position:fixed;width:7px;height:7px;background:var(--go);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);}
+#_cr{position:fixed;width:34px;height:34px;border:1px solid rgba(201,168,76,.45);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .4s,height .4s,border-color .3s;}
+#_cr.L{width:58px;height:58px;border-color:var(--go);}
+/* Nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:800;height:76px;display:flex;align-items:center;justify-content:space-between;padding:0 4rem;border-bottom:1px solid rgba(201,168,76,.1);background:rgba(8,8,8,.94);backdrop-filter:blur(24px);}
+.nw{font-weight:200;font-size:10px;letter-spacing:.5em;text-transform:uppercase;color:var(--gl);}
+.nc{position:absolute;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:12px;}
+.ne{width:28px;height:28px;border:1px solid rgba(201,168,76,.6);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--go);font-size:10px;}
+.nb{font-family:'Cormorant Garamond',serif;font-size:16px;letter-spacing:.14em;color:var(--iv);}
+.nl{display:flex;align-items:center;gap:18px;}
+.nl a{font-size:9px;letter-spacing:.35em;text-transform:uppercase;color:var(--sl);transition:color .3s;position:relative;}
+.nl a::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:1px;background:var(--go);transform:scaleX(0);transition:transform .3s;}
+.nl a:hover,.nl a.on{color:var(--go);}
+.nl a.on::after,.nl a:hover::after{transform:scaleX(1);}
+.cb{position:relative;display:flex;align-items:center;gap:9px;font-size:9px;letter-spacing:.35em;text-transform:uppercase;color:var(--go);border:1px solid rgba(201,168,76,.35);background:none;padding:9px 18px;transition:all .3s;}
+.cb:hover{background:var(--go);color:var(--ob);}
+.cc{position:absolute;top:-7px;right:-7px;width:18px;height:18px;background:var(--go);border-radius:50%;font-size:9px;font-weight:600;color:var(--ob);display:none;align-items:center;justify-content:center;}
+/* Page hero */
+.ph{height:320px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;margin-top:76px;border-bottom:1px solid var(--bd);}
+.ph::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 80% at 50% 100%,rgba(201,168,76,.08) 0%,transparent 60%);}
+.ph-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(201,168,76,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.05) 1px,transparent 1px);background-size:72px 72px;mask-image:radial-gradient(ellipse 70% 70% at 50% 60%,black 10%,transparent 70%);}
+.pey{font-size:9px;letter-spacing:.55em;text-transform:uppercase;color:var(--go);display:flex;align-items:center;gap:14px;margin-bottom:1.2rem;}
+.pey::before,.pey::after{content:'';display:block;width:32px;height:1px;background:var(--go);opacity:.4;}
+.pt{font-family:'Cormorant',serif;font-size:clamp(3rem,7vw,5.5rem);font-weight:700;letter-spacing:-.02em;text-align:center;line-height:.95;}
+.pt em{display:block;font-family:'Cormorant Garamond',serif;font-weight:300;font-style:italic;color:var(--gl);font-size:.6em;letter-spacing:.06em;}
+.ps{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--si);margin-top:1.2rem;font-weight:300;}
+/* Buttons */
+.bg{display:inline-flex;align-items:center;gap:10px;font-size:9px;letter-spacing:.45em;text-transform:uppercase;color:var(--ob);background:var(--go);border:1px solid var(--go);padding:13px 30px;transition:all .35s;font-weight:500;}
+.bg:hover{background:var(--gl);box-shadow:0 0 50px rgba(201,168,76,.3);}
+.bo{display:inline-flex;align-items:center;gap:10px;font-size:9px;letter-spacing:.45em;text-transform:uppercase;color:var(--go);border:1px solid rgba(201,168,76,.4);padding:13px 30px;transition:all .35s;background:none;}
+.bo:hover{background:var(--go);color:var(--ob);}
+.bgh{display:inline-flex;align-items:center;gap:8px;font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:var(--sl);border:1px solid var(--bd);padding:11px 22px;transition:all .3s;background:none;}
+.bgh:hover{border-color:var(--sl);color:var(--cr);}
+/* Forms */
+.fl{display:block;font-size:8px;letter-spacing:.45em;text-transform:uppercase;color:var(--go);margin-bottom:7px;font-weight:300;}
+.fi,.fs,.ft{width:100%;padding:12px 13px;background:var(--gr);border:1px solid var(--bd);color:var(--cr);font-size:13px;font-weight:300;outline:none;letter-spacing:.04em;transition:border-color .3s;font-family:'Jost',sans-serif;}
+.fi:focus,.fs:focus,.ft:focus{border-color:rgba(201,168,76,.5);}
+.fi::placeholder,.ft::placeholder{color:var(--si);font-size:11px;letter-spacing:.1em;}
+.ft{resize:vertical;min-height:100px;line-height:1.8;}
+.fs option{background:var(--ch);}
+/* Book card */
+.bc{background:var(--ch);border:1px solid var(--bd);overflow:hidden;position:relative;transition:border-color .4s;animation:ci .5s ease both;}
+.bc:hover{border-color:rgba(201,168,76,.35);}
+.bc::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(201,168,76,.04) 0%,transparent 50%);opacity:0;transition:opacity .4s;z-index:0;}
+.bc:hover::before{opacity:1;}
+@keyframes ci{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.bb{height:175px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.bb-bg{position:absolute;inset:0;transition:transform .7s;}
+.bc:hover .bb-bg{transform:scale(1.06);}
+.bb-sh{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.1),rgba(0,0,0,.6));}
+.bb-mo{position:relative;z-index:2;font-family:'Cormorant',serif;font-size:5rem;font-weight:800;color:rgba(255,255,255,.1);line-height:1;user-select:none;transition:color .4s,transform .5s;letter-spacing:-.04em;}
+.bc:hover .bb-mo{color:rgba(255,255,255,.2);transform:scale(1.07);}
+.bb-tag{position:absolute;top:12px;left:12px;z-index:3;padding:4px 9px;font-size:7px;letter-spacing:.45em;text-transform:uppercase;color:var(--ob);background:var(--go);font-weight:500;}
+.bb-bs{position:absolute;top:12px;right:12px;z-index:3;padding:4px 9px;font-size:7px;letter-spacing:.3em;text-transform:uppercase;color:var(--go);border:1px solid rgba(201,168,76,.5);background:rgba(0,0,0,.6);}
+.bd2{padding:18px 20px 12px;position:relative;z-index:1;}
+.by{font-size:8px;letter-spacing:.45em;text-transform:uppercase;color:var(--go);margin-bottom:6px;}
+.bt{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:400;line-height:1.2;color:var(--iv);margin-bottom:3px;}
+.ba{font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--si);margin-bottom:8px;}
+.bdesc{font-size:11px;line-height:1.85;color:var(--sl);font-weight:300;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.bcom{padding:12px 20px 18px;border-top:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;gap:8px;position:relative;z-index:1;}
+.bpl{font-size:7px;letter-spacing:.4em;text-transform:uppercase;color:var(--si);margin-bottom:3px;}
+.bpv{font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--gl);font-weight:300;line-height:1;}
+.bpo{font-size:10px;color:var(--si);text-decoration:line-through;margin-top:1px;}
+.baq{padding:10px 14px;font-size:8px;letter-spacing:.35em;text-transform:uppercase;color:var(--go);border:1px solid rgba(201,168,76,.35);background:none;transition:all .35s;position:relative;overflow:hidden;}
+.baq::before{content:'';position:absolute;inset:0;background:var(--go);transform:scaleX(0);transform-origin:left;transition:transform .35s;z-index:0;}
+.baq span{position:relative;z-index:1;transition:color .35s;}
+.baq:hover span,.baq.on span{color:var(--ob);}
+.baq:hover::before,.baq.on::before{transform:scaleX(1);}
+.baq.on{border-color:var(--go);}
+.beye{width:38px;height:38px;border:1px solid var(--bd);background:none;display:flex;align-items:center;justify-content:center;transition:border-color .3s;}
+.beye svg{width:13px;height:13px;stroke:var(--si);stroke-width:1.5;fill:none;transition:stroke .3s;}
+.beye:hover{border-color:rgba(201,168,76,.4);}
+.beye:hover svg{stroke:var(--go);}
+/* Modal */
+.mov{display:none;position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.88);backdrop-filter:blur(14px);align-items:center;justify-content:center;padding:2rem;}
+.mov.open{display:flex;}
+.mp{background:var(--ch);border:1px solid rgba(201,168,76,.2);width:100%;max-width:620px;max-height:90vh;overflow-y:auto;animation:mup .35s cubic-bezier(.16,1,.3,1);}
+@keyframes mup{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.mh{height:190px;position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:1.5rem 1.75rem;}
+.mhb{position:absolute;inset:0;}
+.mhs{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.1),rgba(0,0,0,.8));}
+.mhg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Cormorant',serif;font-size:7rem;font-weight:800;color:rgba(255,255,255,.07);user-select:none;letter-spacing:-.04em;}
+.mht{position:relative;z-index:2;}
+.mht h2{font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:300;color:#fff;line-height:1.1;}
+.mht p{font-size:9px;letter-spacing:.35em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-top:5px;}
+.mb2{padding:1.5rem 1.75rem 1.75rem;}
+.md{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:300;font-style:italic;line-height:1.9;color:rgba(248,244,237,.65);margin-bottom:1.5rem;border-left:2px solid rgba(201,168,76,.3);padding-left:1.2rem;}
+.mm{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--bd);margin-bottom:1.5rem;}
+.mc{background:var(--gr);padding:13px 14px;}
+.mcl{font-size:7px;letter-spacing:.45em;text-transform:uppercase;color:var(--go);margin-bottom:4px;}
+.mcv{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:300;color:var(--iv);}
+.mpur{display:flex;align-items:center;justify-content:space-between;padding:1.2rem;background:var(--gr);border:1px solid var(--bd);margin-bottom:1rem;}
+/* Footer */
+footer{border-top:1px solid var(--bd);padding:3.5rem 4rem;background:var(--ch);}
+.fg{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2.5rem;max-width:1400px;margin:0 auto 2.5rem;}
+.fbl .fl2{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;font-style:italic;color:var(--gl);letter-spacing:.12em;margin-bottom:.9rem;}
+.fbl p{font-size:12px;color:var(--si);line-height:1.9;font-weight:300;max-width:240px;}
+.fc h4{font-size:8px;letter-spacing:.5em;text-transform:uppercase;color:var(--go);margin-bottom:1.1rem;}
+.fc a{display:block;font-size:12px;color:var(--si);margin-bottom:.65rem;transition:color .3s;font-weight:300;}
+.fc a:hover{color:var(--gl);}
+.fb{max-width:1400px;margin:0 auto;padding-top:1.75rem;border-top:1px solid var(--bd);display:flex;justify-content:space-between;align-items:center;font-size:9px;letter-spacing:.35em;text-transform:uppercase;color:var(--si);}
+/* Scrollbar / animations */
+::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-track{background:var(--ob);}::-webkit-scrollbar-thumb{background:var(--bd);}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.rv{opacity:0;transform:translateY(18px);transition:opacity .65s ease,transform .65s ease;}
+.rv.vis{opacity:1;transform:translateY(0);}
+/* Divider */
+.dv{display:flex;align-items:center;gap:18px;margin:2.5rem 0;}
+.dv span{flex:1;height:1px;background:var(--bd);}
+.dv em{font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--go);font-style:normal;}
+/* Responsive */
+@media(max-width:900px){nav{padding:0 1.5rem;}.nc{display:none;}.fg{grid-template-columns:1fr 1fr;}.fb{flex-direction:column;gap:1rem;text-align:center;}footer{padding:2.5rem 1.5rem;}}
+@media(max-width:600px){.nl{display:none;}.fg{grid-template-columns:1fr;}}
 
-/* ── FEATURED STRIP ── */
-.feat-strip{background:var(--charcoal);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:1.25rem 0;overflow:hidden;}
-.feat-inner{display:flex;gap:3rem;align-items:center;animation:marquee 25s linear infinite;white-space:nowrap;}
-@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-.feat-item{font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:var(--silver);flex-shrink:0;}
-.feat-dot{color:var(--gold);margin:0 .5rem;}
-
-/* ── CATEGORIES ── */
-.cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:3rem;}
-.cat-card{position:relative;overflow:hidden;height:240px;display:flex;align-items:flex-end;padding:1.5rem;cursor:none;transition:border-color .4s;}
-.cat-bg{position:absolute;inset:0;transition:transform .6s ease;}
-.cat-card:hover .cat-bg{transform:scale(1.05);}
-.cat-shade{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.1),rgba(0,0,0,0.75));}
-.cat-content{position:relative;z-index:2;}
-.cat-name{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300;color:var(--ivory);letter-spacing:.05em;}
-.cat-count{font-size:8px;letter-spacing:.4em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-top:4px;}
-.cat-arrow{position:absolute;bottom:1.5rem;right:1.5rem;z-index:2;width:36px;height:36px;border:1px solid rgba(255,255,255,0.3);display:flex;align-items:center;justify-content:center;opacity:0;transform:translateX(-8px);transition:opacity .35s,transform .35s;}
-.cat-card:hover .cat-arrow{opacity:1;transform:translateX(0);}
-.cat-arrow svg{width:13px;height:13px;stroke:#fff;stroke-width:2;fill:none;}
-
-/* ── FEATURED BOOKS ── */
-.feat-books-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:2px;margin-top:2.5rem;}
-
-/* ── PROMO BAND ── */
-.promo-band{background:var(--gold);padding:4rem;display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap;}
-.promo-band-text h2{font-family:'Cormorant',serif;font-size:clamp(2rem,5vw,3.5rem);font-weight:700;color:var(--obsidian);line-height:1;}
-.promo-band-text p{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgba(8,8,8,0.6);margin-top:.75rem;}
-.btn-dark{display:inline-flex;align-items:center;gap:12px;padding:14px 32px;font-size:9px;letter-spacing:.45em;text-transform:uppercase;background:var(--obsidian);color:var(--gold);border:1px solid var(--obsidian);font-weight:500;transition:all .35s;}
-.btn-dark:hover{background:var(--charcoal);}
-.btn-dark svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2;}
-
-/* ── TESTIMONIALS ── */
-.testimonials{padding:6rem 0;background:var(--charcoal);}
-.test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:3rem;}
-.test-card{background:var(--graphite);border:1px solid var(--border);padding:2rem;}
-.test-quote{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-style:italic;font-weight:300;line-height:1.85;color:rgba(248,244,237,0.7);margin-bottom:1.5rem;border-left:2px solid rgba(201,168,76,0.35);padding-left:1.25rem;}
-.test-stars{display:flex;gap:3px;margin-bottom:.75rem;}
-.test-star{color:var(--gold);font-size:10px;}
-.test-author{font-size:9px;letter-spacing:.35em;text-transform:uppercase;color:var(--silver);}
-.test-book{font-size:9px;color:var(--gold);letter-spacing:.1em;margin-top:3px;}
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;padding-top:76px;}
+.ha{position:absolute;inset:0;background:radial-gradient(ellipse 80% 70% at 50% 110%,rgba(201,168,76,.09) 0%,transparent 55%),radial-gradient(ellipse 40% 40% at 10% 30%,rgba(201,168,76,.04) 0%,transparent 50%);pointer-events:none;}
+.hg{position:absolute;inset:0;background-image:linear-gradient(rgba(201,168,76,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.05) 1px,transparent 1px);background-size:72px 72px;mask-image:radial-gradient(ellipse 70% 70% at 50% 60%,black 10%,transparent 70%);pointer-events:none;}
+.hi{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;text-align:center;padding-bottom:7rem;}
+.hbadge{display:inline-flex;align-items:center;gap:14px;font-size:9px;letter-spacing:.55em;text-transform:uppercase;color:var(--go);font-weight:300;margin-bottom:2.5rem;opacity:0;animation:rise .9s ease .1s both;}
+.hbadge::before,.hbadge::after{content:'';display:block;width:34px;height:1px;background:var(--go);opacity:.45;}
+.ht{font-family:'Cormorant',serif;font-weight:700;font-size:clamp(4.5rem,11vw,10rem);line-height:.88;letter-spacing:-.02em;color:var(--iv);opacity:0;animation:rise .95s ease .25s both;}
+.ht em{display:block;font-family:'Cormorant Garamond',serif;font-weight:300;font-style:italic;color:var(--gl);font-size:.65em;letter-spacing:.06em;}
+.hsub{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--si);font-weight:300;max-width:440px;line-height:2.2;margin:2.5rem 0;opacity:0;animation:rise .8s ease .45s both;}
+.hbtns{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;opacity:0;animation:rise .8s ease .6s both;}
+.hnums{display:flex;gap:5rem;margin-top:5rem;opacity:0;animation:rise .8s ease .8s both;}
+.hn{text-align:center;}
+.hnv{font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:300;color:var(--gl);}
+.hnl{font-size:8px;letter-spacing:.45em;text-transform:uppercase;color:var(--si);margin-top:5px;}
+.hvb{width:1px;height:54px;background:linear-gradient(to bottom,transparent,var(--bd),transparent);align-self:center;}
+.sc{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;font-size:8px;letter-spacing:.5em;text-transform:uppercase;color:var(--si);opacity:0;animation:rise .8s ease 1.2s both;}
+.sb{width:1px;height:46px;background:linear-gradient(to bottom,var(--go),transparent);animation:pulse 2.5s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:.3;transform:scaleY(1)}50%{opacity:1;transform:scaleY(1.3)}}
+.mq{border-top:1px solid var(--bd);border-bottom:1px solid var(--bd);padding:1.1rem 0;overflow:hidden;}
+.mqt{display:flex;gap:3.5rem;animation:mq 28s linear infinite;white-space:nowrap;}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.mqi{font-size:9px;letter-spacing:.45em;text-transform:uppercase;color:var(--si);display:flex;align-items:center;gap:.75rem;flex-shrink:0;}
+.wrap{max-width:1400px;margin:0 auto;padding:5rem 4rem 7rem;}
+.sh{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:2.5rem;padding-bottom:1.25rem;border-bottom:1px solid var(--bd);}
+.sl2{font-size:8px;letter-spacing:.5em;text-transform:uppercase;color:var(--go);margin-bottom:7px;}
+.st{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:300;}
+.st em{font-style:italic;color:var(--gl);}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(268px,1fr));gap:2px;}
+.wg{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:2.5rem;}
+.wc{background:var(--gr);border:1px solid var(--bd);padding:2.2rem;transition:border-color .4s;}
+.wc:hover{border-color:rgba(201,168,76,.3);}
+.wi{font-size:1.8rem;margin-bottom:.9rem;}
+.wt{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:300;margin-bottom:.65rem;}
+.wd{font-size:12px;color:var(--si);line-height:1.9;font-weight:300;}
+@media(max-width:900px){.hnums{gap:2.5rem;}.wrap{padding:3.5rem 1.5rem 5rem;}.wg{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
-<script src="js/nav.js"></script>
 
-<!-- HERO -->
+<div id="_cd"></div><div id="_cr"></div>
+<nav>
+  <div class="nw">Bibliothèque</div>
+  <div class="nc"><div class="ne">✦</div><div class="nb">The Private Bookstore</div></div>
+  <div class="nl">
+    <a href="index.html"class="on">Home</a>
+    <a href="shop.html">Shop</a>
+    <a href="services.html">Services</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a class="cb" href="cart.html">
+      <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      Cart&nbsp;<span class="cc" id="cart-count">0</span>
+    </a>
+  </div>
+</nav>
+
 <section class="hero">
-  <div class="hero-atmo"></div>
-  <div class="hero-grid"></div>
-  <div class="hero-content">
-    <div class="hero-eyebrow">Est. MMXXIV &nbsp;·&nbsp; The Art of the Written Word</div>
-    <h1 class="hero-h1">Acquire the<br><em>Extraordinary</em></h1>
-    <p class="hero-sub">A curated selection of exceptional literature, presented for the discerning collector</p>
-    <div class="hero-ctas">
-      <a class="btn-gold" href="pages/shop.html">Explore the Collection <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
-      <a class="btn-outline" href="pages/about.html">Our Story</a>
+  <div class="ha"></div><div class="hg"></div>
+  <div class="hi">
+    <div class="hbadge">Est. MMXXIV &nbsp;·&nbsp; The Art of the Written Word</div>
+    <h1 class="ht">Acquire the<br><em>Extraordinary</em></h1>
+    <p class="hsub">A curated selection of exceptional literature for the discerning collector</p>
+    <div class="hbtns">
+      <a class="bg" href="shop.html">Explore the Collection
+        <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+      <a class="bo" href="services.html">Our Services</a>
     </div>
-    <div class="hero-nums">
-      <div class="hero-num"><div class="hn-val">500+</div><div class="hn-lbl">Volumes</div></div>
-      <div class="hero-vbar"></div>
-      <div class="hero-num"><div class="hn-val">12</div><div class="hn-lbl">Genres</div></div>
-      <div class="hero-vbar"></div>
-      <div class="hero-num"><div class="hn-val">4.8</div><div class="hn-lbl">Avg Rating</div></div>
-      <div class="hero-vbar"></div>
-      <div class="hero-num"><div class="hn-val" id="hn-saved">0</div><div class="hn-lbl">In Cart</div></div>
+    <div class="hnums">
+      <div class="hn"><div class="hnv">12</div><div class="hnl">Volumes</div></div>
+      <div class="hvb"></div>
+      <div class="hn"><div class="hnv">9</div><div class="hnl">Genres</div></div>
+      <div class="hvb"></div>
+      <div class="hn"><div class="hnv">4.5</div><div class="hnl">Avg Rating</div></div>
+      <div class="hvb"></div>
+      <div class="hn"><div class="hnv">Free</div><div class="hnl">Shipping $50+</div></div>
     </div>
   </div>
-  <div class="scroll-cue"><div class="scroll-bar"></div>Scroll to Browse</div>
+  <div class="sc"><div class="sb"></div>Scroll to Discover</div>
 </section>
-
-<!-- FEAT STRIP -->
-<div class="feat-strip">
-  <div class="feat-inner">
-    <span class="feat-item">Free shipping on orders over $50<span class="feat-dot">✦</span></span>
-    <span class="feat-item">First editions available<span class="feat-dot">✦</span></span>
-    <span class="feat-item">Curated by master librarians<span class="feat-dot">✦</span></span>
-    <span class="feat-item">Gift wrapping available<span class="feat-dot">✦</span></span>
-    <span class="feat-item">30-day returns policy<span class="feat-dot">✦</span></span>
-    <span class="feat-item">Free shipping on orders over $50<span class="feat-dot">✦</span></span>
-    <span class="feat-item">First editions available<span class="feat-dot">✦</span></span>
-    <span class="feat-item">Curated by master librarians<span class="feat-dot">✦</span></span>
-    <span class="feat-item">Gift wrapping available<span class="feat-dot">✦</span></span>
-    <span class="feat-item">30-day returns policy<span class="feat-dot">✦</span></span>
+<div class="mq"><div class="mqt" id="mqt"></div></div>
+<section class="wrap">
+  <div class="sh">
+    <div><div class="sl2">Handpicked for You</div><div class="st">Featured <em>Volumes</em></div></div>
+    <a class="bo" href="shop.html">View All →</a>
   </div>
-</div>
-
-<!-- CATEGORIES -->
-<section class="section">
-  <div class="container">
-    <div class="sec-eyebrow">Browse by Genre</div>
-    <div class="sec-title">The <span>Collection</span></div>
-    <div class="gold-line"></div>
-    <div class="cat-grid">
-      <a href="pages/shop.html" class="cat-card" style="border:1px solid var(--border);">
-        <div class="cat-bg" style="background:linear-gradient(150deg,#0f1f0f,#1a3320)"></div>
-        <div class="cat-shade"></div>
-        <div class="cat-content"><div class="cat-name">Fiction</div><div class="cat-count">120+ Volumes</div></div>
-        <div class="cat-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-      </a>
-      <a href="pages/shop.html" class="cat-card" style="border:1px solid var(--border);">
-        <div class="cat-bg" style="background:linear-gradient(150deg,#0f0f2a,#1a1a3a)"></div>
-        <div class="cat-shade"></div>
-        <div class="cat-content"><div class="cat-name">Sci-Fi</div><div class="cat-count">80+ Volumes</div></div>
-        <div class="cat-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-      </a>
-      <a href="pages/shop.html" class="cat-card" style="border:1px solid var(--border);">
-        <div class="cat-bg" style="background:linear-gradient(150deg,#1f130a,#321e0f)"></div>
-        <div class="cat-shade"></div>
-        <div class="cat-content"><div class="cat-name">History</div><div class="cat-count">95+ Volumes</div></div>
-        <div class="cat-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-      </a>
-      <a href="pages/shop.html" class="cat-card" style="border:1px solid var(--border);">
-        <div class="cat-bg" style="background:linear-gradient(150deg,#150a22,#220f38)"></div>
-        <div class="cat-shade"></div>
-        <div class="cat-content"><div class="cat-name">Philosophy</div><div class="cat-count">60+ Volumes</div></div>
-        <div class="cat-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-      </a>
-      <a href="pages/shop.html" class="cat-card" style="border:1px solid var(--border);">
-        <div class="cat-bg" style="background:linear-gradient(150deg,#0a1520,#102030)"></div>
-        <div class="cat-shade"></div>
-        <div class="cat-content"><div class="cat-name">Biography</div><div class="cat-count">75+ Volumes</div></div>
-        <div class="cat-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-      </a>
-      <a href="pages/shop.html" class="cat-card" style="border:1px solid var(--border);">
-        <div class="cat-bg" style="background:linear-gradient(150deg,#1f0a0a,#320f0f)"></div>
-        <div class="cat-shade"></div>
-        <div class="cat-content"><div class="cat-name">Mystery</div><div class="cat-count">90+ Volumes</div></div>
-        <div class="cat-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-      </a>
-    </div>
+  <div class="grid" id="fg"></div>
+  <div class="dv"><span></span><em>✦</em><span></span></div>
+  <div class="sh" style="margin-top:2rem">
+    <div><div class="sl2">The Bibliothèque Promise</div><div class="st">Why <em>Choose Us</em></div></div>
+  </div>
+  <div class="wg">
+    <div class="wc rv"><div class="wi">📦</div><div class="wt">Luxury Packaging</div><div class="wd">Every volume arrives in bespoke gold-foil packaging worthy of the words contained within.</div></div>
+    <div class="wc rv"><div class="wi">✦</div><div class="wt">Curated Collection</div><div class="wd">Our editors hand-select every title — no algorithm, no compromise, only books that warrant your time.</div></div>
+    <div class="wc rv"><div class="wi">🚚</div><div class="wt">Swift Dispatch</div><div class="wd">Orders placed before 2pm dispatched same day. Free tracked shipping on orders over $50.</div></div>
+    <div class="wc rv"><div class="wi">🔄</div><div class="wt">30-Day Returns</div><div class="wd">Complete satisfaction or we arrange a full refund — no questions, no friction, no fuss.</div></div>
+    <div class="wc rv"><div class="wi">📖</div><div class="wt">Expert Curation</div><div class="wd">Our literary team reviews hundreds of titles annually so only the finest volumes reach our catalogue.</div></div>
+    <div class="wc rv"><div class="wi">🎁</div><div class="wt">Gift Services</div><div class="wd">Bespoke gift wrapping, personalised calligraphy cards, and same-day delivery for special occasions.</div></div>
   </div>
 </section>
-
-<!-- FEATURED BOOKS -->
-<section class="section" style="padding-top:0;">
-  <div class="container">
-    <div class="sec-eyebrow">Hand-Picked Titles</div>
-    <div class="sec-title">Featured <span>Volumes</span></div>
-    <div class="gold-line"></div>
-    <div class="feat-books-grid" id="feat-grid"></div>
-    <div style="text-align:center;margin-top:3rem;">
-      <a class="btn-outline" href="pages/shop.html">View Full Collection <svg style="width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:2;display:inline-block;vertical-align:middle;margin-left:8px" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
-    </div>
-  </div>
-</section>
-
-<!-- PROMO BAND -->
-<div class="promo-band">
-  <div class="promo-band-text">
-    <h2>First Editions<br>&amp; Rare Finds</h2>
-    <p>Exclusive access to the world's finest literary acquisitions</p>
-  </div>
-  <a class="btn-dark" href="pages/services.html">Discover Our Services <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
-</div>
-
-<!-- TESTIMONIALS -->
-<div class="testimonials">
-  <div class="container">
-    <div class="sec-eyebrow">Client Testimonials</div>
-    <div class="sec-title">Voices of <span>Satisfaction</span></div>
-    <div class="gold-line"></div>
-    <div class="test-grid">
-      <div class="test-card">
-        <div class="test-stars"><span class="test-star">✦</span><span class="test-star">✦</span><span class="test-star">✦</span><span class="test-star">✦</span><span class="test-star">✦</span></div>
-        <div class="test-quote">The most refined book purchasing experience I have encountered. Each volume arrived immaculately packaged, as if from a Parisian atelier.</div>
-        <div class="test-author">— Sir Edmund Hartley</div>
-        <div class="test-book">Purchased: Dune, Meditations</div>
-      </div>
-      <div class="test-card">
-        <div class="test-stars"><span class="test-star">✦</span><span class="test-star">✦</span><span class="test-star">✦</span><span class="test-star">✦</span><span class="test-star">✦</span></div>
-        <div class="test-quote">Bibliothèque curated a personal reading list that transformed my library. Their knowledge of literature is unparalleled — a true white-glove service.</div>
-        <div class="test-author">— Lady Priya Sundaram</div>
-        <div class="test-book">Purchased: 12 Volumes</div>
-      </div>
-      <div class="test-card">
-        <div class="test-stars"><span class="test-star">✦</span><span class="test-star">✦</span><span class="test-star">✦</span><span class="test-star">✦</span><span class="test-star">✦</span></div>
-        <div class="test-quote">I have collected books for forty years and never found a destination as extraordinary as this. The selection rivals the great bookshops of London and Paris.</div>
-        <div class="test-author">— Prof. Alexandre Moreau</div>
-        <div class="test-book">Purchased: Philosophy Collection</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<script src="js/main.js"></script>
+<div class="mov" id="mov" onclick="if(event.target===this)cm()"><div class="mp" id="mpanel"></div></div>
 <script>
-document.addEventListener('DOMContentLoaded',()=>{
-  const featured = BOOKS.filter(b=>b.bestseller).slice(0,4);
-  document.getElementById('feat-grid').innerHTML = featured.map((b,i)=>bookCardHTML(b,i*60)).join('');
-  document.getElementById('hn-saved').textContent = cartCount();
-});
+const items=['Free Shipping $50+','30-Day Returns','Expert Curation','Luxury Packaging','Same-Day Dispatch','Gift Wrapping','First Editions','Book Club'];
+const t=document.getElementById('mqt');let h='';for(let r=0;r<3;r++)items.forEach(i=>{h+=`<div class="mqi"><span style="color:var(--go)">✦</span>${i}</div>`;});t.innerHTML=h;
+const featured=BOOKS.filter(b=>b.best).slice(0,6);
+document.getElementById('fg').innerHTML=featured.map((b,i)=>{
+  const p=gp(b.genre),n=ini(b.title);
+  return `<div class="bc" style="animation-delay:${i*60}ms">
+    <div class="bb"><div class="bb-bg" style="background:linear-gradient(150deg,${p.f},${p.t})"></div><div class="bb-sh"></div><div class="bb-mo">${n}</div>
+      <div class="bb-tag">${b.genre}</div><div class="bb-bs">Bestseller</div></div>
+    <div class="bd2"><div class="by">${b.year}</div><div class="bt">${b.title}</div><div class="ba">by ${b.author}</div><div class="bdesc">${b.desc}</div>${stars(b.rating)}</div>
+    <div class="bcom">
+      <div><div class="bpl">Price</div><div class="bpv">$${b.price.toFixed(2)}</div>${b.was?`<div class="bpo">$${b.was.toFixed(2)}</div>`:''}</div>
+      <button class="beye" onclick="om(${b.id})"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+      <button class="baq${gc()[b.id]?' on':''}" id="b${b.id}" onclick="da(${b.id})"><span>${gc()[b.id]?'In Cart':'Acquire'}</span></button>
+    </div></div>`;
+}).join('');
+function da(id){const b=BOOKS.find(x=>x.id===id);ac(id);const el=document.getElementById('b'+id);if(el){el.classList.add('on');el.querySelector('span').textContent='In Cart';}toast('"'+b.title.slice(0,24)+'…" added','$'+b.price.toFixed(2));}
+function om(id){const b=BOOKS.find(x=>x.id===id);if(!b)return;const p=gp(b.genre),n=ini(b.title);
+  document.getElementById('mpanel').innerHTML=`<div class="mh"><div class="mhb" style="background:linear-gradient(150deg,${p.f},${p.t})"></div><div class="mhs"></div><div class="mhg">${n}</div><div class="mht"><h2>${b.title}</h2><p>by ${b.author} · ${b.year}</p></div></div>
+  <div class="mb2"><p class="md">${b.desc}</p>
+  <div class="mm"><div class="mc"><div class="mcl">Genre</div><div class="mcv" style="font-size:.95rem">${b.genre}</div></div><div class="mc"><div class="mcl">Rating</div><div class="mcv" style="color:var(--gl)">✦ ${b.rating}</div></div><div class="mc"><div class="mcl">Pages</div><div class="mcv">${b.pages}</div></div><div class="mc"><div class="mcl">Year</div><div class="mcv">${b.year}</div></div></div>
+  <div class="mpur"><div><div style="font-size:8px;letter-spacing:.4em;text-transform:uppercase;color:var(--si);margin-bottom:5px">Investment</div><div style="font-family:'Cormorant Garamond',serif;font-size:1.9rem;color:var(--gl);font-weight:300">$${b.price.toFixed(2)}</div>${b.was?`<div style="font-size:11px;color:var(--si);text-decoration:line-through">$${b.was.toFixed(2)}</div>`:''}</div>
+  <button class="bg" onclick="da(${b.id});cm()">Add to Cart →</button></div>
+  <div style="display:flex;justify-content:flex-end;margin-top:.75rem"><button class="bgh" onclick="cm()">Close</button></div></div>`;
+  document.getElementById('mov').classList.add('open');}
+function cm(){document.getElementById('mov').classList.remove('open');}
+const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('vis');}),{threshold:.12});
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+</script>
+
+<footer>
+  <div class="fg">
+    <div class="fbl"><div class="fl2">Bibliothèque</div><p>A curated luxury bookstore presenting the finest works of literature to discerning collectors worldwide.</p></div>
+    <div class="fc"><h4>Navigate</h4><a href="index.html">Home</a><a href="shop.html">Shop</a><a href="services.html">Services</a><a href="about.html">About</a><a href="contact.html">Contact</a></div>
+    <div class="fc"><h4>Genres</h4><a href="shop.html">Fiction</a><a href="shop.html">Sci-Fi</a><a href="shop.html">Fantasy</a><a href="shop.html">Mystery</a><a href="shop.html">Biography</a></div>
+    <div class="fc"><h4>Support</h4><a href="contact.html">Contact Us</a><a href="cart.html">Your Cart</a><a href="services.html">Shipping</a><a href="services.html">Returns</a><a href="#">FAQ</a></div>
+  </div>
+  <div class="fb"><div>© MMXXV Bibliothèque — All Rights Reserved</div><div>The Art of the Written Word</div></div>
+</footer>
+<script>/* ── SHARED DATA & UTILITIES (inlined in every page) ── */
+const BOOKS=[
+  {id:1,title:'The Midnight Library',author:'Matt Haig',genre:'Fiction',year:2020,isbn:'978-0525559474',rating:4.5,pages:304,price:24.99,was:32.00,best:true,desc:'Between life and death there is a library. Every book is a chance to try another life you could have lived.'},
+  {id:2,title:'Dune',author:'Frank Herbert',genre:'Sci-Fi',year:1965,isbn:'978-0441013593',rating:4.8,pages:688,price:19.99,was:null,best:true,desc:'An epic of politics, religion and ecology on the desert planet Arrakis — a landmark of science fiction.'},
+  {id:3,title:'Sapiens',author:'Yuval Noah Harari',genre:'History',year:2011,isbn:'978-0062316097',rating:4.4,pages:443,price:21.99,was:28.00,best:false,desc:'A provocative brief history of humankind from the Stone Age to the twenty-first century.'},
+  {id:4,title:'The Name of the Wind',author:'Patrick Rothfuss',genre:'Fantasy',year:2007,isbn:'978-0756404741',rating:4.7,pages:662,price:17.99,was:null,best:true,desc:'The autobiography of the most notorious magician his world has ever seen, told in his own words.'},
+  {id:5,title:'Gone Girl',author:'Gillian Flynn',genre:'Mystery',year:2012,isbn:'978-0307588371',rating:4.1,pages:422,price:15.99,was:22.00,best:false,desc:"On their fifth anniversary, Nick Dunne's wife Amy disappears. A chilling tale of deception and obsession."},
+  {id:6,title:'Atomic Habits',author:'James Clear',genre:'Self-Help',year:2018,isbn:'978-0735211292',rating:4.6,pages:320,price:18.99,was:null,best:true,desc:'A supremely practical guide to building good habits and breaking bad ones — small changes, remarkable results.'},
+  {id:7,title:'Steve Jobs',author:'Walter Isaacson',genre:'Biography',year:2011,isbn:'978-1451648539',rating:4.0,pages:630,price:22.99,was:30.00,best:false,desc:'The definitive portrait of the greatest innovator of his age, based on forty exclusive interviews.'},
+  {id:8,title:'Educated',author:'Tara Westover',genre:'Non-Fiction',year:2018,isbn:'978-0399590504',rating:4.3,pages:334,price:16.99,was:null,best:false,desc:'A memoir about a girl raised by survivalists who goes on to earn a PhD from Cambridge University.'},
+  {id:9,title:'Meditations',author:'Marcus Aurelius',genre:'Philosophy',year:180,isbn:'978-0140449334',rating:4.9,pages:256,price:12.99,was:null,best:true,desc:"The private thoughts of the world's most powerful man counselling himself on duty and virtue."},
+  {id:10,title:'The Great Gatsby',author:'F. Scott Fitzgerald',genre:'Fiction',year:1925,isbn:'978-0743273565',rating:4.2,pages:180,price:11.99,was:16.00,best:false,desc:'The quintessential Jazz Age novel — wealth, love and the impossibility of recapturing the past.'},
+  {id:11,title:'Project Hail Mary',author:'Andy Weir',genre:'Sci-Fi',year:2021,isbn:'978-0593135204',rating:4.8,pages:476,price:23.99,was:null,best:true,desc:'A lone astronaut must save the earth in this propulsive, joyful novel from the author of The Martian.'},
+  {id:12,title:'The Girl with the Dragon Tattoo',author:'Stieg Larsson',genre:'Mystery',year:2005,isbn:'978-0307949486',rating:4.3,pages:672,price:17.99,was:24.00,best:false,desc:'A financial journalist and a brilliant hacker investigate a decades-old disappearance in Sweden.'},
+];
+const PAL=[
+  {f:'#0f1f0f',t:'#1a3320'},{f:'#0f0f2a',t:'#1a1a3a'},{f:'#1f130a',t:'#321e0f'},
+  {f:'#0a1520',t:'#102030'},{f:'#1f0a0a',t:'#320f0f'},{f:'#0f0f0f',t:'#1e1e1e'},
+  {f:'#150a22',t:'#220f38'},{f:'#0a160f',t:'#0f2218'},{f:'#1f1508',t:'#30200f'},
+];
+const GP={};
+['Fiction','Sci-Fi','History','Fantasy','Mystery','Self-Help','Biography','Non-Fiction','Philosophy']
+  .forEach((g,i)=>GP[g]=PAL[i]);
+function gp(g){if(!GP[g])GP[g]=PAL[Object.keys(GP).length%PAL.length];return GP[g];}
+function ini(t){return t.split(' ').slice(0,2).map(w=>w[0]).join('').toUpperCase();}
+function stars(r){if(!r)return'';let s='';for(let i=1;i<=5;i++)s+=`<span style="color:${i<=Math.floor(r)?'#c9a84c':'#2a2a2a'};font-size:10px">✦</span>`;return`<div style="display:flex;gap:2px;margin-top:8px">${s}</div>`;}
+/* Cart */
+function gc(){try{return JSON.parse(localStorage.getItem('bib')||'{}')}catch{return{}}}
+function sc(c){localStorage.setItem('bib',JSON.stringify(c))}
+function cc(){return Object.values(gc()).reduce((s,v)=>s+v,0)}
+function ct(){const c=gc();return Object.keys(c).reduce((s,id)=>{const b=BOOKS.find(x=>x.id==id);return b?s+b.price*c[id]:s;},0)}
+function ac(id){const c=gc();c[id]=(c[id]||0)+1;sc(c);ub()}
+function rc(id){const c=gc();delete c[id];sc(c);ub()}
+function qc(id,q){const c=gc();if(q<1)delete c[id];else c[id]=q;sc(c);ub()}
+function clc(){sc({});ub()}
+function ub(){const n=cc();document.querySelectorAll('.cc').forEach(e=>{e.textContent=n;e.style.display=n>0?'flex':'none';})}
+/* Toast */
+let _tt;
+function toast(msg,sub=''){
+  let t=document.getElementById('_t');
+  if(!t){t=document.createElement('div');t.id='_t';
+    t.style.cssText='position:fixed;bottom:2.5rem;right:2.5rem;z-index:9000;background:#101010;border:1px solid rgba(201,168,76,.35);padding:1rem 1.5rem;min-width:260px;transform:translateY(120px);opacity:0;transition:transform .45s cubic-bezier(.16,1,.3,1),opacity .45s;display:flex;align-items:center;gap:12px;font-family:Jost,sans-serif;pointer-events:none;';
+    document.body.appendChild(t);}
+  t.innerHTML=`<div style="width:7px;height:7px;background:#c9a84c;border-radius:50%;flex-shrink:0"></div><div style="font-size:10px;letter-spacing:.1em;color:#f8f4ed">${msg}</div>${sub?`<div style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:#e8c97e;margin-left:auto">${sub}</div>`:''}`;
+  t.style.transform='translateY(0)';t.style.opacity='1';
+  clearTimeout(_tt);_tt=setTimeout(()=>{t.style.transform='translateY(120px)';t.style.opacity='0';},3000);
+}
+/* Cursor */
+function initCursor(){
+  const d=document.getElementById('_cd'),r=document.getElementById('_cr');
+  if(!d||!r)return;
+  document.addEventListener('mousemove',e=>{d.style.left=e.clientX+'px';d.style.top=e.clientY+'px';r.style.left=e.clientX+'px';r.style.top=e.clientY+'px';});
+  document.addEventListener('mouseover',e=>{r.classList.toggle('L',!!e.target.closest('button,a,.bc,.gp'));});
+}
+window.addEventListener('DOMContentLoaded',()=>{initCursor();ub();});
 </script>
 </body>
 </html>
