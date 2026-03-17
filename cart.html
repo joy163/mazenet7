@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Cart — BIBLIOTHÈQUE</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+.cart-wrap{max-width:1200px;margin:0 auto;padding:4rem 4rem 8rem;}
+.cart-layout{display:grid;grid-template-columns:1fr 380px;gap:3rem;align-items:start;}
+/* Cart items */
+.cart-items-panel .cp-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:2rem;padding-bottom:1.25rem;border-bottom:1px solid var(--border);}
+.cp-title{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;}
+.cp-count{font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:var(--silver);}
+.empty-cart{padding:6rem 2rem;text-align:center;}
+.ec-glyph{font-family:'Cormorant',serif;font-size:5rem;color:var(--border);margin-bottom:1rem;}
+.ec-msg{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-style:italic;color:var(--silver);margin-bottom:2rem;}
+/* Cart item row */
+.cart-row{display:flex;gap:1.5rem;padding:1.5rem 0;border-bottom:1px solid var(--border);align-items:flex-start;}
+.cr-cover{width:64px;height:84px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'Cormorant',serif;font-size:1.5rem;font-weight:800;color:rgba(255,255,255,.25);position:relative;overflow:hidden;}
+.cr-info{flex:1;}
+.cr-genre{font-size:7px;letter-spacing:.45em;text-transform:uppercase;color:var(--gold);margin-bottom:5px;}
+.cr-title{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:300;color:var(--ivory);margin-bottom:3px;line-height:1.2;}
+.cr-author{font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--silver);margin-bottom:12px;}
+.cr-controls{display:flex;align-items:center;gap:12px;}
+.qty-btn{width:28px;height:28px;border:1px solid var(--border);background:none;color:var(--silver);display:flex;align-items:center;justify-content:center;font-size:15px;transition:border-color .25s,color .25s;}
+.qty-btn:hover{border-color:var(--gold);color:var(--gold);}
+.qty-val{font-family:'Cormorant Garamond',serif;font-size:1.1rem;min-width:24px;text-align:center;}
+.cr-remove{background:none;border:none;color:var(--silver);font-size:16px;transition:color .25s;padding:2px 6px;margin-left:4px;}
+.cr-remove:hover{color:var(--danger);}
+.cr-price-col{text-align:right;flex-shrink:0;}
+.cr-unit{font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--silver);margin-bottom:4px;}
+.cr-total{font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--gold-light);font-weight:300;}
+/* Order Summary */
+.order-summary{background:var(--charcoal);border:1px solid var(--border);position:sticky;top:96px;}
+.os-head{padding:1.5rem 1.5rem 0;border-bottom:1px solid var(--border);padding-bottom:1.25rem;}
+.os-eyebrow{font-size:8px;letter-spacing:.5em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;}
+.os-title{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;}
+.os-body{padding:1.5rem;}
+.os-line{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.9rem;font-size:12px;font-weight:300;}
+.os-line .osl-lbl{color:var(--silver);letter-spacing:.05em;}
+.os-line .osl-val{color:var(--cream);}
+.os-divider{height:1px;background:var(--border);margin:1rem 0;}
+.os-total{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:1.5rem;}
+.os-total .ost-lbl{font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:var(--silver);}
+.os-total .ost-val{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;color:var(--gold-light);}
+.os-shipping-note{font-size:10px;color:var(--silver);letter-spacing:.05em;margin-bottom:1.5rem;padding:10px 12px;border:1px solid rgba(201,168,76,.15);background:rgba(201,168,76,.04);}
+/* Promo */
+.promo-row{display:flex;gap:8px;margin-bottom:1.25rem;}
+.promo-inp{flex:1;padding:11px 12px;background:var(--graphite);border:1px solid var(--border);color:var(--cream);font-family:'Jost',sans-serif;font-size:11px;outline:none;letter-spacing:.08em;}
+.promo-inp:focus{border-color:rgba(201,168,76,.4);}
+.promo-btn{padding:11px 16px;font-size:8px;letter-spacing:.35em;text-transform:uppercase;background:none;border:1px solid var(--border);color:var(--silver);transition:all .3s;white-space:nowrap;}
+.promo-btn:hover{border-color:var(--gold);color:var(--gold);}
+/* Checkout form */
+.checkout-section{display:none;margin-top:3rem;}
+.checkout-section.show{display:block;}
+.checkout-panel{background:var(--charcoal);border:1px solid var(--border);padding:2rem;}
+.cs-title{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid var(--border);}
+.cs-section{margin-bottom:1.75rem;}
+.cs-sec-lbl{font-size:8px;letter-spacing:.5em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;padding-bottom:.6rem;border-bottom:1px solid rgba(201,168,76,.15);}
+.field-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.field-group{margin-bottom:12px;}
+.payment-icons{display:flex;gap:8px;margin-bottom:1rem;flex-wrap:wrap;}
+.pay-icon{padding:8px 14px;background:var(--graphite);border:1px solid var(--border);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--silver);}
+/* Order confirmed */
+.order-confirmed{display:none;text-align:center;padding:5rem 2rem;}
+.order-confirmed.show{display:block;}
+.oc-icon{font-size:3.5rem;margin-bottom:1.25rem;}
+.oc-eyebrow{font-size:9px;letter-spacing:.5em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;}
+.oc-title{font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:300;margin-bottom:1rem;}
+.oc-title em{font-style:italic;color:var(--gold-light);}
+.oc-msg{font-size:13px;color:var(--silver);max-width:500px;margin:0 auto 2rem;line-height:1.9;font-weight:300;}
+.oc-num{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--gold-light);margin-bottom:2rem;}
+@media(max-width:900px){.cart-layout{grid-template-columns:1fr;}.cart-wrap{padding:3rem 1.5rem 6rem;}.field-row,.field-row-3{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="cursor-dot" id="cdot"></div>
+<div class="cursor-ring" id="cring"></div>
+<nav class="main-nav">
+  <div class="nav-wordmark">Bibliothèque</div>
+  <div class="nav-center"><div class="nav-emblem">✦</div><div class="nav-brand">The Private Bookstore</div></div>
+  <div class="nav-links">
+    <a class="nav-link" href="index.html">Home</a><a class="nav-link" href="shop.html">Shop</a>
+    <a class="nav-link" href="services.html">Services</a><a class="nav-link" href="about.html">About</a>
+    <a class="nav-link" href="contact.html">Contact</a>
+    <a class="cart-btn active" href="cart.html"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>Cart <span class="cart-count" id="cart-count">0</span></a>
+  </div>
+</nav>
+
+<div class="page-hero" style="height:240px">
+  <div class="page-hero-bg"></div><div class="page-hero-grid"></div>
+  <div class="page-eyebrow">Your Selection</div>
+  <h1 class="page-title" style="font-size:clamp(2.5rem,5vw,5rem)">The <em>Collection</em></h1>
+</div>
+
+<div class="cart-wrap">
+  <!-- Order confirmed state -->
+  <div class="order-confirmed" id="order-confirmed">
+    <div class="oc-icon">✦</div>
+    <div class="oc-eyebrow">Acquisition Complete</div>
+    <h2 class="oc-title">Thank You for Your <em>Order</em></h2>
+    <div class="oc-num" id="oc-num">BIB-000000</div>
+    <p class="oc-msg">Your volumes will be dispatched within 24 hours. You will receive a tracking notification by email shortly. We hope these books bring you great joy.</p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+      <a class="btn-gold" href="shop.html">Continue Browsing</a>
+      <a class="btn-outline" href="index.html">Return Home</a>
+    </div>
+  </div>
+
+  <!-- Main cart layout -->
+  <div id="main-cart">
+    <div class="cart-layout">
+      <!-- Left: items -->
+      <div class="cart-items-panel">
+        <div class="cp-head">
+          <div class="cp-title">Your Cart</div>
+          <div class="cp-count" id="cp-count">0 items</div>
+        </div>
+        <div id="cart-rows"></div>
+      </div>
+
+      <!-- Right: summary -->
+      <div>
+        <div class="order-summary">
+          <div class="os-head">
+            <div class="os-eyebrow">Summary</div>
+            <div class="os-title">Order Details</div>
+          </div>
+          <div class="os-body">
+            <div class="os-line"><span class="osl-lbl">Subtotal</span><span class="osl-val" id="os-sub">$0.00</span></div>
+            <div class="os-line"><span class="osl-lbl">Shipping</span><span class="osl-val" id="os-ship">Calculated at checkout</span></div>
+            <div class="os-line"><span class="osl-lbl">Discount</span><span class="osl-val" id="os-disc" style="color:var(--gold)">—</span></div>
+            <div class="os-divider"></div>
+            <div class="os-total"><span class="ost-lbl">Total</span><span class="ost-val" id="os-total">$0.00</span></div>
+            <div class="os-shipping-note">✦ Free tracked shipping on orders over $50</div>
+            <div class="promo-row">
+              <input class="promo-inp" id="promo-inp" placeholder="Promo code">
+              <button class="promo-btn" onclick="applyPromo()">Apply</button>
+            </div>
+            <button class="btn-gold" style="width:100%;justify-content:center;padding:15px" id="checkout-btn" onclick="showCheckout()">
+              Proceed to Checkout →
+            </button>
+            <div style="text-align:center;margin-top:.75rem"><a class="btn-ghost" href="shop.html" style="justify-content:center;padding:10px">← Continue Shopping</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Checkout form (appears below on proceed) -->
+    <div class="checkout-section" id="checkout-section">
+      <div class="checkout-panel">
+        <div class="cs-title">Complete Your Acquisition</div>
+        <div class="cs-section">
+          <div class="cs-sec-lbl">Personal Details</div>
+          <div class="field-row">
+            <div class="field-group"><label class="field-lbl">First Name *</label><input class="field-inp" id="ch-fname" placeholder="First name"></div>
+            <div class="field-group"><label class="field-lbl">Last Name *</label><input class="field-inp" id="ch-lname" placeholder="Last name"></div>
+          </div>
+          <div class="field-row">
+            <div class="field-group"><label class="field-lbl">Email Address *</label><input class="field-inp" id="ch-email" type="email" placeholder="your@email.com"></div>
+            <div class="field-group"><label class="field-lbl">Phone</label><input class="field-inp" id="ch-phone" placeholder="+1 (000) 000-0000"></div>
+          </div>
+        </div>
+        <div class="cs-section">
+          <div class="cs-sec-lbl">Delivery Address</div>
+          <div class="field-group"><label class="field-lbl">Street Address *</label><input class="field-inp" id="ch-addr" placeholder="123 Main Street"></div>
+          <div class="field-row-3">
+            <div class="field-group"><label class="field-lbl">City *</label><input class="field-inp" id="ch-city" placeholder="New York"></div>
+            <div class="field-group"><label class="field-lbl">State/Region</label><input class="field-inp" id="ch-state" placeholder="NY"></div>
+            <div class="field-group"><label class="field-lbl">ZIP / Postcode *</label><input class="field-inp" id="ch-zip" placeholder="10001"></div>
+          </div>
+          <div class="field-group">
+            <label class="field-lbl">Country *</label>
+            <select class="field-sel" id="ch-country">
+              <option>United States</option><option>United Kingdom</option><option>Canada</option>
+              <option>Australia</option><option>Germany</option><option>France</option><option>Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="cs-section">
+          <div class="cs-sec-lbl">Gift Options</div>
+          <div class="field-row">
+            <div class="field-group">
+              <label class="field-lbl">Wrapping</label>
+              <select class="field-sel" id="ch-wrap">
+                <option value="none">No gift wrapping</option>
+                <option value="standard">Standard Gift Wrap (+$4.99)</option>
+                <option value="luxury">Luxury Gold-Foil Wrap (+$12.99)</option>
+              </select>
+            </div>
+            <div class="field-group"><label class="field-lbl">Gift Message</label><input class="field-inp" id="ch-gift" placeholder="Optional personal message"></div>
+          </div>
+        </div>
+        <div class="cs-section">
+          <div class="cs-sec-lbl">Payment Details</div>
+          <div class="payment-icons">
+            <div class="pay-icon">Visa</div><div class="pay-icon">Mastercard</div>
+            <div class="pay-icon">Amex</div><div class="pay-icon">PayPal</div>
+          </div>
+          <div class="field-group"><label class="field-lbl">Card Number *</label><input class="field-inp" id="ch-card" placeholder="1234 5678 9012 3456" maxlength="19"></div>
+          <div class="field-row-3">
+            <div class="field-group"><label class="field-lbl">Expiry *</label><input class="field-inp" id="ch-exp" placeholder="MM/YY" maxlength="5"></div>
+            <div class="field-group"><label class="field-lbl">CVV *</label><input class="field-inp" id="ch-cvv" placeholder="123" maxlength="4"></div>
+            <div class="field-group"><label class="field-lbl">Cardholder Name *</label><input class="field-inp" id="ch-name" placeholder="Full name on card"></div>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;padding-top:1rem;border-top:1px solid var(--border)">
+          <div>
+            <div id="ch-total-lbl" style="font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:var(--silver);margin-bottom:4px">Order Total</div>
+            <div id="ch-total-val" style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:var(--gold-light);font-weight:300">$0.00</div>
+          </div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <button class="btn-ghost" onclick="hideCheckout()">← Back to Cart</button>
+            <button class="btn-gold" onclick="placeOrder()">Place Order ✦</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="main-footer">
+  <div class="footer-grid">
+    <div class="footer-brand-col"><div class="fb-logo">Bibliothèque</div><p>A curated luxury bookstore presenting the finest works of literature to discerning collectors and passionate readers worldwide.</p></div>
+    <div class="footer-col"><h4>Navigate</h4><a href="index.html">Home</a><a href="shop.html">Shop</a><a href="services.html">Services</a><a href="about.html">About</a><a href="contact.html">Contact</a></div>
+    <div class="footer-col"><h4>Genres</h4><a href="shop.html">Fiction</a><a href="shop.html">Sci-Fi</a><a href="shop.html">Fantasy</a><a href="shop.html">Mystery</a><a href="shop.html">Biography</a></div>
+    <div class="footer-col"><h4>Support</h4><a href="contact.html">Contact Us</a><a href="#">Shipping Policy</a><a href="#">Returns</a><a href="#">FAQ</a></div>
+  </div>
+  <div class="footer-bottom"><div>© MMXXV Bibliothèque — All Rights Reserved</div><div>The Art of the Written Word</div></div>
+</footer>
+
+<script src="shared.js"></script>
+<script>
+let discount=0;
+function render(){
+  const c=getCart();const keys=Object.keys(c);
+  const sub=cartTotal();
+  const ship=sub>=50?0:4.99;
+  const discAmt=discount>0?sub*(discount/100):0;
+  const total=sub+ship-discAmt;
+  document.getElementById('cp-count').textContent=cartCount()+' item'+(cartCount()!==1?'s':'');
+  document.getElementById('os-sub').textContent='$'+sub.toFixed(2);
+  document.getElementById('os-ship').textContent=ship===0?'Free':'$'+ship.toFixed(2);
+  document.getElementById('os-disc').textContent=discAmt>0?'-$'+discAmt.toFixed(2):'—';
+  document.getElementById('os-total').textContent='$'+total.toFixed(2);
+  document.getElementById('ch-total-val').textContent='$'+total.toFixed(2);
+  if(!keys.length){
+    document.getElementById('cart-rows').innerHTML=`<div class="empty-cart"><div class="ec-glyph">𝔅</div><div class="ec-msg">Your cart is empty.</div><a class="btn-gold" href="shop.html">Explore the Collection</a></div>`;
+    document.getElementById('checkout-btn').disabled=true;
+    return;
+  }
+  document.getElementById('checkout-btn').disabled=false;
+  document.getElementById('cart-rows').innerHTML=keys.map(id=>{
+    const b=BOOKS.find(x=>x.id==id);if(!b)return'';
+    const qty=c[id];const p=pal(b.genre);const ini=initials(b.title);
+    return `<div class="cart-row">
+      <div class="cr-cover" style="background:linear-gradient(150deg,${p.from},${p.to})">${ini}</div>
+      <div class="cr-info">
+        <div class="cr-genre">${b.genre}</div>
+        <div class="cr-title">${b.title}</div>
+        <div class="cr-author">by ${b.author}</div>
+        <div class="cr-controls">
+          <button class="qty-btn" onclick="chQty(${id},-1)">−</button>
+          <div class="qty-val">${qty}</div>
+          <button class="qty-btn" onclick="chQty(${id},1)">+</button>
+          <button class="cr-remove" onclick="rmItem(${id})" title="Remove">✕</button>
+        </div>
+      </div>
+      <div class="cr-price-col">
+        <div class="cr-unit">$${b.price.toFixed(2)} each</div>
+        <div class="cr-total">$${(b.price*qty).toFixed(2)}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+function chQty(id,d){const c=getCart();c[id]=Math.max(1,(c[id]||1)+d);saveCart(c);updateCartBadge();render();}
+function rmItem(id){removeFromCart(id);render();}
+function applyPromo(){
+  const code=document.getElementById('promo-inp').value.trim().toUpperCase();
+  if(code==='BIBLIO20'){discount=20;showToast('Promo code applied — 20% off!','');render();}
+  else if(code==='BOOK10'){discount=10;showToast('Promo code applied — 10% off!','');render();}
+  else{showToast('Invalid promo code','');}
+}
+function showCheckout(){
+  if(!cartCount()){showToast('Your cart is empty');return;}
+  document.getElementById('checkout-section').classList.add('show');
+  document.getElementById('checkout-section').scrollIntoView({behavior:'smooth',block:'start'});
+}
+function hideCheckout(){document.getElementById('checkout-section').classList.remove('show');window.scrollTo({top:0,behavior:'smooth'});}
+function placeOrder(){
+  const fname=document.getElementById('ch-fname').value.trim();
+  const email=document.getElementById('ch-email').value.trim();
+  const addr=document.getElementById('ch-addr').value.trim();
+  const card=document.getElementById('ch-card').value.trim();
+  if(!fname||!email||!addr||!card){showToast('Please fill in all required fields');return;}
+  const orderId='BIB-'+Math.floor(100000+Math.random()*900000);
+  document.getElementById('oc-num').textContent=orderId;
+  clearCart();
+  document.getElementById('main-cart').style.display='none';
+  document.getElementById('order-confirmed').classList.add('show');
+  window.scrollTo({top:0,behavior:'smooth'});
+  updateCartBadge();
+}
+// Format card number
+document.addEventListener('DOMContentLoaded',()=>{
+  const ci=document.getElementById('ch-card');
+  if(ci)ci.addEventListener('input',e=>{let v=e.target.value.replace(/\D/g,'').slice(0,16);e.target.value=v.replace(/(.{4})/g,'$1 ').trim();});
+  const ce=document.getElementById('ch-exp');
+  if(ce)ce.addEventListener('input',e=>{let v=e.target.value.replace(/\D/g,'').slice(0,4);if(v.length>2)v=v.slice(0,2)+'/'+v.slice(2);e.target.value=v;});
+  render();
+});
+</script>
+</body>
+</html>
