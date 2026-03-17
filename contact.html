@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Contact — BIBLIOTHÈQUE</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+.contact-wrap{max-width:1400px;margin:0 auto;padding:4rem 4rem 8rem;}
+.contact-grid{display:grid;grid-template-columns:1fr 1.5fr;gap:5rem;margin-bottom:5rem;}
+/* Info side */
+.contact-info .ci-eyebrow{font-size:9px;letter-spacing:.5em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;}
+.contact-info h2{font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:300;line-height:1.15;margin-bottom:1.25rem;}
+.contact-info h2 em{font-style:italic;color:var(--gold-light);}
+.contact-info p{font-size:13px;color:rgba(248,244,237,.65);line-height:2;font-weight:300;margin-bottom:2rem;}
+.contact-items{display:flex;flex-direction:column;gap:1px;}
+.contact-item{background:var(--graphite);border:1px solid var(--border);padding:1.25rem 1.5rem;display:flex;align-items:flex-start;gap:1.25rem;transition:border-color .3s;}
+.contact-item:hover{border-color:rgba(201,168,76,.3);}
+.ci-icon{font-size:1.3rem;flex-shrink:0;margin-top:2px;}
+.ci-label{font-size:8px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-bottom:5px;}
+.ci-val{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:300;color:var(--ivory);}
+.ci-sub{font-size:10px;color:var(--silver);margin-top:2px;font-weight:300;}
+.hours-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);margin-top:1.5rem;}
+.hours-cell{background:var(--graphite);padding:1rem 1.25rem;}
+.hc-day{font-size:8px;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);margin-bottom:4px;}
+.hc-time{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:300;}
+/* Form side */
+.contact-form-wrap{background:var(--charcoal);border:1px solid var(--border);padding:2.5rem;}
+.cf-eyebrow{font-size:9px;letter-spacing:.5em;text-transform:uppercase;color:var(--gold);margin-bottom:.75rem;}
+.cf-title{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;margin-bottom:2rem;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.field-group{margin-bottom:14px;}
+.form-success{display:none;background:rgba(39,174,96,.08);border:1px solid rgba(39,174,96,.25);padding:1.25rem 1.5rem;margin-bottom:1.25rem;font-size:12px;color:rgba(39,174,96,.9);letter-spacing:.05em;}
+.form-success.show{display:block;}
+/* FAQ */
+.faq-section{margin-bottom:5rem;}
+.faq-list{margin-top:2.5rem;}
+.faq-item{border-bottom:1px solid var(--border);}
+.faq-q{display:flex;justify-content:space-between;align-items:center;padding:1.25rem 0;cursor:none;font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:300;transition:color .3s;}
+.faq-q:hover{color:var(--gold-light);}
+.faq-icon{font-size:1.2rem;color:var(--gold);transition:transform .3s;flex-shrink:0;}
+.faq-item.open .faq-icon{transform:rotate(45deg);}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .4s;}
+.faq-item.open .faq-a{max-height:200px;padding-bottom:1.25rem;}
+.faq-a p{font-size:13px;color:var(--silver);line-height:1.9;font-weight:300;}
+/* Map placeholder */
+.map-section{margin-bottom:5rem;}
+.map-frame{background:var(--graphite);border:1px solid var(--border);height:320px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.map-frame::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 50% 50%,rgba(201,168,76,.06) 0%,transparent 60%);}
+.map-grid-lines{position:absolute;inset:0;background-image:linear-gradient(rgba(201,168,76,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.05) 1px,transparent 1px);background-size:40px 40px;}
+.map-pin{position:relative;z-index:2;text-align:center;}
+.map-pin .mp-dot{width:16px;height:16px;background:var(--gold);border-radius:50%;margin:0 auto 12px;box-shadow:0 0 0 4px rgba(201,168,76,.2),0 0 0 8px rgba(201,168,76,.08);}
+.map-pin .mp-name{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:300;color:var(--ivory);margin-bottom:4px;}
+.map-pin .mp-addr{font-size:10px;letter-spacing:.2em;color:var(--silver);}
+@media(max-width:900px){.contact-grid{grid-template-columns:1fr;gap:3rem;}.form-row{grid-template-columns:1fr;}.contact-wrap{padding:3rem 1.5rem 6rem;}}
+</style>
+</head>
+<body>
+<div class="cursor-dot" id="cdot"></div>
+<div class="cursor-ring" id="cring"></div>
+<nav class="main-nav">
+  <div class="nav-wordmark">Bibliothèque</div>
+  <div class="nav-center"><div class="nav-emblem">✦</div><div class="nav-brand">The Private Bookstore</div></div>
+  <div class="nav-links">
+    <a class="nav-link" href="index.html">Home</a><a class="nav-link" href="shop.html">Shop</a>
+    <a class="nav-link" href="services.html">Services</a><a class="nav-link" href="about.html">About</a>
+    <a class="nav-link active" href="contact.html">Contact</a>
+    <a class="cart-btn" href="cart.html"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>Cart <span class="cart-count" id="cart-count">0</span></a>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-bg"></div><div class="page-hero-grid"></div>
+  <div class="page-eyebrow">Get in Touch</div>
+  <h1 class="page-title">Contact <em>Us</em></h1>
+  <p class="page-sub">We would be delighted to hear from you</p>
+</div>
+
+<div class="contact-wrap">
+  <div class="contact-grid">
+    <!-- Info -->
+    <div class="contact-info reveal">
+      <div class="ci-eyebrow">Reach Out</div>
+      <h2>We Are Here<br>to <em>Assist You</em></h2>
+      <p>Whether you have a question about an order, wish to enquire about our bespoke gift service, or simply want to discuss a book recommendation — we are always at your disposal.</p>
+      <div class="contact-items">
+        <div class="contact-item"><div class="ci-icon">✉️</div><div><div class="ci-label">Email</div><div class="ci-val">hello@bibliotheque.com</div><div class="ci-sub">We respond within 4 hours</div></div></div>
+        <div class="contact-item"><div class="ci-icon">📞</div><div><div class="ci-label">Telephone</div><div class="ci-val">+1 (800) 242-5678</div><div class="ci-sub">Mon–Fri, 9am–6pm EST</div></div></div>
+        <div class="contact-item"><div class="ci-icon">📍</div><div><div class="ci-label">Address</div><div class="ci-val">12 Literary Lane, New York</div><div class="ci-sub">NY 10001, United States</div></div></div>
+        <div class="contact-item"><div class="ci-icon">💬</div><div><div class="ci-label">Live Chat</div><div class="ci-val">Available on-site</div><div class="ci-sub">Instant response during business hours</div></div></div>
+      </div>
+      <div class="hours-grid" style="margin-top:1.5rem">
+        <div class="hours-cell"><div class="hc-day">Mon — Fri</div><div class="hc-time">9:00 — 18:00</div></div>
+        <div class="hours-cell"><div class="hc-day">Saturday</div><div class="hc-time">10:00 — 16:00</div></div>
+        <div class="hours-cell"><div class="hc-day">Sunday</div><div class="hc-time">Closed</div></div>
+        <div class="hours-cell"><div class="hc-day">Public Holidays</div><div class="hc-time">Email Only</div></div>
+      </div>
+    </div>
+
+    <!-- Form -->
+    <div class="contact-form-wrap reveal">
+      <div class="cf-eyebrow">Send a Message</div>
+      <div class="cf-title">Write to Us</div>
+      <div class="form-success" id="form-success">
+        ✦ &nbsp;Thank you for your message. A member of our team will be in touch within 4 hours.
+      </div>
+      <form id="contact-form" onsubmit="submitForm(event)">
+        <div class="form-row">
+          <div class="field-group"><label class="field-lbl">First Name *</label><input class="field-inp" id="fname" placeholder="Your first name" required></div>
+          <div class="field-group"><label class="field-lbl">Last Name *</label><input class="field-inp" id="lname" placeholder="Your last name" required></div>
+        </div>
+        <div class="form-row">
+          <div class="field-group"><label class="field-lbl">Email Address *</label><input class="field-inp" id="email" type="email" placeholder="your@email.com" required></div>
+          <div class="field-group"><label class="field-lbl">Phone</label><input class="field-inp" id="phone" placeholder="+1 (000) 000-0000"></div>
+        </div>
+        <div class="field-group">
+          <label class="field-lbl">Subject *</label>
+          <select class="field-sel" id="subject" required>
+            <option value="">— Select a subject —</option>
+            <option>Order Enquiry</option>
+            <option>Gift Service</option>
+            <option>Book Recommendation</option>
+            <option>Corporate Gifting</option>
+            <option>Returns & Refunds</option>
+            <option>Book Club Membership</option>
+            <option>Rare & First Editions</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label class="field-lbl">Order Number (if applicable)</label>
+          <input class="field-inp" id="orderno" placeholder="BIB-XXXXXX">
+        </div>
+        <div class="field-group">
+          <label class="field-lbl">Your Message *</label>
+          <textarea class="field-txt" id="message" placeholder="Please describe how we can assist you…" required></textarea>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;margin-top:.5rem">
+          <div style="font-size:10px;color:var(--silver);letter-spacing:.05em">We respond within 4 business hours.</div>
+          <button class="btn-gold" type="submit">
+            Send Message
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Map -->
+  <div class="map-section reveal">
+    <div style="text-align:center;margin-bottom:2rem">
+      <div style="font-size:9px;letter-spacing:.5em;text-transform:uppercase;color:var(--gold);margin-bottom:8px">Find Us</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:300">Our <span style="font-style:italic;color:var(--gold-light)">Location</span></div>
+    </div>
+    <div class="map-frame">
+      <div class="map-grid-lines"></div>
+      <div class="map-pin">
+        <div class="mp-dot"></div>
+        <div class="mp-name">Bibliothèque</div>
+        <div class="mp-addr">12 Literary Lane, New York, NY 10001</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="faq-section">
+    <div style="text-align:center;margin-bottom:1rem">
+      <div style="font-size:9px;letter-spacing:.5em;text-transform:uppercase;color:var(--gold);margin-bottom:8px">Quick Answers</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:300">Frequently <span style="font-style:italic;color:var(--gold-light)">Asked</span></div>
+    </div>
+    <div class="faq-list" id="faq-list"></div>
+  </div>
+</div>
+
+<footer class="main-footer">
+  <div class="footer-grid">
+    <div class="footer-brand-col"><div class="fb-logo">Bibliothèque</div><p>A curated luxury bookstore presenting the finest works of literature to discerning collectors and passionate readers worldwide.</p></div>
+    <div class="footer-col"><h4>Navigate</h4><a href="index.html">Home</a><a href="shop.html">Shop</a><a href="services.html">Services</a><a href="about.html">About</a><a href="contact.html">Contact</a></div>
+    <div class="footer-col"><h4>Services</h4><a href="services.html">Delivery</a><a href="services.html">Gift Service</a><a href="services.html">Curation</a><a href="services.html">Corporate</a></div>
+    <div class="footer-col"><h4>Support</h4><a href="contact.html">Contact Us</a><a href="#">Shipping Policy</a><a href="#">Returns</a><a href="cart.html">Your Cart</a></div>
+  </div>
+  <div class="footer-bottom"><div>© MMXXV Bibliothèque — All Rights Reserved</div><div>The Art of the Written Word</div></div>
+</footer>
+
+<script src="shared.js"></script>
+<script>
+const faqs=[
+  {q:'How long does delivery take?',a:'Standard tracked delivery takes 3–5 business days. Express next-day delivery is available at checkout for orders placed before 2pm. International orders typically take 7–14 business days.'},
+  {q:'Can I return a book I\'ve purchased?',a:'Yes. We offer a full 30-day return policy. Books must be in their original condition and packaging. Simply contact us and we will arrange a prepaid return label at no cost to you.'},
+  {q:'How does the Gift Wrapping service work?',a:'During checkout, select our Luxury Gift Service option. You can add a personalised message, choose your wrapping colour, and we handle the rest — including a handwritten calligraphy card.'},
+  {q:'Do you offer first editions or signed copies?',a:'Yes, through our Rare & First Editions service. These are sourced to order and require an advance enquiry. Please contact us via the form above for availability and pricing.'},
+  {q:'Is there a Book Club I can join?',a:'Absolutely. Our monthly book club membership is $19.99/month and includes one handpicked volume, access to private reading events, author Q&As, and 10% off all purchases.'},
+  {q:'Do you offer corporate gifting?',a:'Yes. We offer volume pricing, custom branded packaging, and dedicated account management for corporate orders of 10 or more. Please contact us for a bespoke quote.'},
+];
+document.getElementById('faq-list').innerHTML=faqs.map((f,i)=>`
+  <div class="faq-item" id="faq-${i}">
+    <div class="faq-q" onclick="toggleFaq(${i})">
+      <span>${f.q}</span><span class="faq-icon">+</span>
+    </div>
+    <div class="faq-a"><p>${f.a}</p></div>
+  </div>`).join('');
+
+function toggleFaq(i){
+  const el=document.getElementById('faq-'+i);
+  const wasOpen=el.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(x=>x.classList.remove('open'));
+  if(!wasOpen)el.classList.add('open');
+}
+
+function submitForm(e){
+  e.preventDefault();
+  const form=document.getElementById('contact-form');
+  const success=document.getElementById('form-success');
+  form.style.display='none';
+  success.classList.add('show');
+  showToast('Message sent — we\'ll respond within 4 hours');
+}
+
+const obs=new IntersectionObserver(e=>e.forEach(el=>{if(el.isIntersecting)el.target.classList.add('visible');}),{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
