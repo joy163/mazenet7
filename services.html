@@ -220,16 +220,6 @@ footer{border-top:1px solid var(--bd);padding:3.5rem 4rem;background:var(--ch);}
   </div>
 </div>
 </div>
-<script>const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('vis');}),{threshold:.1});document.querySelectorAll('.rv').forEach(el=>obs.observe(el));</script>
-<footer>
-  <div class="fg">
-    <div class="fbl"><div class="fl2">Bibliothèque</div><p>A curated luxury bookstore presenting the finest works of literature to discerning collectors worldwide.</p></div>
-    <div class="fc"><h4>Navigate</h4><a href="index.html">Home</a><a href="shop.html">Shop</a><a href="services.html">Services</a><a href="about.html">About</a><a href="contact.html">Contact</a></div>
-    <div class="fc"><h4>Genres</h4><a href="shop.html">Fiction</a><a href="shop.html">Sci-Fi</a><a href="shop.html">Fantasy</a><a href="shop.html">Mystery</a><a href="shop.html">Biography</a></div>
-    <div class="fc"><h4>Support</h4><a href="contact.html">Contact Us</a><a href="cart.html">Your Cart</a><a href="services.html">Shipping</a><a href="services.html">Returns</a></div>
-  </div>
-  <div class="fb"><div>© MMXXV Bibliothèque — All Rights Reserved</div><div>The Art of the Written Word</div></div>
-</footer>
 <script>/* ── SHARED DATA & UTILITIES (inlined in every page) ── */
 const BOOKS=[
   {id:1,title:'The Midnight Library',author:'Matt Haig',genre:'Fiction',year:2020,isbn:'978-0525559474',rating:4.5,pages:304,price:24.99,was:32.00,best:true,desc:'Between life and death there is a library. Every book is a chance to try another life you could have lived.'},
@@ -244,6 +234,14 @@ const BOOKS=[
   {id:10,title:'The Great Gatsby',author:'F. Scott Fitzgerald',genre:'Fiction',year:1925,isbn:'978-0743273565',rating:4.2,pages:180,price:11.99,was:16.00,best:false,desc:'The quintessential Jazz Age novel — wealth, love and the impossibility of recapturing the past.'},
   {id:11,title:'Project Hail Mary',author:'Andy Weir',genre:'Sci-Fi',year:2021,isbn:'978-0593135204',rating:4.8,pages:476,price:23.99,was:null,best:true,desc:'A lone astronaut must save the earth in this propulsive, joyful novel from the author of The Martian.'},
   {id:12,title:'The Girl with the Dragon Tattoo',author:'Stieg Larsson',genre:'Mystery',year:2005,isbn:'978-0307949486',rating:4.3,pages:672,price:17.99,was:24.00,best:false,desc:'A financial journalist and a brilliant hacker investigate a decades-old disappearance in Sweden.'},
+  {id:13,title:'The Alchemist',author:'Paulo Coelho',genre:'Fiction',year:1988,isbn:'978-0062315007',rating:4.6,pages:197,price:14.99,was:19.99,best:true,desc:'A young Andalusian shepherd sets out on a journey to find a treasure, discovering the soul of the world and the language of omens along the way.'},
+  {id:14,title:'1984',author:'George Orwell',genre:'Fiction',year:1949,isbn:'978-0451524935',rating:4.7,pages:328,price:13.99,was:null,best:true,desc:'A dystopian masterpiece set in a totalitarian society where Big Brother watches your every move and thought itself is a crime.'},
+  {id:15,title:'The Lean Startup',author:'Eric Ries',genre:'Self-Help',year:2011,isbn:'978-0307887894',rating:4.3,pages:336,price:19.99,was:26.00,best:false,desc:'A revolutionary approach to building businesses and launching products that combines entrepreneurial vision with scientific methodology.'},
+  {id:16,title:'Thinking, Fast and Slow',author:'Daniel Kahneman',genre:'Non-Fiction',year:2011,isbn:'978-0374533557',rating:4.5,pages:499,price:18.99,was:null,best:true,desc:'A Nobel laureate explores the two systems of thought — fast intuitive thinking and slow deliberate reasoning.'},
+  {id:17,title:'The Hitchhiker s Guide to the Galaxy',author:'Douglas Adams',genre:'Sci-Fi',year:1979,isbn:'978-0345391803',rating:4.7,pages:224,price:12.99,was:17.00,best:true,desc:'Seconds before Earth is demolished for a hyperspace bypass, Arthur Dent is whisked off on a mad journey through the universe.'},
+  {id:18,title:'Brave New World',author:'Aldous Huxley',genre:'Fiction',year:1932,isbn:'978-0060850524',rating:4.4,pages:311,price:13.99,was:null,best:false,desc:'A chilling vision of a future society driven by technology, consumerism and the suppression of individuality.'},
+  {id:19,title:'The Power of Now',author:'Eckhart Tolle',genre:'Philosophy',year:1997,isbn:'978-1577314806',rating:4.4,pages:236,price:15.99,was:20.00,best:false,desc:'A guide to spiritual enlightenment teaching readers to free themselves from the tyranny of the mind and live fully in the present.'},
+  {id:20,title:'A Brief History of Time',author:'Stephen Hawking',genre:'History',year:1988,isbn:'978-0553380163',rating:4.5,pages:212,price:16.99,was:null,best:true,desc:'The landmark work bringing the most complex questions of cosmology — black holes, the origin of the universe and time — to a general audience.'},
 ];
 const PAL=[
   {f:'#0f1f0f',t:'#1a3320'},{f:'#0f0f2a',t:'#1a1a3a'},{f:'#1f130a',t:'#321e0f'},
@@ -286,5 +284,16 @@ function initCursor(){
 }
 window.addEventListener('DOMContentLoaded',()=>{initCursor();ub();});
 </script>
+<script>const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('vis');}),{threshold:.1});document.querySelectorAll('.rv').forEach(el=>obs.observe(el));</script>
+<footer>
+  <div class="fg">
+    <div class="fbl"><div class="fl2">Bibliothèque</div><p>A curated luxury bookstore presenting the finest works of literature to discerning collectors worldwide.</p></div>
+    <div class="fc"><h4>Navigate</h4><a href="index.html">Home</a><a href="shop.html">Shop</a><a href="services.html">Services</a><a href="about.html">About</a><a href="contact.html">Contact</a></div>
+    <div class="fc"><h4>Genres</h4><a href="shop.html">Fiction</a><a href="shop.html">Sci-Fi</a><a href="shop.html">Fantasy</a><a href="shop.html">Mystery</a><a href="shop.html">Biography</a></div>
+    <div class="fc"><h4>Support</h4><a href="contact.html">Contact Us</a><a href="cart.html">Your Cart</a><a href="services.html">Shipping</a><a href="services.html">Returns</a></div>
+  </div>
+  <div class="fb"><div>© MMXXV Bibliothèque — All Rights Reserved</div><div>The Art of the Written Word</div></div>
+</footer>
+
 </body>
 </html>
