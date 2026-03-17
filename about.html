@@ -3,189 +3,309 @@
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>About — BIBLIOTHÈQUE</title>
-<link rel="stylesheet" href="shared.css">
-<style>
-.about-wrap{max-width:1400px;margin:0 auto;padding:4rem 4rem 8rem;}
-/* Story */
-.story-grid{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center;margin-bottom:6rem;}
-.story-text .st-eyebrow{font-size:9px;letter-spacing:.5em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;}
-.story-text .st-title{font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:300;line-height:1.15;margin-bottom:1.5rem;}
-.story-text .st-title em{font-style:italic;color:var(--gold-light);}
-.story-text p{font-size:13px;color:rgba(248,244,237,.7);line-height:2;font-weight:300;margin-bottom:1.25rem;}
-.story-visual{position:relative;}
-.story-frame{background:var(--graphite);border:1px solid var(--border);padding:3rem;position:relative;overflow:hidden;}
-.story-frame::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 80% at 80% 80%,rgba(201,168,76,.06) 0%,transparent 60%);}
-.story-big-num{font-family:'Cormorant',serif;font-size:10rem;font-weight:800;color:rgba(201,168,76,.08);line-height:1;position:absolute;bottom:-1rem;right:1rem;}
-.story-stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);}
-.ss-cell{background:var(--graphite);padding:1.5rem;text-align:center;}
-.ss-val{font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:300;color:var(--gold-light);}
-.ss-lbl{font-size:8px;letter-spacing:.4em;text-transform:uppercase;color:var(--silver);margin-top:5px;}
-/* Values */
-.values-section{margin-bottom:6rem;}
-.values-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:3rem;}
-.val-card{background:var(--graphite);border:1px solid var(--border);padding:2rem;text-align:center;transition:border-color .4s;}
-.val-card:hover{border-color:rgba(201,168,76,.3);}
-.val-icon{font-size:2.2rem;margin-bottom:1rem;}
-.val-title{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:300;margin-bottom:.6rem;}
-.val-text{font-size:11.5px;color:var(--silver);line-height:1.85;font-weight:300;}
-/* Timeline */
-.timeline{margin-bottom:6rem;}
-.timeline-list{margin-top:3rem;position:relative;}
-.timeline-list::before{content:'';position:absolute;left:120px;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,transparent,var(--border),transparent);}
-.tl-item{display:flex;gap:3rem;padding:2rem 0;border-bottom:1px solid rgba(42,42,42,.6);}
-.tl-year{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;color:var(--gold);min-width:80px;text-align:right;flex-shrink:0;padding-top:4px;}
-.tl-dot{width:10px;height:10px;border:1px solid var(--gold);border-radius:50%;background:var(--obsidian);flex-shrink:0;margin-top:10px;}
-.tl-content{}
-.tl-title{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:300;margin-bottom:.4rem;}
-.tl-text{font-size:12px;color:var(--silver);line-height:1.85;font-weight:300;}
-/* Team */
-.team-section{margin-bottom:6rem;}
-.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:3rem;}
-.team-card{background:var(--graphite);border:1px solid var(--border);overflow:hidden;transition:border-color .4s;}
-.team-card:hover{border-color:rgba(201,168,76,.3);}
-.tc-avatar{height:160px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
-.tc-avatar-bg{position:absolute;inset:0;}
-.tc-avatar-shade{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.1),rgba(0,0,0,.5));}
-.tc-initial{position:relative;z-index:2;font-family:'Cormorant',serif;font-size:4rem;font-weight:800;color:rgba(255,255,255,.2);}
-.tc-body{padding:1.25rem 1.25rem 1.5rem;}
-.tc-name{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:300;margin-bottom:3px;}
-.tc-role{font-size:8px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-bottom:.75rem;}
-.tc-bio{font-size:11px;color:var(--silver);line-height:1.85;font-weight:300;}
-/* Mission */
-.mission-banner{background:var(--graphite);border:1px solid rgba(201,168,76,.18);padding:5rem 4rem;text-align:center;position:relative;overflow:hidden;}
-.mission-banner::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 50% 100%,rgba(201,168,76,.07) 0%,transparent 60%);}
-.mb-quote{font-family:'Cormorant Garamond',serif;font-size:clamp(1.4rem,3vw,2.2rem);font-weight:300;font-style:italic;line-height:1.7;color:rgba(248,244,237,.8);max-width:800px;margin:0 auto 1.5rem;position:relative;z-index:1;}
-.mb-attr{font-size:9px;letter-spacing:.45em;text-transform:uppercase;color:var(--gold);position:relative;z-index:1;}
-@media(max-width:900px){.story-grid{grid-template-columns:1fr;gap:3rem;}.values-grid,.team-grid{grid-template-columns:1fr 1fr;}.about-wrap{padding:3rem 1.5rem 6rem;}.timeline-list::before{display:none;}.tl-item{flex-direction:column;gap:1rem;}.tl-dot{display:none;}}
-@media(max-width:600px){.values-grid,.team-grid{grid-template-columns:1fr;}}
+<style>@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Cormorant:wght@700;800&family=Jost:wght@200;300;400;500;600&display=swap');
+:root{--ob:#080808;--ch:#101010;--gr:#181818;--mu:#222;--bd:#2a2a2a;--go:#c9a84c;--gl:#e8c97e;--gp:rgba(201,168,76,.1);--cr:#f8f4ed;--iv:#fdfaf5;--si:#787878;--sl:#a0a0a0;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+body{font-family:'Jost',sans-serif;background:var(--ob);color:var(--cr);min-height:100vh;overflow-x:hidden;cursor:none;}
+body::after{content:'';position:fixed;inset:0;z-index:9990;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");opacity:.022;}
+a{text-decoration:none;color:inherit;}button{cursor:none;font-family:'Jost',sans-serif;}
+/* Cursor */
+#_cd{position:fixed;width:7px;height:7px;background:var(--go);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);}
+#_cr{position:fixed;width:34px;height:34px;border:1px solid rgba(201,168,76,.45);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .4s,height .4s,border-color .3s;}
+#_cr.L{width:58px;height:58px;border-color:var(--go);}
+/* Nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:800;height:76px;display:flex;align-items:center;justify-content:space-between;padding:0 4rem;border-bottom:1px solid rgba(201,168,76,.1);background:rgba(8,8,8,.94);backdrop-filter:blur(24px);}
+.nw{font-weight:200;font-size:10px;letter-spacing:.5em;text-transform:uppercase;color:var(--gl);}
+.nc{position:absolute;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:12px;}
+.ne{width:28px;height:28px;border:1px solid rgba(201,168,76,.6);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--go);font-size:10px;}
+.nb{font-family:'Cormorant Garamond',serif;font-size:16px;letter-spacing:.14em;color:var(--iv);}
+.nl{display:flex;align-items:center;gap:18px;}
+.nl a{font-size:9px;letter-spacing:.35em;text-transform:uppercase;color:var(--sl);transition:color .3s;position:relative;}
+.nl a::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:1px;background:var(--go);transform:scaleX(0);transition:transform .3s;}
+.nl a:hover,.nl a.on{color:var(--go);}
+.nl a.on::after,.nl a:hover::after{transform:scaleX(1);}
+.cb{position:relative;display:flex;align-items:center;gap:9px;font-size:9px;letter-spacing:.35em;text-transform:uppercase;color:var(--go);border:1px solid rgba(201,168,76,.35);background:none;padding:9px 18px;transition:all .3s;}
+.cb:hover{background:var(--go);color:var(--ob);}
+.cc{position:absolute;top:-7px;right:-7px;width:18px;height:18px;background:var(--go);border-radius:50%;font-size:9px;font-weight:600;color:var(--ob);display:none;align-items:center;justify-content:center;}
+/* Page hero */
+.ph{height:320px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;margin-top:76px;border-bottom:1px solid var(--bd);}
+.ph::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 80% at 50% 100%,rgba(201,168,76,.08) 0%,transparent 60%);}
+.ph-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(201,168,76,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.05) 1px,transparent 1px);background-size:72px 72px;mask-image:radial-gradient(ellipse 70% 70% at 50% 60%,black 10%,transparent 70%);}
+.pey{font-size:9px;letter-spacing:.55em;text-transform:uppercase;color:var(--go);display:flex;align-items:center;gap:14px;margin-bottom:1.2rem;}
+.pey::before,.pey::after{content:'';display:block;width:32px;height:1px;background:var(--go);opacity:.4;}
+.pt{font-family:'Cormorant',serif;font-size:clamp(3rem,7vw,5.5rem);font-weight:700;letter-spacing:-.02em;text-align:center;line-height:.95;}
+.pt em{display:block;font-family:'Cormorant Garamond',serif;font-weight:300;font-style:italic;color:var(--gl);font-size:.6em;letter-spacing:.06em;}
+.ps{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--si);margin-top:1.2rem;font-weight:300;}
+/* Buttons */
+.bg{display:inline-flex;align-items:center;gap:10px;font-size:9px;letter-spacing:.45em;text-transform:uppercase;color:var(--ob);background:var(--go);border:1px solid var(--go);padding:13px 30px;transition:all .35s;font-weight:500;}
+.bg:hover{background:var(--gl);box-shadow:0 0 50px rgba(201,168,76,.3);}
+.bo{display:inline-flex;align-items:center;gap:10px;font-size:9px;letter-spacing:.45em;text-transform:uppercase;color:var(--go);border:1px solid rgba(201,168,76,.4);padding:13px 30px;transition:all .35s;background:none;}
+.bo:hover{background:var(--go);color:var(--ob);}
+.bgh{display:inline-flex;align-items:center;gap:8px;font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:var(--sl);border:1px solid var(--bd);padding:11px 22px;transition:all .3s;background:none;}
+.bgh:hover{border-color:var(--sl);color:var(--cr);}
+/* Forms */
+.fl{display:block;font-size:8px;letter-spacing:.45em;text-transform:uppercase;color:var(--go);margin-bottom:7px;font-weight:300;}
+.fi,.fs,.ft{width:100%;padding:12px 13px;background:var(--gr);border:1px solid var(--bd);color:var(--cr);font-size:13px;font-weight:300;outline:none;letter-spacing:.04em;transition:border-color .3s;font-family:'Jost',sans-serif;}
+.fi:focus,.fs:focus,.ft:focus{border-color:rgba(201,168,76,.5);}
+.fi::placeholder,.ft::placeholder{color:var(--si);font-size:11px;letter-spacing:.1em;}
+.ft{resize:vertical;min-height:100px;line-height:1.8;}
+.fs option{background:var(--ch);}
+/* Book card */
+.bc{background:var(--ch);border:1px solid var(--bd);overflow:hidden;position:relative;transition:border-color .4s;animation:ci .5s ease both;}
+.bc:hover{border-color:rgba(201,168,76,.35);}
+.bc::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(201,168,76,.04) 0%,transparent 50%);opacity:0;transition:opacity .4s;z-index:0;}
+.bc:hover::before{opacity:1;}
+@keyframes ci{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.bb{height:175px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.bb-bg{position:absolute;inset:0;transition:transform .7s;}
+.bc:hover .bb-bg{transform:scale(1.06);}
+.bb-sh{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.1),rgba(0,0,0,.6));}
+.bb-mo{position:relative;z-index:2;font-family:'Cormorant',serif;font-size:5rem;font-weight:800;color:rgba(255,255,255,.1);line-height:1;user-select:none;transition:color .4s,transform .5s;letter-spacing:-.04em;}
+.bc:hover .bb-mo{color:rgba(255,255,255,.2);transform:scale(1.07);}
+.bb-tag{position:absolute;top:12px;left:12px;z-index:3;padding:4px 9px;font-size:7px;letter-spacing:.45em;text-transform:uppercase;color:var(--ob);background:var(--go);font-weight:500;}
+.bb-bs{position:absolute;top:12px;right:12px;z-index:3;padding:4px 9px;font-size:7px;letter-spacing:.3em;text-transform:uppercase;color:var(--go);border:1px solid rgba(201,168,76,.5);background:rgba(0,0,0,.6);}
+.bd2{padding:18px 20px 12px;position:relative;z-index:1;}
+.by{font-size:8px;letter-spacing:.45em;text-transform:uppercase;color:var(--go);margin-bottom:6px;}
+.bt{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:400;line-height:1.2;color:var(--iv);margin-bottom:3px;}
+.ba{font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--si);margin-bottom:8px;}
+.bdesc{font-size:11px;line-height:1.85;color:var(--sl);font-weight:300;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.bcom{padding:12px 20px 18px;border-top:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;gap:8px;position:relative;z-index:1;}
+.bpl{font-size:7px;letter-spacing:.4em;text-transform:uppercase;color:var(--si);margin-bottom:3px;}
+.bpv{font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--gl);font-weight:300;line-height:1;}
+.bpo{font-size:10px;color:var(--si);text-decoration:line-through;margin-top:1px;}
+.baq{padding:10px 14px;font-size:8px;letter-spacing:.35em;text-transform:uppercase;color:var(--go);border:1px solid rgba(201,168,76,.35);background:none;transition:all .35s;position:relative;overflow:hidden;}
+.baq::before{content:'';position:absolute;inset:0;background:var(--go);transform:scaleX(0);transform-origin:left;transition:transform .35s;z-index:0;}
+.baq span{position:relative;z-index:1;transition:color .35s;}
+.baq:hover span,.baq.on span{color:var(--ob);}
+.baq:hover::before,.baq.on::before{transform:scaleX(1);}
+.baq.on{border-color:var(--go);}
+.beye{width:38px;height:38px;border:1px solid var(--bd);background:none;display:flex;align-items:center;justify-content:center;transition:border-color .3s;}
+.beye svg{width:13px;height:13px;stroke:var(--si);stroke-width:1.5;fill:none;transition:stroke .3s;}
+.beye:hover{border-color:rgba(201,168,76,.4);}
+.beye:hover svg{stroke:var(--go);}
+/* Modal */
+.mov{display:none;position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.88);backdrop-filter:blur(14px);align-items:center;justify-content:center;padding:2rem;}
+.mov.open{display:flex;}
+.mp{background:var(--ch);border:1px solid rgba(201,168,76,.2);width:100%;max-width:620px;max-height:90vh;overflow-y:auto;animation:mup .35s cubic-bezier(.16,1,.3,1);}
+@keyframes mup{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.mh{height:190px;position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:1.5rem 1.75rem;}
+.mhb{position:absolute;inset:0;}
+.mhs{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.1),rgba(0,0,0,.8));}
+.mhg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Cormorant',serif;font-size:7rem;font-weight:800;color:rgba(255,255,255,.07);user-select:none;letter-spacing:-.04em;}
+.mht{position:relative;z-index:2;}
+.mht h2{font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:300;color:#fff;line-height:1.1;}
+.mht p{font-size:9px;letter-spacing:.35em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-top:5px;}
+.mb2{padding:1.5rem 1.75rem 1.75rem;}
+.md{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:300;font-style:italic;line-height:1.9;color:rgba(248,244,237,.65);margin-bottom:1.5rem;border-left:2px solid rgba(201,168,76,.3);padding-left:1.2rem;}
+.mm{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--bd);margin-bottom:1.5rem;}
+.mc{background:var(--gr);padding:13px 14px;}
+.mcl{font-size:7px;letter-spacing:.45em;text-transform:uppercase;color:var(--go);margin-bottom:4px;}
+.mcv{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:300;color:var(--iv);}
+.mpur{display:flex;align-items:center;justify-content:space-between;padding:1.2rem;background:var(--gr);border:1px solid var(--bd);margin-bottom:1rem;}
+/* Footer */
+footer{border-top:1px solid var(--bd);padding:3.5rem 4rem;background:var(--ch);}
+.fg{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2.5rem;max-width:1400px;margin:0 auto 2.5rem;}
+.fbl .fl2{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;font-style:italic;color:var(--gl);letter-spacing:.12em;margin-bottom:.9rem;}
+.fbl p{font-size:12px;color:var(--si);line-height:1.9;font-weight:300;max-width:240px;}
+.fc h4{font-size:8px;letter-spacing:.5em;text-transform:uppercase;color:var(--go);margin-bottom:1.1rem;}
+.fc a{display:block;font-size:12px;color:var(--si);margin-bottom:.65rem;transition:color .3s;font-weight:300;}
+.fc a:hover{color:var(--gl);}
+.fb{max-width:1400px;margin:0 auto;padding-top:1.75rem;border-top:1px solid var(--bd);display:flex;justify-content:space-between;align-items:center;font-size:9px;letter-spacing:.35em;text-transform:uppercase;color:var(--si);}
+/* Scrollbar / animations */
+::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-track{background:var(--ob);}::-webkit-scrollbar-thumb{background:var(--bd);}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.rv{opacity:0;transform:translateY(18px);transition:opacity .65s ease,transform .65s ease;}
+.rv.vis{opacity:1;transform:translateY(0);}
+/* Divider */
+.dv{display:flex;align-items:center;gap:18px;margin:2.5rem 0;}
+.dv span{flex:1;height:1px;background:var(--bd);}
+.dv em{font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--go);font-style:normal;}
+/* Responsive */
+@media(max-width:900px){nav{padding:0 1.5rem;}.nc{display:none;}.fg{grid-template-columns:1fr 1fr;}.fb{flex-direction:column;gap:1rem;text-align:center;}footer{padding:2.5rem 1.5rem;}}
+@media(max-width:600px){.nl{display:none;}.fg{grid-template-columns:1fr;}}
+
+.wr{max-width:1400px;margin:0 auto;padding:3.5rem 4rem 7rem;}
+.sg{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;margin-bottom:5rem;}
+.se{font-size:9px;letter-spacing:.5em;text-transform:uppercase;color:var(--go);margin-bottom:.9rem;}
+.sti{font-family:'Cormorant Garamond',serif;font-size:2.6rem;font-weight:300;line-height:1.15;margin-bottom:1.25rem;}
+.sti em{font-style:italic;color:var(--gl);}
+.sp2{font-size:13px;color:rgba(248,244,237,.68);line-height:2;font-weight:300;margin-bottom:1.1rem;}
+.sf{background:var(--gr);border:1px solid var(--bd);padding:2.5rem;position:relative;overflow:hidden;}
+.sf::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 80% at 80% 80%,rgba(201,168,76,.06) 0%,transparent 60%);}
+.sfg{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--bd);}
+.sfc{background:var(--gr);padding:1.3rem;text-align:center;}
+.sfv{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:300;color:var(--gl);}
+.sfl2{font-size:8px;letter-spacing:.4em;text-transform:uppercase;color:var(--si);margin-top:4px;}
+.vg{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:2.5rem;}
+.vc{background:var(--gr);border:1px solid var(--bd);padding:1.9rem;text-align:center;transition:border-color .4s;}
+.vc:hover{border-color:rgba(201,168,76,.3);}
+.vi{font-size:2rem;margin-bottom:.9rem;}
+.vt{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:300;margin-bottom:.55rem;}
+.vd{font-size:11.5px;color:var(--si);line-height:1.85;font-weight:300;}
+.tl{margin-bottom:5rem;}
+.tli{display:flex;gap:2.5rem;padding:1.75rem 0;border-bottom:1px solid var(--bd);}
+.tly{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:300;color:var(--go);min-width:70px;text-align:right;flex-shrink:0;padding-top:3px;}
+.tld{width:9px;height:9px;border:1px solid var(--go);border-radius:50%;background:var(--ob);flex-shrink:0;margin-top:8px;}
+.tlt{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:300;margin-bottom:.35rem;}
+.tltx{font-size:12px;color:var(--si);line-height:1.85;font-weight:300;}
+.tmg{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:2.5rem;}
+.tm{background:var(--gr);border:1px solid var(--bd);overflow:hidden;transition:border-color .4s;}
+.tm:hover{border-color:rgba(201,168,76,.3);}
+.tma{height:150px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.tmab{position:absolute;inset:0;}
+.tmas{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.1),rgba(0,0,0,.5));}
+.tmi{position:relative;z-index:2;font-family:'Cormorant',serif;font-size:3.5rem;font-weight:800;color:rgba(255,255,255,.18);}
+.tmb{padding:1.1rem 1.2rem 1.4rem;}
+.tmn{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:300;margin-bottom:3px;}
+.tmr{font-size:8px;letter-spacing:.4em;text-transform:uppercase;color:var(--go);margin-bottom:.65rem;}
+.tmbio{font-size:11px;color:var(--si);line-height:1.85;font-weight:300;}
+.mb{background:var(--gr);border:1px solid rgba(201,168,76,.18);padding:4.5rem;text-align:center;position:relative;overflow:hidden;}
+.mb::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 50% 100%,rgba(201,168,76,.07) 0%,transparent 60%);}
+.mbq{font-family:'Cormorant Garamond',serif;font-size:clamp(1.3rem,2.5vw,2rem);font-weight:300;font-style:italic;line-height:1.7;color:rgba(248,244,237,.75);max-width:780px;margin:0 auto 1.25rem;position:relative;z-index:1;}
+.mba{font-size:9px;letter-spacing:.45em;text-transform:uppercase;color:var(--go);position:relative;z-index:1;}
+.shd{text-align:center;margin-bottom:.8rem;}
+.shd .ey{font-size:9px;letter-spacing:.5em;text-transform:uppercase;color:var(--go);margin-bottom:8px;}
+.shd .ti{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:300;}
+.shd .ti em{font-style:italic;color:var(--gl);}
+@media(max-width:900px){.sg{grid-template-columns:1fr;gap:3rem;}.vg,.tmg{grid-template-columns:1fr 1fr;}.wr{padding:2.5rem 1.5rem 5rem;}.tli{flex-direction:column;gap:.75rem;}.tld{display:none;}}
+@media(max-width:600px){.vg,.tmg{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
-<div class="cursor-dot" id="cdot"></div>
-<div class="cursor-ring" id="cring"></div>
-<nav class="main-nav">
-  <div class="nav-wordmark">Bibliothèque</div>
-  <div class="nav-center"><div class="nav-emblem">✦</div><div class="nav-brand">The Private Bookstore</div></div>
-  <div class="nav-links">
-    <a class="nav-link" href="index.html">Home</a><a class="nav-link" href="shop.html">Shop</a>
-    <a class="nav-link" href="services.html">Services</a>
-    <a class="nav-link active" href="about.html">About</a>
-    <a class="nav-link" href="contact.html">Contact</a>
-    <a class="cart-btn" href="cart.html"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>Cart <span class="cart-count" id="cart-count">0</span></a>
+<div id="_cd"></div><div id="_cr"></div>
+<nav>
+  <div class="nw">Bibliothèque</div>
+  <div class="nc"><div class="ne">✦</div><div class="nb">The Private Bookstore</div></div>
+  <div class="nl">
+    <a href="index.html">Home</a>
+    <a href="shop.html">Shop</a>
+    <a href="services.html">Services</a>
+    <a href="about.html"class="on">About</a>
+    <a href="contact.html">Contact</a>
+    <a class="cb" href="cart.html"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>Cart&nbsp;<span class="cc" id="cart-count">0</span></a>
   </div>
 </nav>
 
-<div class="page-hero">
-  <div class="page-hero-bg"></div><div class="page-hero-grid"></div>
-  <div class="page-eyebrow">Our Story</div>
-  <h1 class="page-title">About <em>Bibliothèque</em></h1>
-  <p class="page-sub">Curated excellence since MMXXIV</p>
-</div>
-
-<div class="about-wrap">
-  <!-- Story -->
-  <div class="story-grid">
-    <div class="story-text reveal">
-      <div class="st-eyebrow">Founded MMXXIV</div>
-      <h2 class="st-title">A Passion for the<br><em>Written Word</em></h2>
-      <p>Bibliothèque was born from a singular conviction: that books deserve to be presented with the same reverence as great art. We believe the act of acquiring a book — the weight of it in your hands, the promise of the pages — is a ritual that deserves to be honoured.</p>
-      <p>Our founders, passionate bibliophiles with decades of experience in publishing and luxury retail, set out to create a bookstore that would serve not just readers, but collectors. A place where every volume is hand-selected, every order is thoughtfully packaged, and every customer is treated as a patron of the literary arts.</p>
-      <p>Today, Bibliothèque serves customers in over 40 countries, and our commitment to curation, craft, and service remains unchanged from the day we first opened our doors.</p>
-      <div style="margin-top:2rem"><a class="btn-gold" href="shop.html">Explore the Collection</a></div>
-    </div>
-    <div class="story-visual reveal">
-      <div class="story-frame">
-        <div class="story-big-num">B</div>
-        <div class="story-stats">
-          <div class="ss-cell"><div class="ss-val">12K+</div><div class="ss-lbl">Happy Readers</div></div>
-          <div class="ss-cell"><div class="ss-val">40+</div><div class="ss-lbl">Countries Served</div></div>
-          <div class="ss-cell"><div class="ss-val">500+</div><div class="ss-lbl">Titles Curated</div></div>
-          <div class="ss-cell"><div class="ss-val">4.9★</div><div class="ss-lbl">Customer Rating</div></div>
-        </div>
+<div class="ph"><div class="ph-grid"></div><div class="pey">Our Story</div><h1 class="pt">About <em>Us</em></h1><p class="ps">Curated excellence since MMXXIV</p></div>
+<div class="wr">
+<div class="sg">
+  <div class="rv">
+    <div class="se">Founded MMXXIV</div>
+    <h2 class="sti">A Passion for the<br><em>Written Word</em></h2>
+    <p class="sp2">Bibliothèque was born from a singular conviction: that books deserve to be presented with the same reverence as great art. We believe the act of acquiring a book is a ritual that deserves to be honoured.</p>
+    <p class="sp2">Our founders — passionate bibliophiles with decades in publishing and luxury retail — set out to create a bookstore that would serve not just readers, but collectors. A place where every volume is hand-selected and every customer treated as a patron of the literary arts.</p>
+    <p class="sp2">Today we serve customers in 40+ countries with our commitment to curation, craft, and service unchanged from day one.</p>
+    <div style="margin-top:1.75rem"><a class="bg" href="shop.html">Explore the Collection</a></div>
+  </div>
+  <div class="rv">
+    <div class="sf">
+      <div class="sfg">
+        <div class="sfc"><div class="sfv">12K+</div><div class="sfl2">Happy Readers</div></div>
+        <div class="sfc"><div class="sfv">40+</div><div class="sfl2">Countries Served</div></div>
+        <div class="sfc"><div class="sfv">500+</div><div class="sfl2">Titles Curated</div></div>
+        <div class="sfc"><div class="sfv">4.9★</div><div class="sfl2">Customer Rating</div></div>
       </div>
     </div>
   </div>
-
-  <!-- Values -->
-  <div class="values-section">
-    <div class="sec-divider"><span></span><em>✦</em><span></span></div>
-    <div style="text-align:center;margin-bottom:1rem">
-      <div style="font-size:9px;letter-spacing:.5em;text-transform:uppercase;color:var(--gold);margin-bottom:8px">What We Stand For</div>
-      <div style="font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:300">Our <span style="font-style:italic;color:var(--gold-light)">Values</span></div>
-    </div>
-    <div class="values-grid">
-      <div class="val-card reveal"><div class="val-icon">🎯</div><div class="val-title">Uncompromising Curation</div><div class="val-text">Every title is evaluated by our editorial team against exacting standards of literary merit, cultural significance, and lasting value.</div></div>
-      <div class="val-card reveal"><div class="val-icon">✨</div><div class="val-title">Luxury Presentation</div><div class="val-text">We believe the presentation of a book is an extension of the respect owed to the author and the reader alike.</div></div>
-      <div class="val-card reveal"><div class="val-icon">🌍</div><div class="val-title">Global Perspective</div><div class="val-text">Great literature has no borders. Our catalogue spans continents, centuries, and cultures with equal reverence.</div></div>
-      <div class="val-card reveal"><div class="val-icon">🤝</div><div class="val-title">Personal Service</div><div class="val-text">We treat every customer as a valued patron. Our team is always available to assist, advise, and ensure complete satisfaction.</div></div>
-    </div>
-  </div>
-
-  <!-- Timeline -->
-  <div class="timeline">
-    <div style="text-align:center;margin-bottom:1rem">
-      <div style="font-size:9px;letter-spacing:.5em;text-transform:uppercase;color:var(--gold);margin-bottom:8px">Our Journey</div>
-      <div style="font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:300">The <span style="font-style:italic;color:var(--gold-light)">Chronicle</span></div>
-    </div>
-    <div class="timeline-list">
-      <div class="tl-item reveal"><div class="tl-year">2024</div><div class="tl-dot"></div><div class="tl-content"><div class="tl-title">Bibliothèque Founded</div><div class="tl-text">Launched with an initial catalogue of 50 hand-selected titles and a vision to redefine the online bookstore experience.</div></div></div>
-      <div class="tl-item reveal"><div class="tl-year">2024</div><div class="tl-dot"></div><div class="tl-content"><div class="tl-title">Luxury Gift Service Launched</div><div class="tl-text">Introduced our signature gold-foil gift wrapping and handwritten calligraphy card service, becoming our most-loved offering.</div></div></div>
-      <div class="tl-item reveal"><div class="tl-year">2024</div><div class="tl-dot"></div><div class="tl-content"><div class="tl-title">International Expansion</div><div class="tl-text">Extended shipping to 40+ countries. The written word, we believe, belongs to all of humanity.</div></div></div>
-      <div class="tl-item reveal"><div class="tl-year">2025</div><div class="tl-dot"></div><div class="tl-content"><div class="tl-title">10,000 Customers Served</div><div class="tl-text">Reached the milestone of 10,000 satisfied customers across our growing global community of readers and collectors.</div></div></div>
-      <div class="tl-item reveal"><div class="tl-year">2025</div><div class="tl-dot"></div><div class="tl-content"><div class="tl-title">Book Club & Curation Service</div><div class="tl-text">Launched our monthly book club membership and bespoke personal curation service for discerning readers.</div></div></div>
-    </div>
-  </div>
-
-  <!-- Team -->
-  <div class="team-section">
-    <div style="text-align:center;margin-bottom:1rem">
-      <div style="font-size:9px;letter-spacing:.5em;text-transform:uppercase;color:var(--gold);margin-bottom:8px">The People</div>
-      <div style="font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:300">Meet the <span style="font-style:italic;color:var(--gold-light)">Team</span></div>
-    </div>
-    <div class="team-grid" id="team-grid"></div>
-  </div>
-
-  <!-- Mission Banner -->
-  <div class="mission-banner reveal">
-    <div class="mb-quote">"We do not merely sell books. We offer encounters with extraordinary minds, invitations into worlds unknown, and the quiet joy of a great story well told."</div>
-    <div class="mb-attr">The Bibliothèque Manifesto</div>
+</div>
+<div class="dv"><span></span><em>✦</em><span></span></div>
+<div style="margin-bottom:4rem">
+  <div class="shd"><div class="ey">What We Stand For</div><div class="ti">Our <em>Values</em></div></div>
+  <div class="vg">
+    <div class="vc rv"><div class="vi">🎯</div><div class="vt">Uncompromising Curation</div><div class="vd">Every title evaluated against exacting standards of literary merit, cultural significance and lasting value.</div></div>
+    <div class="vc rv"><div class="vi">✨</div><div class="vt">Luxury Presentation</div><div class="vd">The presentation of a book is an extension of the respect owed to the author and the reader alike.</div></div>
+    <div class="vc rv"><div class="vi">🌍</div><div class="vt">Global Perspective</div><div class="vd">Great literature has no borders. Our catalogue spans continents, centuries and cultures with equal reverence.</div></div>
+    <div class="vc rv"><div class="vi">🤝</div><div class="vt">Personal Service</div><div class="vd">We treat every customer as a valued patron. Our team is always available to assist and advise.</div></div>
   </div>
 </div>
-
-<footer class="main-footer">
-  <div class="footer-grid">
-    <div class="footer-brand-col"><div class="fb-logo">Bibliothèque</div><p>A curated luxury bookstore presenting the finest works of literature to discerning collectors and passionate readers worldwide.</p></div>
-    <div class="footer-col"><h4>Navigate</h4><a href="index.html">Home</a><a href="shop.html">Shop</a><a href="services.html">Services</a><a href="about.html">About</a><a href="contact.html">Contact</a></div>
-    <div class="footer-col"><h4>Our Story</h4><a href="about.html">The Mission</a><a href="about.html">The Team</a><a href="about.html">Our Values</a><a href="about.html">The Chronicle</a></div>
-    <div class="footer-col"><h4>Support</h4><a href="contact.html">Contact Us</a><a href="#">Shipping Policy</a><a href="#">Returns</a><a href="cart.html">Your Cart</a></div>
+<div class="dv"><span></span><em>✦</em><span></span></div>
+<div class="tl">
+  <div class="shd"><div class="ey">Our Journey</div><div class="ti">The <em>Chronicle</em></div></div>
+  <div style="margin-top:2.5rem">
+    <div class="tli rv"><div class="tly">2024</div><div class="tld"></div><div><div class="tlt">Bibliothèque Founded</div><div class="tltx">Launched with 50 hand-selected titles and a vision to redefine the online bookstore experience.</div></div></div>
+    <div class="tli rv"><div class="tly">2024</div><div class="tld"></div><div><div class="tlt">Luxury Gift Service Launched</div><div class="tltx">Introduced our signature gold-foil gift wrapping and handwritten calligraphy card service.</div></div></div>
+    <div class="tli rv"><div class="tly">2024</div><div class="tld"></div><div><div class="tlt">International Expansion</div><div class="tltx">Extended shipping to 40+ countries. The written word belongs to all of humanity.</div></div></div>
+    <div class="tli rv"><div class="tly">2025</div><div class="tld"></div><div><div class="tlt">10,000 Customers Served</div><div class="tltx">Reached the milestone of 10,000 satisfied customers across our growing global community.</div></div></div>
+    <div class="tli rv"><div class="tly">2025</div><div class="tld"></div><div><div class="tlt">Book Club & Curation Service</div><div class="tltx">Launched our monthly book club membership and bespoke personal curation service.</div></div></div>
   </div>
-  <div class="footer-bottom"><div>© MMXXV Bibliothèque — All Rights Reserved</div><div>The Art of the Written Word</div></div>
-</footer>
-
-<script src="shared.js"></script>
+</div>
+<div class="dv"><span></span><em>✦</em><span></span></div>
+<div style="margin-bottom:4rem">
+  <div class="shd"><div class="ey">The People</div><div class="ti">Meet the <em>Team</em></div></div>
+  <div class="tmg" id="tmg"></div>
+</div>
+<div class="mb rv">
+  <div class="mbq">"We do not merely sell books. We offer encounters with extraordinary minds, invitations into worlds unknown, and the quiet joy of a great story well told."</div>
+  <div class="mba">The Bibliothèque Manifesto</div>
+</div>
+</div>
 <script>
 const team=[
-  {name:'Isabelle Fontaine',role:'Founder & Chief Editor',bio:'Former senior editor at Penguin with 20 years in publishing. Isabelle\'s exacting taste defines every title in the Bibliothèque catalogue.',from:'#0f1f0f',to:'#1a3320'},
-  {name:'Edmund Ashby',role:'Head of Curation',bio:'Literary critic and former BBC arts correspondent. Edmund brings intellectual rigour and genuine passion to every recommendation.',from:'#0f0f2a',to:'#1a1a3a'},
-  {name:'Priya Nair',role:'Customer Experience Director',bio:'Hospitality veteran who believes every transaction is an opportunity to create a memorable moment for our patrons.',from:'#1f130a',to:'#321e0f'},
-  {name:'Marcus Webb',role:'Logistics & Operations',bio:'Supply chain expert ensuring every order arrives in perfect condition, dispatched with the urgency our customers deserve.',from:'#0a1520',to:'#102030'},
+  {n:'Isabelle Fontaine',r:'Founder & Chief Editor',b:"Former senior editor at Penguin with 20 years in publishing. Isabelle's exacting taste defines every title in the catalogue.",f:'#0f1f0f',t:'#1a3320'},
+  {n:'Edmund Ashby',r:'Head of Curation',b:'Literary critic and former BBC arts correspondent. Edmund brings intellectual rigour and genuine passion to every recommendation.',f:'#0f0f2a',t:'#1a1a3a'},
+  {n:'Priya Nair',r:'Customer Experience',b:'Hospitality veteran who believes every transaction is an opportunity to create a memorable moment for our patrons.',f:'#1f130a',t:'#321e0f'},
+  {n:'Marcus Webb',r:'Logistics & Operations',b:'Supply chain expert ensuring every order arrives in perfect condition, dispatched with the urgency our customers deserve.',f:'#0a1520',t:'#102030'},
 ];
-document.getElementById('team-grid').innerHTML=team.map(t=>`
-  <div class="team-card reveal">
-    <div class="tc-avatar">
-      <div class="tc-avatar-bg" style="background:linear-gradient(150deg,${t.from},${t.to})"></div>
-      <div class="tc-avatar-shade"></div>
-      <div class="tc-initial">${t.name.split(' ').map(w=>w[0]).join('')}</div>
-    </div>
-    <div class="tc-body">
-      <div class="tc-name">${t.name}</div>
-      <div class="tc-role">${t.role}</div>
-      <div class="tc-bio">${t.bio}</div>
-    </div>
-  </div>`).join('');
-
-const obs=new IntersectionObserver(e=>e.forEach(el=>{if(el.isIntersecting)el.target.classList.add('visible');}),{threshold:.12});
-document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+document.getElementById('tmg').innerHTML=team.map(t=>`<div class="tm rv"><div class="tma"><div class="tmab" style="background:linear-gradient(150deg,${t.f},${t.t})"></div><div class="tmas"></div><div class="tmi">${t.n.split(' ').map(w=>w[0]).join('')}</div></div><div class="tmb"><div class="tmn">${t.n}</div><div class="tmr">${t.r}</div><div class="tmbio">${t.b}</div></div></div>`).join('');
+const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('vis');}),{threshold:.1});
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+</script>
+<footer><div class="fg"><div class="fbl"><div class="fl2">Bibliothèque</div><p>A curated luxury bookstore presenting the finest works of literature to discerning collectors worldwide.</p></div><div class="fc"><h4>Navigate</h4><a href="index.html">Home</a><a href="shop.html">Shop</a><a href="services.html">Services</a><a href="about.html">About</a><a href="contact.html">Contact</a></div><div class="fc"><h4>Genres</h4><a href="shop.html">Fiction</a><a href="shop.html">Sci-Fi</a><a href="shop.html">Fantasy</a><a href="shop.html">Mystery</a><a href="shop.html">Biography</a></div><div class="fc"><h4>Support</h4><a href="contact.html">Contact Us</a><a href="cart.html">Your Cart</a><a href="services.html">Shipping</a><a href="services.html">Returns</a></div></div><div class="fb"><div>© MMXXV Bibliothèque — All Rights Reserved</div><div>The Art of the Written Word</div></div></footer>
+<script>/* ── SHARED DATA & UTILITIES (inlined in every page) ── */
+const BOOKS=[
+  {id:1,title:'The Midnight Library',author:'Matt Haig',genre:'Fiction',year:2020,isbn:'978-0525559474',rating:4.5,pages:304,price:24.99,was:32.00,best:true,desc:'Between life and death there is a library. Every book is a chance to try another life you could have lived.'},
+  {id:2,title:'Dune',author:'Frank Herbert',genre:'Sci-Fi',year:1965,isbn:'978-0441013593',rating:4.8,pages:688,price:19.99,was:null,best:true,desc:'An epic of politics, religion and ecology on the desert planet Arrakis — a landmark of science fiction.'},
+  {id:3,title:'Sapiens',author:'Yuval Noah Harari',genre:'History',year:2011,isbn:'978-0062316097',rating:4.4,pages:443,price:21.99,was:28.00,best:false,desc:'A provocative brief history of humankind from the Stone Age to the twenty-first century.'},
+  {id:4,title:'The Name of the Wind',author:'Patrick Rothfuss',genre:'Fantasy',year:2007,isbn:'978-0756404741',rating:4.7,pages:662,price:17.99,was:null,best:true,desc:'The autobiography of the most notorious magician his world has ever seen, told in his own words.'},
+  {id:5,title:'Gone Girl',author:'Gillian Flynn',genre:'Mystery',year:2012,isbn:'978-0307588371',rating:4.1,pages:422,price:15.99,was:22.00,best:false,desc:"On their fifth anniversary, Nick Dunne's wife Amy disappears. A chilling tale of deception and obsession."},
+  {id:6,title:'Atomic Habits',author:'James Clear',genre:'Self-Help',year:2018,isbn:'978-0735211292',rating:4.6,pages:320,price:18.99,was:null,best:true,desc:'A supremely practical guide to building good habits and breaking bad ones — small changes, remarkable results.'},
+  {id:7,title:'Steve Jobs',author:'Walter Isaacson',genre:'Biography',year:2011,isbn:'978-1451648539',rating:4.0,pages:630,price:22.99,was:30.00,best:false,desc:'The definitive portrait of the greatest innovator of his age, based on forty exclusive interviews.'},
+  {id:8,title:'Educated',author:'Tara Westover',genre:'Non-Fiction',year:2018,isbn:'978-0399590504',rating:4.3,pages:334,price:16.99,was:null,best:false,desc:'A memoir about a girl raised by survivalists who goes on to earn a PhD from Cambridge University.'},
+  {id:9,title:'Meditations',author:'Marcus Aurelius',genre:'Philosophy',year:180,isbn:'978-0140449334',rating:4.9,pages:256,price:12.99,was:null,best:true,desc:"The private thoughts of the world's most powerful man counselling himself on duty and virtue."},
+  {id:10,title:'The Great Gatsby',author:'F. Scott Fitzgerald',genre:'Fiction',year:1925,isbn:'978-0743273565',rating:4.2,pages:180,price:11.99,was:16.00,best:false,desc:'The quintessential Jazz Age novel — wealth, love and the impossibility of recapturing the past.'},
+  {id:11,title:'Project Hail Mary',author:'Andy Weir',genre:'Sci-Fi',year:2021,isbn:'978-0593135204',rating:4.8,pages:476,price:23.99,was:null,best:true,desc:'A lone astronaut must save the earth in this propulsive, joyful novel from the author of The Martian.'},
+  {id:12,title:'The Girl with the Dragon Tattoo',author:'Stieg Larsson',genre:'Mystery',year:2005,isbn:'978-0307949486',rating:4.3,pages:672,price:17.99,was:24.00,best:false,desc:'A financial journalist and a brilliant hacker investigate a decades-old disappearance in Sweden.'},
+];
+const PAL=[
+  {f:'#0f1f0f',t:'#1a3320'},{f:'#0f0f2a',t:'#1a1a3a'},{f:'#1f130a',t:'#321e0f'},
+  {f:'#0a1520',t:'#102030'},{f:'#1f0a0a',t:'#320f0f'},{f:'#0f0f0f',t:'#1e1e1e'},
+  {f:'#150a22',t:'#220f38'},{f:'#0a160f',t:'#0f2218'},{f:'#1f1508',t:'#30200f'},
+];
+const GP={};
+['Fiction','Sci-Fi','History','Fantasy','Mystery','Self-Help','Biography','Non-Fiction','Philosophy']
+  .forEach((g,i)=>GP[g]=PAL[i]);
+function gp(g){if(!GP[g])GP[g]=PAL[Object.keys(GP).length%PAL.length];return GP[g];}
+function ini(t){return t.split(' ').slice(0,2).map(w=>w[0]).join('').toUpperCase();}
+function stars(r){if(!r)return'';let s='';for(let i=1;i<=5;i++)s+=`<span style="color:${i<=Math.floor(r)?'#c9a84c':'#2a2a2a'};font-size:10px">✦</span>`;return`<div style="display:flex;gap:2px;margin-top:8px">${s}</div>`;}
+/* Cart */
+function gc(){try{return JSON.parse(localStorage.getItem('bib')||'{}')}catch{return{}}}
+function sc(c){localStorage.setItem('bib',JSON.stringify(c))}
+function cc(){return Object.values(gc()).reduce((s,v)=>s+v,0)}
+function ct(){const c=gc();return Object.keys(c).reduce((s,id)=>{const b=BOOKS.find(x=>x.id==id);return b?s+b.price*c[id]:s;},0)}
+function ac(id){const c=gc();c[id]=(c[id]||0)+1;sc(c);ub()}
+function rc(id){const c=gc();delete c[id];sc(c);ub()}
+function qc(id,q){const c=gc();if(q<1)delete c[id];else c[id]=q;sc(c);ub()}
+function clc(){sc({});ub()}
+function ub(){const n=cc();document.querySelectorAll('.cc').forEach(e=>{e.textContent=n;e.style.display=n>0?'flex':'none';})}
+/* Toast */
+let _tt;
+function toast(msg,sub=''){
+  let t=document.getElementById('_t');
+  if(!t){t=document.createElement('div');t.id='_t';
+    t.style.cssText='position:fixed;bottom:2.5rem;right:2.5rem;z-index:9000;background:#101010;border:1px solid rgba(201,168,76,.35);padding:1rem 1.5rem;min-width:260px;transform:translateY(120px);opacity:0;transition:transform .45s cubic-bezier(.16,1,.3,1),opacity .45s;display:flex;align-items:center;gap:12px;font-family:Jost,sans-serif;pointer-events:none;';
+    document.body.appendChild(t);}
+  t.innerHTML=`<div style="width:7px;height:7px;background:#c9a84c;border-radius:50%;flex-shrink:0"></div><div style="font-size:10px;letter-spacing:.1em;color:#f8f4ed">${msg}</div>${sub?`<div style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:#e8c97e;margin-left:auto">${sub}</div>`:''}`;
+  t.style.transform='translateY(0)';t.style.opacity='1';
+  clearTimeout(_tt);_tt=setTimeout(()=>{t.style.transform='translateY(120px)';t.style.opacity='0';},3000);
+}
+/* Cursor */
+function initCursor(){
+  const d=document.getElementById('_cd'),r=document.getElementById('_cr');
+  if(!d||!r)return;
+  document.addEventListener('mousemove',e=>{d.style.left=e.clientX+'px';d.style.top=e.clientY+'px';r.style.left=e.clientX+'px';r.style.top=e.clientY+'px';});
+  document.addEventListener('mouseover',e=>{r.classList.toggle('L',!!e.target.closest('button,a,.bc,.gp'));});
+}
+window.addEventListener('DOMContentLoaded',()=>{initCursor();ub();});
 </script>
 </body>
 </html>
