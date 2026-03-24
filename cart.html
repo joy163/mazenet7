@@ -208,6 +208,7 @@ footer{border-top:1px solid var(--bd);padding:3.5rem 4rem;background:var(--ch);}
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KS82JS8M"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
+  
 <div id="_cd"></div><div id="_cr"></div>
 <nav>
   <div class="nw">Bibliothèque</div>
@@ -256,6 +257,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </div>
     <div class="cs" id="cos">
+      <form id="checkout-form" name="checkout_form" onsubmit="place(event)">
       <div class="cp">
         <div class="cpt2">Complete Your Acquisition</div>
         <div class="css">
@@ -281,9 +283,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.9rem;padding-top:.9rem;border-top:1px solid var(--bd)">
           <div><div style="font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:var(--si);margin-bottom:4px">Order Total</div><div id="ctv" style="font-family:'Cormorant Garamond',serif;font-size:1.75rem;color:var(--gl);font-weight:300">$0.00</div></div>
-          <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="bgh" onclick="hideCO()">← Back to Cart</button><button class="bg" onclick="place()">Place Order ✦</button></div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="bgh" type="button" onclick="hideCO()">← Back to Cart</button><button class="bg" type="submit" id="place-order-btn">Place Order ✦</button></div>
         </div>
       </div>
+      </form>
     </div>
   </div>
 </div>
@@ -378,11 +381,11 @@ function rm(id){rc(id);render();}
 function ap(){const code=document.getElementById('promo').value.trim().toUpperCase();if(code==='BIBLIO20'){disc=20;toast('20% discount applied!');render();}else if(code==='BOOK10'){disc=10;toast('10% discount applied!');render();}else toast('Invalid promo code');}
 function showCO(){if(!cc()){toast('Your cart is empty');return;}document.getElementById('cos').classList.add('show');document.getElementById('cos').scrollIntoView({behavior:'smooth',block:'start'});}
 function hideCO(){document.getElementById('cos').classList.remove('show');window.scrollTo({top:0,behavior:'smooth'});}
-function place(){
+function place(e){
+  if(e) e.preventDefault();
   const fn=document.getElementById('cfn').value.trim(),em=document.getElementById('cem').value.trim(),ad=document.getElementById('cad').value.trim(),cn=document.getElementById('ccn2').value.trim();
   if(!fn||!em||!ad||!cn){toast('Please fill in all required fields');return;}
   const oid='BIB-'+Math.floor(100000+Math.random()*900000);
-  // Build order data to pass to thank you page
   const c=gc();
   const orderItems=Object.keys(c).map(id=>({id:parseInt(id),qty:c[id]}));
   const orderData=encodeURIComponent(JSON.stringify(orderItems));
@@ -398,4 +401,4 @@ render();
 <footer><div class="fg"><div class="fbl"><div class="fl2">Bibliothèque</div><p>A curated luxury bookstore presenting the finest works of literature to discerning collectors worldwide.</p></div><div class="fc"><h4>Navigate</h4><a href="index.html">Home</a><a href="shop.html">Shop</a><a href="services.html">Services</a><a href="about.html">About</a><a href="contact.html">Contact</a></div><div class="fc"><h4>Genres</h4><a href="shop.html">Fiction</a><a href="shop.html">Sci-Fi</a><a href="shop.html">Fantasy</a><a href="shop.html">Mystery</a><a href="shop.html">Biography</a></div><div class="fc"><h4>Support</h4><a href="contact.html">Contact Us</a><a href="cart.html">Your Cart</a><a href="services.html">Shipping</a><a href="services.html">Returns</a></div></div><div class="fb"><div>© MMXXV Bibliothèque — All Rights Reserved</div><div>The Art of the Written Word</div></div></footer>
 
 </body>
-                                           </html>
+</html>
